@@ -1,0 +1,7 @@
+# Ignore node_modules for both backend and client
+/backend/node_modules/
+/client/node_modules/
+
+# Ignore environment variables or config files containing sensitive information
+# .env
+# /config.js
