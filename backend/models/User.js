@@ -7,29 +7,29 @@ const validator = require('validator');
 const user_schema = new Schema({
     firstname: {
         type: String,
-        required: [true, 'Please provide your first name.'],
+        required: [true, 'First name is required.'],
         minlength: [2, "First name must have minimum 2 characters"],
         maxlength: [30, "First name should be shorter than 30 characters"]
     },
     lastname: {
         type: String,
-        required: [true, 'Please provide your last name.'],
+        required: [true, 'Last name is required.'],
         minlength: [2, "Last name must have minimum 2 characters"],
         maxlength: [30, "Last name should be shorter than 30 characters"]
     },
     email: {
         type: String,
-        required: [true, 'Please provide an email address.'],
+        required: [true, 'Email is required'],
         unique: true,
         trim: true,
         validate: {
             validator: (value) => validator.isEmail(value),
-            message: 'Please provide a valid email address.',
+            message: 'Invalid Email address',
         },
     },
     password: {
         type: String,
-        required: [true, 'Please provide a password.'],
+        required: [true, 'Password is required.'],
     },
     permission: {
         type: Number,

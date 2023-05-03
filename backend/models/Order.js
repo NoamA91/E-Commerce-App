@@ -39,7 +39,7 @@ const order_schema = new Schema({
         required: [true, 'Please provide a phone number.'],
         validate: {
             validator: (value) => validator.isMobilePhone(value),
-            message: 'Please provide a valid phone number.',
+            message: 'Phone number is invalid.',
         },
     },
     payment_method: {

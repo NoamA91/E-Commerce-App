@@ -30,7 +30,7 @@ module.exports = {
                 throw new Error('All fields are required');
             }
 
-            console.log("fields are valid".step_done);
+            console.log("all fields are available".step_done);
 
             if (password !== password_confirm) {
                 throw new Error('Passwords are not match');
@@ -58,13 +58,13 @@ module.exports = {
 
             return res.status(200).json({
                 success: true,
-                msg: 'User registered successfully'
+                message: 'User registered successfully'
             })
 
         } catch (error) {
-            console.log(("error in register request : " + error.message).failed_request);
+            console.log(("error in register request : " + error).failed_request);
             return res.status(500).json({
-                msg: 'Error in register request',
+                message: 'Error in register request',
                 error: error.message
             });
         }

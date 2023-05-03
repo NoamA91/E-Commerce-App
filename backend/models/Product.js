@@ -4,27 +4,27 @@ const { Schema } = mongoose;
 const product_schema = new Schema({
     title: {
         type: String,
-        required: [true, 'Please provide a title.'],
+        required: [true, 'Title is required.'],
         trim: true
     },
     image: [
         {
             type: String,
-            required: [true, 'Please provide an image.'],
+            required: [true, 'Image is required.'],
         }
     ],
     description: {
         type: String,
-        required: [true, 'Please provide a description.'],
+        required: [true, 'Description is required.'],
     },
     price: {
         type: Number,
-        required: [true, 'Please provide a price.'],
+        required: [true, 'Price is required.'],
         min: 0
     },
     category: {
         type: String,
-        required: [true, 'Please provide a category.'],
+        required: [true, 'Category is required.'],
     },
     count_in_stock: {
         type: Number,
