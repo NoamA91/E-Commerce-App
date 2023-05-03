@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const validator = require('validator');
 
 const order_schema = new Schema({
     userId: {
@@ -36,10 +37,10 @@ const order_schema = new Schema({
     phone_number: {
         type: String,
         required: [true, 'Please provide a phone number.'],
-        match: [
-            /^[0-9]{9}$/,
-            'Please provide a valid phone number.'
-        ]
+        validate: {
+            validator: (value) => validator.isMobilePhone(value),
+            message: 'Please provide a valid phone number.',
+        },
     },
     payment_method: {
         type: String,
