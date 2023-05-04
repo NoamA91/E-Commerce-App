@@ -18,15 +18,14 @@ module.exports = {
         try {
 
             const {
-                firstname,
-                lastname,
+                username,
                 email,
                 password,
                 password_confirm,
                 permission
             } = req.body;
 
-            if (!firstname || !lastname || !email || !password || !password_confirm) {
+            if (!username || !email || !password || !password_confirm) {
                 throw new Error('All fields are required');
             }
 
@@ -45,8 +44,7 @@ module.exports = {
             }
 
             const new_user = new User({
-                firstname,
-                lastname,
+                username,
                 email,
                 password,
                 permission
