@@ -112,5 +112,13 @@ module.exports = {
                 error: error.message
             });
         }
-    }
+    },
+    updateById: async (req, res) => { },
+    getById: async (req, res) => { },
+    forgotPassword: async (req, res) => { },
+    resetPassword: async (req, res) => { },
+    getAllUsers: async (req, res) => { },
+    deleteById: async (req, res) => { },
+    changePassword: async (req, res) => { },
 }
+
