@@ -5,17 +5,11 @@ const validator = require('validator');
 
 
 const user_schema = new Schema({
-    firstname: {
+    username: {
         type: String,
-        required: [true, 'First name is required.'],
-        minlength: [2, "First name must have minimum 2 characters"],
-        maxlength: [30, "First name should be shorter than 30 characters"]
-    },
-    lastname: {
-        type: String,
-        required: [true, 'Last name is required.'],
-        minlength: [2, "Last name must have minimum 2 characters"],
-        maxlength: [30, "Last name should be shorter than 30 characters"]
+        required: [true, 'Username is required.'],
+        minlength: [2, "Username should be longer than 2 characters"],
+        maxlength: [30, "Username should be shorter than 30 characters"]
     },
     email: {
         type: String,
