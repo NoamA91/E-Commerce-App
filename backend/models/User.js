@@ -3,13 +3,13 @@ const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 
-
 const user_schema = new Schema({
     username: {
         type: String,
         required: [true, 'Username is required.'],
         minlength: [2, "Username should be longer than 2 characters"],
-        maxlength: [30, "Username should be shorter than 30 characters"]
+        maxlength: [30, "Username should be shorter than 30 characters"],
+        trim: true
     },
     email: {
         type: String,
@@ -25,13 +25,12 @@ const user_schema = new Schema({
         type: String,
         required: [true, 'Password is required.'],
     },
-    permission: {
-        type: Number,
-        default: 3,
-        enum: [1, 2, 3] // 1: Super Admin, 2: Admin, 3: Regular User
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'superAdmin'],
+        default: 'user'
     }
 }, { timestamps: true });
-
 
 // hashing the password before saving to the database
 user_schema.pre('save', async function (next) {
@@ -41,9 +40,8 @@ user_schema.pre('save', async function (next) {
 })
 
 // comparing the password with the hashed password
-user_schema.methods.comparePassword = async function (password, hashed) {
+user_schema.methods.comparePasswords = async function (password, hashed) {
     return await bcrypt.compare(password, hashed);
 }
-
 
 module.exports = mongoose.model('users', user_schema);

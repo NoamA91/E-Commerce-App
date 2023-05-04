@@ -1,7 +1,6 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
 const colors = require('colors');
-const jwt = require('jsonwebtoken');
+const generateToken = require('../utils/generate_token');
 
 colors.setTheme({
     new_request: 'magenta',
@@ -10,19 +9,18 @@ colors.setTheme({
     step_done: 'blue'
 });
 
+
 module.exports = {
     registerUser: async (req, res) => {
-
-        console.log("API request : POST register User".new_request);
+        console.log("API POST request : register User".new_request);
 
         try {
-
             const {
                 username,
                 email,
                 password,
                 password_confirm,
-                permission
+                role
             } = req.body;
 
             if (!username || !email || !password || !password_confirm) {
@@ -47,22 +45,70 @@ module.exports = {
                 username,
                 email,
                 password,
-                permission
+                role
             });
 
             await new_user.save();
+
+            const token = generateToken(new_user);
 
             console.log("user registered successfully".success_request);
 
             return res.status(200).json({
                 success: true,
-                message: 'User registered successfully'
+                message: 'User registered successfully',
+                token
             })
 
         } catch (error) {
             console.log(("error in register request : " + error).failed_request);
             return res.status(500).json({
                 message: 'Error in register request',
+                error: error.message
+            });
+        }
+    },
+
+    loginUser: async (req, res) => {
+        console.log("API POST request : login User".new_request);
+
+        try {
+            const {
+                email,
+                password
+            } = req.body;
+
+            if (!email || !password) {
+                throw new Error('Email and password are required');
+            }
+
+            console.log("email and password are available".step_done);
+
+            const user = await User.findOne({ email });
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            const isMatch = await user.comparePasswords(password, user.password);
+
+            if (!isMatch) {
+                throw new Error('Invalid email or password');
+            }
+
+            const token = generateToken(user);
+
+            console.log("user logged in successfully".success_request);
+
+            return res.status(200).json({
+                success: true,
+                message: 'User logged in successfully',
+                token
+            });
+        } catch (error) {
+            console.log(("error in login request : " + error).failed_request);
+            return res.status(500).json({
+                message: 'Error in login request',
                 error: error.message
             });
         }
