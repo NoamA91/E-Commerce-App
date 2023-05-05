@@ -68,6 +68,7 @@ module.exports = {
       });
     }
   },
+
   loginUser: async (req, res) => {
     console.log("API POST request : login User".new_request);
 
@@ -114,59 +115,59 @@ module.exports = {
       });
     }
   },
+
+  getById: async (req, res) => {},
+
   updateById: async (req, res) => {
     console.log("API PUT request : update User".new_request);
 
-    // try {
-    //   const { username, email } = req.body;
+    try {
+      const userId = req.user.id;
+      const { username, email } = req.body;
 
-    //   if (!username && !email) {
-    //     throw new Error("At least one of username or email is required");
-    //   }
+      console.log("Updating fields are available".step_done);
 
-    //   console.log("At least one of username or email is available".step_done);
+      const updatedFields = {};
 
-    //   const updateFields = {};
-    //   if (username) updateFields.username = username;
-    //   if (email) updateFields.email = email;
+      if (username) {
+        updatedFields.username = username;
+      }
 
-    //   const updatedUser = await User.findByIdAndUpdate(
-    //     req.user.id,
-    //     updateFields,
-    //     { new: true, runValidators: true }
-    //   );
+      if (email) {
+        updatedFields.email = email;
+      }
 
-    //   if (!updatedUser) {
-    //     throw new Error("User not found");
-    //   }
+      const user = await User.findOneAndUpdate({ _id: userId }, updatedFields, {
+        new: true,
+      });
 
-    //   console.log("User updated successfully".success_request);
+      if (!user) {
+        throw new Error("User not found");
+      }
 
-    //   return res.status(200).json({
-    //     success: true,
-    //     message: "User updated successfully",
-    //     user: {
-    //       id: updatedUser.id,
-    //       username: updatedUser.username,
-    //       email: updatedUser.email,
-    //       role: updatedUser.role,
-    //     },
-    //   });
-    // } catch (error) {
-    //   console.log(("Error in update request : " + error).failed_request);
-    //   return res.status(500).json({
-    //     message: "Error in update request",
-    //     error: error.message,
-    //   });
-    // }
+      console.log("User updated successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User updated successfully",
+        user,
+      });
+    } catch (error) {
+      console.log(("Error in update request: " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in update request",
+        error: error.message,
+      });
+    }
   },
-  getById: async (req, res) => {},
+
   forgotPassword: async (req, res) => {
     /*This function is typically used when a user forgets their password and requests a password reset. In this function, you would usually:
     - Check if the provided email exists in your database.
     - Generate a unique reset token and save it with an expiration time.
     - Send an email to the user with a password reset link containing the token. */
   },
+
   resetPassword: async (req, res) => {
     /*This function is used when the user clicks the password reset link they received in their email. In this function, you would:
     - Verify the reset token in the request.
@@ -174,7 +175,10 @@ module.exports = {
     - Allow the user to set a new password, and save the updated password in the database.
     - Invalidate the reset token to ensure it cannot be used again. */
   },
+
   getAllUsers: async (req, res) => {},
+
   deleteById: async (req, res) => {},
+
   changePassword: async (req, res) => {},
 };

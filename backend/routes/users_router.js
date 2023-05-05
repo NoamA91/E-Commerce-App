@@ -12,6 +12,6 @@ const {
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.put("/update/:id", userAuth, updateById);
+router.put("/updateByid/:id", userAuth, updateById);
 
 module.exports = router;
