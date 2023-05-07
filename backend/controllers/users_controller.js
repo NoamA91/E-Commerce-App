@@ -116,6 +116,28 @@ module.exports = {
     }
   },
 
+  getAll: async (req, res) => {
+    console.log("API GET request : get all Users".new_request);
+    try {
+      const users = await User.find();
+
+      if (!users) {
+        throw new Error("No users found");
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Users retrieved successfully",
+        users,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Error in get all users request",
+        error: error.message,
+      });
+    }
+  },
+
   getById: async (req, res) => {
     console.log("API GET request : get User by ID".new_request);
 
@@ -139,12 +161,7 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User retrieved successfully",
-        user: {
-          _id: user._id,
-          username: user.username,
-          email: user.email,
-          role: user.role,
-        },
+        user,
       });
     } catch (error) {
       console.log(
@@ -201,6 +218,8 @@ module.exports = {
     }
   },
 
+  deleteById: async (req, res) => {},
+
   forgotPassword: async (req, res) => {
     /*This function is typically used when a user forgets their password and requests a password reset. In this function, you would usually:
     - Check if the provided email exists in your database.
@@ -215,10 +234,6 @@ module.exports = {
     - Allow the user to set a new password, and save the updated password in the database.
     - Invalidate the reset token to ensure it cannot be used again. */
   },
-
-  getAllUsers: async (req, res) => {},
-
-  deleteById: async (req, res) => {},
 
   changePassword: async (req, res) => {},
 };

@@ -8,10 +8,14 @@ const {
   registerUser,
   loginUser,
   updateById,
+  getById,
+  getAll,
 } = require("../controllers/users_controller");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.put("/updateByid/:id", userAuth, updateById);
+router.get("/getById/:id", getById);
+router.get("/getAll", getAll);
 
 module.exports = router;
