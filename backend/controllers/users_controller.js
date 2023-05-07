@@ -230,7 +230,21 @@ module.exports = {
       if (!userId) {
         throw new Error("User ID is required");
       }
+
+      const user = await User.findByIdAndDelete(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      console.log("User deleted successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User deleted successfully",
+      });
     } catch (error) {
+      console.log(("error in delete request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in delete request",
         error: error.message,
