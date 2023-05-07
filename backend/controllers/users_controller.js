@@ -116,7 +116,46 @@ module.exports = {
     }
   },
 
-  getById: async (req, res) => {},
+  getById: async (req, res) => {
+    console.log("API GET request : get User by ID".new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        throw new Error("User ID is required");
+      }
+
+      console.log("User ID is available".step_done);
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      console.log("User found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User retrieved successfully",
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.log(
+        ("error in get user by ID request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in get user by ID request",
+        error: error.message,
+      });
+    }
+  },
 
   updateById: async (req, res) => {
     console.log("API PUT request : update User".new_request);
@@ -127,6 +166,7 @@ module.exports = {
 
       console.log("Updating fields are available".step_done);
 
+      // Create an empty object to store the fields to update
       const updatedFields = {};
 
       if (username) {
