@@ -121,9 +121,11 @@ module.exports = {
     try {
       const users = await User.find();
 
+      console.log("Users found".step_done);
       if (!users) {
         throw new Error("No users found");
       }
+      console.log("All users retrieved successfully".success_request);
 
       return res.status(200).json({
         success: true,
@@ -131,6 +133,7 @@ module.exports = {
         users,
       });
     } catch (error) {
+      console.log(("error in getAll users request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in get all users request",
         error: error.message,
@@ -218,7 +221,22 @@ module.exports = {
     }
   },
 
-  deleteById: async (req, res) => {},
+  deleteById: async (req, res) => {
+    console.log("API DELETE request : delete User".new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        throw new Error("User ID is required");
+      }
+    } catch (error) {
+      return res.status(500).json({
+        message: "Error in delete request",
+        error: error.message,
+      });
+    }
+  },
 
   forgotPassword: async (req, res) => {
     /*This function is typically used when a user forgets their password and requests a password reset. In this function, you would usually:
