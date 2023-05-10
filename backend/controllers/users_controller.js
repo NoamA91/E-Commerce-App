@@ -116,7 +116,66 @@ module.exports = {
     }
   },
 
-  getById: async (req, res) => {},
+  getAll: async (req, res) => {
+    console.log("API GET request : get all Users".new_request);
+    try {
+      const users = await User.find();
+
+      console.log("Users found".step_done);
+      if (!users) {
+        throw new Error("No users found");
+      }
+      console.log("All users retrieved successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Users retrieved successfully",
+        users,
+      });
+    } catch (error) {
+      console.log(("error in getAll users request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get all users request",
+        error: error.message,
+      });
+    }
+  },
+
+  getById: async (req, res) => {
+    console.log("API GET request : get User by ID".new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        throw new Error("User ID is required");
+      }
+
+      console.log("User ID is available".step_done);
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      console.log("User found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User retrieved successfully",
+        user,
+      });
+    } catch (error) {
+      console.log(
+        ("error in get user by ID request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in get user by ID request",
+        error: error.message,
+      });
+    }
+  },
 
   updateById: async (req, res) => {
     console.log("API PUT request : update User".new_request);
@@ -127,6 +186,7 @@ module.exports = {
 
       console.log("Updating fields are available".step_done);
 
+      // Create an empty object to store the fields to update
       const updatedFields = {};
 
       if (username) {
@@ -161,6 +221,37 @@ module.exports = {
     }
   },
 
+  deleteById: async (req, res) => {
+    console.log("API DELETE request : delete User".new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        throw new Error("User ID is required");
+      }
+
+      const user = await User.findByIdAndDelete(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      console.log("User deleted successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User deleted successfully",
+      });
+    } catch (error) {
+      console.log(("error in delete request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in delete request",
+        error: error.message,
+      });
+    }
+  },
+
   forgotPassword: async (req, res) => {
     /*This function is typically used when a user forgets their password and requests a password reset. In this function, you would usually:
     - Check if the provided email exists in your database.
@@ -175,10 +266,6 @@ module.exports = {
     - Allow the user to set a new password, and save the updated password in the database.
     - Invalidate the reset token to ensure it cannot be used again. */
   },
-
-  getAllUsers: async (req, res) => {},
-
-  deleteById: async (req, res) => {},
 
   changePassword: async (req, res) => {},
 };
