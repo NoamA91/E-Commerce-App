@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const colors = require("colors");
 const generateToken = require("../utils/generate_token");
+const nodemailer = require("nodemailer");
 
 colors.setTheme({
   new_request: "magenta",
@@ -252,20 +253,145 @@ module.exports = {
     }
   },
 
-  forgotPassword: async (req, res) => {
-    /*This function is typically used when a user forgets their password and requests a password reset. In this function, you would usually:
-    - Check if the provided email exists in your database.
-    - Generate a unique reset token and save it with an expiration time.
-    - Send an email to the user with a password reset link containing the token. */
-  },
+  // forgotPassword: async (req, res) => {
+  //   /* (Note: transporter is the nodemailer transporter object you would have set up with your SMTP credentials.)
+  //     Remember to replace process.env.CLIENT_URL, process.env.EMAIL_USERNAME, process.env.EMAIL_PASSWORD and process.env.JWT_SECRET with your actual values either directly or from your environment variables.
 
-  resetPassword: async (req, res) => {
-    /*This function is used when the user clicks the password reset link they received in their email. In this function, you would:
-    - Verify the reset token in the request.
-    - Check if the token is still valid (not expired).
-    - Allow the user to set a new password, and save the updated password in the database.
-    - Invalidate the reset token to ensure it cannot be used again. */
-  },
+  //     1. process.env.CLIENT_URL: This should be the base URL of your frontend client. For example, if your website is https://mywebsite.com, then CLIENT_URL would be 'https://mywebsite.com'.
 
-  changePassword: async (req, res) => {},
+  //     2. process.env.EMAIL_USERNAME: This should be the email address you are using to send emails. If you're using Gmail, for example, this would be your full Gmail address.
+
+  //     3. process.env.EMAIL_PASSWORD: This is the password for the email account you're using to send emails. If you're using Gmail, this would be your Gmail password.
+
+  //     4. process.env.JWT_SECRET: This is a secret string used to sign and verify JSON Web Tokens. This can be any string, but it should be complex and hard to guess. It's used for cryptographic operations, so don't use something simple like 'secret'.
+  //   */
+
+  //   console.log("API POST request : forgot password".new_request);
+
+  //   const { email } = req.body;
+  //   try {
+  //     const user = await User.findOne({ email });
+
+  //     console.log("Email is available".step_done);
+
+  //     if (!user) {
+  //       throw new Error("User not found");
+  //     }
+
+  //     const token = jwt.sign(
+  //       { _id: user._id, purpose: "resetPassword" },
+  //       process.env.JWT_SECRET,
+  //       { expiresIn: "1h" }
+  //     );
+
+  //     const transporter = nodemailer.createTransport({
+  //       service: "gmail",
+  //       auth: {
+  //         user: process.env.EMAIL_USERNAME,
+  //         pass: process.env.EMAIL_PASSWORD,
+  //       },
+  //     });
+
+  //     const mailOptions = {
+  //       from: process.env.EMAIL_USERNAME,
+  //       to: email,
+  //       subject: "Password Reset Link",
+  //       html: `<h2>Please click on the given link to reset your password</h2>
+  //                  <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>`,
+  //     };
+
+  //     await transporter.sendEmail(mailOptions);
+
+  //     return res.status(200).json({
+  //       success: true,
+  //       message: `A reset email has been sent to ${email}`,
+  //     });
+  //   } catch (error) {
+  //     ("error in forgot password request : " + error).failed_request;
+  //     return res.status(500).json({
+  //       message: "Error in forgot password.",
+  //       error: error.message,
+  //     });
+  //   }
+  // },
+
+  // resetPassword: async (req, res) => {
+  //   /*This function is used when the user clicks the password reset link they received in their email. In this function, you would:
+  //   - Verify the reset token in the request.
+  //   - Check if the token is still valid (not expired).
+  //   - Allow the user to set a new password, and save the updated password in the database.
+  //   - Invalidate the reset token to ensure it cannot be used again. */
+
+  //   const { token, newPassword } = req.body;
+
+  //   try {
+  //     // Verify the reset token
+  //     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  //     if (!decoded || decoded.purpose != "resetPassword") {
+  //       throw new Error("Invalid or expired reset token");
+  //     }
+
+  //     // Find the user associated with the reset token
+  //     const user = await User.findOne({ _id: decoded._id });
+
+  //     if (!user) {
+  //       throw new Error("Invalid or expired reset token");
+  //     }
+
+  //     // Hash the new password
+  //     const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  //     // Set the new password and save the user
+  //     user.password = hashedPassword;
+  //     await user.save();
+
+  //     return res.status(200).json({
+  //       success: true,
+  //       message: "Password reset successfully",
+  //     });
+  //   } catch (error) {
+  //     return res.status(500).json({
+  //       message: "Error in reset password",
+  //       error: error.message,
+  //     });
+  //   }
+  // },
+
+  changePassword: async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user.id;
+
+    try {
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      // Check if the old password is correct
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+      if (!isMatch) {
+        throw new Error("Incorrect old password");
+      }
+
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Set the new password and save the user
+      user.password = hashedPassword;
+      await user.save();
+
+      return res.status(200).json({
+        success: true,
+        message: "Password changed successfully",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Error in change password",
+        error: error.message,
+      });
+    }
+  },
 };
