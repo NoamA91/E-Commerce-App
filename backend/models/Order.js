@@ -25,8 +25,7 @@ const order_schema = new Schema({
                 min: 0
             },
             item_total: {
-                type: Number,
-                required: true
+                type: Number
             },
         }
     ],
@@ -62,9 +61,25 @@ const order_schema = new Schema({
     },
     order_total: {
         type: Number,
-        required: true,
         min: 0
     }
 }, { timestamps: true });
+
+
+order_schema.pre('save', function (next) {
+
+    // Calculate the total price for each item
+    this.order_items = this.order_items.map(item => {
+        item.item_total = item.quantity * item.price;
+        return item;
+    });
+
+    // Calculate the total price for all items in the order
+    this.order_total = this.order_items.reduce((total, item) => {
+        return total + item.item_total;
+    }, 0)
+
+    next()
+});
 
 module.exports = mongoose.model('orders', order_schema);
