@@ -267,5 +267,5 @@ module.exports = {
     - Invalidate the reset token to ensure it cannot be used again. */
   },
 
-  changePassword: async (req, res) => {},
+  changePassword: async (req, res) => { },
 };

@@ -79,7 +79,7 @@ order_schema.pre('save', function (next) {
         return total + item.item_total;
     }, 0)
 
-    next()
+    next();
 });
 
 module.exports = mongoose.model('orders', order_schema);
