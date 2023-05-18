@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const colors = require("colors");
 const generateToken = require("../utils/generate_token");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
+
 
 colors.setTheme({
   new_request: "magenta",
@@ -61,6 +62,7 @@ module.exports = {
         success: true,
         message: "User registered successfully",
       });
+
     } catch (error) {
       console.log(("error in register request : " + error).failed_request);
       return res.status(500).json({
@@ -80,7 +82,7 @@ module.exports = {
         throw new Error("Email and password are required");
       }
 
-      console.log("email and password are available".step_done);
+      console.log("email and password provided".step_done);
 
       const user = await User.findOne({ email });
 
@@ -108,6 +110,7 @@ module.exports = {
         success: true,
         message: "User logged in successfully",
       });
+
     } catch (error) {
       console.log(("error in login request : " + error).failed_request);
       return res.status(500).json({
@@ -133,6 +136,7 @@ module.exports = {
         message: "Users retrieved successfully",
         users,
       });
+
     } catch (error) {
       console.log(("error in getAll users request : " + error).failed_request);
       return res.status(500).json({
@@ -167,6 +171,7 @@ module.exports = {
         message: "User retrieved successfully",
         user,
       });
+
     } catch (error) {
       console.log(
         ("error in get user by ID request : " + error).failed_request
@@ -182,7 +187,7 @@ module.exports = {
     console.log("API PUT request : update User".new_request);
 
     try {
-      const userId = req.user.id;
+      const userId = req.params.id;
       const { username, email } = req.body;
 
       console.log("Updating fields are available".step_done);
@@ -211,8 +216,8 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User updated successfully",
-        user,
       });
+
     } catch (error) {
       console.log(("Error in update request: " + error).failed_request);
       return res.status(500).json({
@@ -232,18 +237,21 @@ module.exports = {
         throw new Error("User ID is required");
       }
 
+      console.log("user ID provided".step_done);
+
       const user = await User.findByIdAndDelete(userId);
 
       if (!user) {
         throw new Error("User not found");
       }
 
-      console.log("User deleted successfully".success_request);
+      console.log("user deleted successfully".success_request);
 
       return res.status(200).json({
         success: true,
         message: "User deleted successfully",
       });
+
     } catch (error) {
       console.log(("error in delete request : " + error).failed_request);
       return res.status(500).json({
@@ -359,34 +367,46 @@ module.exports = {
     },
    */
   changePassword: async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
-    const userId = req.user.id;
+    console.log("API POST request : change password".new_request);
 
     try {
+      const { oldPassword, newPassword } = req.body;
+      const userId = req.params.id;
+
       const user = await User.findById(userId);
 
       if (!user) {
         throw new Error("User not found");
       }
 
+      console.log("user found".step_done);
+
+      if (!oldPassword || !newPassword) {
+        throw new Error("Old and new password are required");
+      }
+
+      console.log("old and new password provided".step_done);
+
       // Check if the old password is correct
-      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      const isMatch = await user.comparePasswords(oldPassword, user.password);
 
       if (!isMatch) {
         throw new Error("Incorrect old password");
       }
 
-      // Hash the new password
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      console.log("Old password is correct".step_done);
 
       // Set the new password and save the user
-      user.password = hashedPassword;
+      user.password = newPassword;
       await user.save();
+
+      console.log("New password set and saved".success_request);
 
       return res.status(200).json({
         success: true,
         message: "Password changed successfully",
       });
+
     } catch (error) {
       return res.status(500).json({
         message: "Error in change password",

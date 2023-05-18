@@ -11,13 +11,15 @@ const {
   getById,
   getAll,
   deleteById,
+  changePassword
 } = require("../controllers/users_controller");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.put("/updateByid/:id", userAuth, updateById);
+router.put("/updateByid/:id"/* , userAuth */, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
-router.delete("deleteById/:id", deleteById);
+router.delete("/deleteById/:id", deleteById);
+router.post("/change_password/:id", changePassword);
 
 module.exports = router;
