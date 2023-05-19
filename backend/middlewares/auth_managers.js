@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const superAdminAuth = (req, res, next) => {
+const managerAuth = (req, res, next) => {
   const token = req.header("Authorization");
 
   if (!token) {
@@ -12,7 +12,7 @@ const superAdminAuth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (decoded.role !== "superadmin") {
+    if (decoded.role !== "manager") {
       return res.status(403).json({
         message: "Access denied. Insufficient permissions.",
       });
@@ -28,4 +28,4 @@ const superAdminAuth = (req, res, next) => {
   }
 };
 
-module.exports = superAdminAuth;
+module.exports = managerAuth;
