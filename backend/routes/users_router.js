@@ -38,7 +38,6 @@ router.delete("/deleteById/:id" /* , userAuth */, deleteById);
 router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
 // managers requests
-router.post("/managers/register", registerManager);
 router.post("/managers/login", loginManager);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);

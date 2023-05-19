@@ -10,9 +10,6 @@ colors.setTheme({
 });
 
 module.exports = {
-  registerManager: async (req, res) => {
-    // TODO: Handle registration of a new manager
-  },
   loginManager: async (req, res) => {
     // TODO: Handle manager login
   },
