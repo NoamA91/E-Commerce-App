@@ -15,23 +15,42 @@ const {
   changePassword,
 } = require("../controllers/users_controller");
 
-//TODO: managers functions
-const {} = require("../controllers/managers_controller");
+// managers functions
+const {
+  registerManager,
+  loginManager,
+  getManagerById,
+  updateManagerById,
+  deleteManagerById,
+  changeManagerPassword,
+} = require("../controllers/managers_controller");
 
 //TODO: admin functions
 const {} = require("../controllers/admins_controller");
 
-// users routes
+// users requests
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.put("/updateByid/:id" /* , userAuth */, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
-router.delete("/deleteById/:id", deleteById);
-router.post("/change_password/:id", changePassword);
+router.delete("/deleteById/:id" /* , userAuth */, deleteById);
+router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
-//TODO: managers routes
+// managers requests
+router.post("/managers/register", registerManager);
+router.post("/managers/login", loginManager);
+router.get("/managers/getById/:id", getManagerById);
+router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
+router.delete(
+  "/managers/deleteById/:id" /* , managerAuth */,
+  deleteManagerById
+);
+router.put(
+  "/managers/change_password/:id" /* , managerAuth */,
+  changeManagerPassword
+);
 
-//TODO: admin routes
+//TODO: admin requests
 
 module.exports = router;
