@@ -3,7 +3,6 @@ const colors = require("colors");
 const generateToken = require("../utils/generate_token");
 // const nodemailer = require("nodemailer");
 
-
 colors.setTheme({
   new_request: "magenta",
   success_request: "green",
@@ -62,7 +61,6 @@ module.exports = {
         success: true,
         message: "User registered successfully",
       });
-
     } catch (error) {
       console.log(("error in register request : " + error).failed_request);
       return res.status(500).json({
@@ -110,7 +108,6 @@ module.exports = {
         success: true,
         message: "User logged in successfully",
       });
-
     } catch (error) {
       console.log(("error in login request : " + error).failed_request);
       return res.status(500).json({
@@ -136,7 +133,6 @@ module.exports = {
         message: "Users retrieved successfully",
         users,
       });
-
     } catch (error) {
       console.log(("error in getAll users request : " + error).failed_request);
       return res.status(500).json({
@@ -171,7 +167,6 @@ module.exports = {
         message: "User retrieved successfully",
         user,
       });
-
     } catch (error) {
       console.log(
         ("error in get user by ID request : " + error).failed_request
@@ -217,7 +212,6 @@ module.exports = {
         success: true,
         message: "User updated successfully",
       });
-
     } catch (error) {
       console.log(("Error in update request: " + error).failed_request);
       return res.status(500).json({
@@ -251,7 +245,6 @@ module.exports = {
         success: true,
         message: "User deleted successfully",
       });
-
     } catch (error) {
       console.log(("error in delete request : " + error).failed_request);
       return res.status(500).json({
@@ -406,7 +399,6 @@ module.exports = {
         success: true,
         message: "Password changed successfully",
       });
-
     } catch (error) {
       return res.status(500).json({
         message: "Error in change password",
