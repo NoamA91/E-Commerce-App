@@ -28,10 +28,7 @@ module.exports = {
         throw new Error("Manager not found");
       }
 
-      const isMatch = await manager.comparePasswords(
-        password,
-        manager.password
-      );
+      const isMatch = await manager.comparePasswords(password, manager.password);
 
       if (!isMatch) {
         throw new Error("Invalid email or password");
@@ -85,9 +82,7 @@ module.exports = {
         manager,
       });
     } catch (error) {
-      console.log(
-        ("error in get manager by id request : " + error).failed_request
-      );
+      console.log(("error in get manager by id request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in get manager by id request",
         error: error.message,
@@ -99,7 +94,7 @@ module.exports = {
     console.log("API PUT request : update manager by id".new_request);
     try {
       const managerId = req.params.id;
-      const { name, email } = req.body;
+      const { username, email } = req.body;
 
       if (!managerId) {
         throw new Error("Manager id is required");
@@ -113,7 +108,7 @@ module.exports = {
         throw new Error("Manager not found");
       }
 
-      console.log("manager found".success_request);
+      console.log("manager found".step_done);
 
       // Create an empty object to store the fields to update
       const updatedFields = {};
@@ -126,10 +121,10 @@ module.exports = {
         updatedFields.email = email;
       }
 
-      const updatedManager = await User.findByIdAndUpdate(
-        managerId,
-        updatedFields
-      );
+      const updatedManager = await User.findByIdAndUpdate(managerId, updatedFields, {
+        new: true,
+        runValidators: true,
+      });
 
       console.log("manager updated".success_request);
 
@@ -139,9 +134,7 @@ module.exports = {
         updatedManager,
       });
     } catch (error) {
-      console.log(
-        ("error in update manager by id request : " + error).failed_request
-      );
+      console.log(("error in update manager by id request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in update manager by id request",
         error: error.message,
@@ -178,9 +171,7 @@ module.exports = {
         message: "Manager deleted",
       });
     } catch (error) {
-      console.log(
-        ("error in delete manager by id request : " + error).failed_request
-      );
+      console.log(("error in delete manager by id request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in delete manager by id request",
         error: error.message,
@@ -221,10 +212,7 @@ module.exports = {
 
       console.log("manager found".success_request);
 
-      const isMatch = await manager.comparePasswords(
-        oldPassword,
-        manager.password
-      );
+      const isMatch = await manager.comparePasswords(oldPassword, manager.password);
 
       if (!isMatch) {
         throw new Error("Incorrect old password");
@@ -236,10 +224,12 @@ module.exports = {
       await manager.save();
 
       console.log("New password set and saved".success_request);
+      return res.status(200).json({
+        success: true,
+        message: "New password set and saved",
+      });
     } catch (error) {
-      console.log(
-        ("error in change manager password request : " + error).failed_request
-      );
+      console.log(("error in change manager password request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in change manager password request",
         error: error.message,

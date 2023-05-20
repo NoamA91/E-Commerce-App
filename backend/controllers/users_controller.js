@@ -199,6 +199,7 @@ module.exports = {
 
       const user = await User.findOneAndUpdate({ _id: userId }, updatedFields, {
         new: true,
+        runValidators: true,
       });
 
       if (!user) {
@@ -408,7 +409,7 @@ module.exports = {
 
       return res.status(200).json({
         success: true,
-        message: "Password changed successfully",
+        message: "New password set and saved",
       });
     } catch (error) {
       return res.status(500).json({

@@ -17,7 +17,6 @@ const {
 
 // managers functions
 const {
-  registerManager,
   loginManager,
   getManagerById,
   updateManagerById,
