@@ -11,18 +11,239 @@ colors.setTheme({
 
 module.exports = {
   loginManager: async (req, res) => {
-    // TODO: Handle manager login
+    console.log("API POST request : login manager".new_request);
+
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        throw new Error("Email and password are required");
+      }
+
+      console.log("email and password provided".step_done);
+
+      const manager = await User.findOne({ email, role: "manager" });
+
+      if (!manager) {
+        throw new Error("Manager not found");
+      }
+
+      const isMatch = await manager.comparePasswords(
+        password,
+        manager.password
+      );
+
+      if (!isMatch) {
+        throw new Error("Invalid email or password");
+      }
+
+      const token = generateToken(manager);
+
+      // Set the token in a cookie
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      console.log("user logged in successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User logged in successfully",
+      });
+    } catch (error) {
+      console.log(("error in login request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in login request",
+        error: error.message,
+      });
+    }
   },
+
   getManagerById: async (req, res) => {
-    // TODO: Retrieve manager by their ID
+    console.log("API GET request : get manager by id".new_request);
+    try {
+      const managerId = req.params.id;
+
+      if (!managerId) {
+        throw new Error("Manager id is required");
+      }
+
+      console.log("manager id provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        throw new Error("Manager not found");
+      }
+
+      console.log("manager found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager found",
+        manager,
+      });
+    } catch (error) {
+      console.log(
+        ("error in get manager by id request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in get manager by id request",
+        error: error.message,
+      });
+    }
   },
+
   updateManagerById: async (req, res) => {
-    // TODO: Update manager details
+    console.log("API PUT request : update manager by id".new_request);
+    try {
+      const managerId = req.params.id;
+      const { name, email } = req.body;
+
+      if (!managerId) {
+        throw new Error("Manager id is required");
+      }
+
+      console.log("manager id provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        throw new Error("Manager not found");
+      }
+
+      console.log("manager found".success_request);
+
+      // Create an empty object to store the fields to update
+      const updatedFields = {};
+
+      if (username) {
+        updatedFields.username = username;
+      }
+
+      if (email) {
+        updatedFields.email = email;
+      }
+
+      const updatedManager = await User.findByIdAndUpdate(
+        managerId,
+        updatedFields
+      );
+
+      console.log("manager updated".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager updated",
+        updatedManager,
+      });
+    } catch (error) {
+      console.log(
+        ("error in update manager by id request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in update manager by id request",
+        error: error.message,
+      });
+    }
   },
+
   deleteManagerById: async (req, res) => {
-    // TODO: Delete manager
+    console.log("API DELETE request : delete manager by id".new_request);
+
+    try {
+      const managerId = req.params.id;
+
+      if (!managerId) {
+        throw new Error("Manager id is required");
+      }
+
+      console.log("manager id provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        throw new Error("Manager not found");
+      }
+
+      console.log("manager found".success_request);
+
+      await manager.remove();
+
+      console.log("manager deleted".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager deleted",
+      });
+    } catch (error) {
+      console.log(
+        ("error in delete manager by id request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in delete manager by id request",
+        error: error.message,
+      });
+    }
   },
+
   changeManagerPassword: async (req, res) => {
-    // TODO: Change manager password
+    console.log("API PUT request : change manager password".new_request);
+
+    try {
+      const { oldPassword, newPassword } = req.body;
+      const managerId = req.params.id;
+
+      if (!managerId) {
+        throw new Error("User ID is required");
+      }
+
+      console.log("manager id provided".step_done);
+
+      if (!newPassword || !oldPassword) {
+        throw new Error("New and old password are required");
+      }
+
+      console.log("new and old password provided".step_done);
+
+      if (oldPassword === newPassword) {
+        throw new Error("New password cannot be the same as the old password");
+      }
+
+      console.log("new password is different from old password".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        throw new Error("Manager not found");
+      }
+
+      console.log("manager found".success_request);
+
+      const isMatch = await manager.comparePasswords(
+        oldPassword,
+        manager.password
+      );
+
+      if (!isMatch) {
+        throw new Error("Incorrect old password");
+      }
+
+      console.log("Old password is correct".step_done);
+
+      manager.password = newPassword;
+      await manager.save();
+
+      console.log("New password set and saved".success_request);
+    } catch (error) {
+      console.log(
+        ("error in change manager password request : " + error).failed_request
+      );
+      return res.status(500).json({
+        message: "Error in change manager password request",
+        error: error.message,
+      });
+    }
   },
 };

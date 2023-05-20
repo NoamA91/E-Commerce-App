@@ -119,6 +119,7 @@ module.exports = {
 
   getAll: async (req, res) => {
     console.log("API GET request : get all Users".new_request);
+
     try {
       const users = await User.find();
 
@@ -366,6 +367,24 @@ module.exports = {
       const { oldPassword, newPassword } = req.body;
       const userId = req.params.id;
 
+      if (!userId) {
+        throw new Error("User ID is required");
+      }
+
+      console.log("user id provided".step_done);
+
+      if (!newPassword || !oldPassword) {
+        throw new Error("New and old password are required");
+      }
+
+      console.log("new and old password provided".step_done);
+
+      if (oldPassword === newPassword) {
+        throw new Error("New password cannot be the same as the old password");
+      }
+
+      console.log("New password is different from old password".step_done);
+
       const user = await User.findById(userId);
 
       if (!user) {
@@ -374,12 +393,6 @@ module.exports = {
 
       console.log("user found".step_done);
 
-      if (!oldPassword || !newPassword) {
-        throw new Error("Old and new password are required");
-      }
-
-      console.log("old and new password provided".step_done);
-
       // Check if the old password is correct
       const isMatch = await user.comparePasswords(oldPassword, user.password);
 
@@ -387,7 +400,7 @@ module.exports = {
         throw new Error("Incorrect old password");
       }
 
-      console.log("Old password is correct".step_done);
+      console.log("old password is correct".step_done);
 
       // Set the new password and save the user
       user.password = newPassword;
