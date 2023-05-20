@@ -169,9 +169,7 @@ module.exports = {
         user,
       });
     } catch (error) {
-      console.log(
-        ("error in get user by ID request : " + error).failed_request
-      );
+      console.log(("error in get user by ID request : " + error).failed_request);
       return res.status(500).json({
         message: "Error in get user by ID request",
         error: error.message,

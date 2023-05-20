@@ -26,7 +26,7 @@ const {
 } = require("../controllers/managers_controller");
 
 //TODO: admin functions
-const {} = require("../controllers/admins_controller");
+const { addManager } = require("../controllers/admins_controller");
 
 // users requests
 router.post("/register", registerUser);
@@ -41,15 +41,10 @@ router.post("/change_password/:id" /* ,userAuth */, changePassword);
 router.post("/managers/login", loginManager);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
-router.delete(
-  "/managers/deleteById/:id" /* , managerAuth */,
-  deleteManagerById
-);
-router.put(
-  "/managers/change_password/:id" /* , managerAuth */,
-  changeManagerPassword
-);
+router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
+router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
 
 //TODO: admin requests
+router.post("/admins/add_manager" /* ,adminAuth */, addManager);
 
 module.exports = router;
