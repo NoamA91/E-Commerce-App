@@ -10,7 +10,7 @@ colors.setTheme({
 });
 
 module.exports = {
-  addManager: async (req, res) => {
+  addManagerForAdmin: async (req, res) => {
     console.log("API POST request : add manager".new_request);
     try {
       const { username, email, password } = req.body;
@@ -50,5 +50,27 @@ module.exports = {
         error: error.message,
       });
     }
+  },
+  updateManagerByIdForAdmin: async (req, res) => {
+    /* code here */
+  },
+  deleteManagerByIdForAdmin: async (req, res) => {
+    /* code here */
+  },
+  getAllManagersForAdmin: async (req, res) => {
+    /* code here */
+  },
+
+  addUserForAdmin: async (req, res) => {
+    /* code here */
+  },
+  updateUserByIdForAdmin: async (req, res) => {
+    /* code here */
+  },
+  deleteUserByIdForAdmin: async (req, res) => {
+    /* code here */
+  },
+  getAllUsersForAdmin: async (req, res) => {
+    /* code here */
   },
 };

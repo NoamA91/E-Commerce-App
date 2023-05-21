@@ -25,7 +25,16 @@ const {
 } = require("../controllers/managers_controller");
 
 //TODO: admin functions
-const { addManager } = require("../controllers/admins_controller");
+const {
+  addManagerForAdmin,
+  updateManagerByIdForAdmin,
+  deleteManagerByIdForAdmin,
+  getAllManagersForAdmin,
+  addUserForAdmin,
+  updateUserByIdForAdmin,
+  deleteUserByIdForAdmin,
+  getAllUsersForAdmin,
+} = require("../controllers/admins_controller");
 
 // users requests
 router.post("/register", registerUser);
@@ -43,7 +52,15 @@ router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
 
-//TODO: admin requests
-router.post("/admins/add_manager" /* ,adminAuth */, addManager);
+//admin requests
+router.post("/admins/add_manager" /* ,adminAuth */, addManagerForAdmin);
+router.put("/admins/update_manager/:id" /* ,adminAuth */, updateManagerByIdForAdmin);
+router.delete("/admins/delete_manager/:id" /* ,adminAuth */, deleteManagerByIdForAdmin);
+router.get("/admins/get_all_managers" /* ,adminAuth */, getAllManagersForAdmin);
+
+router.post("/admins/add_user" /* ,adminAuth */, addUserForAdmin);
+router.put("/admins/update_user/:id" /* ,adminAuth */, updateUserByIdForAdmin);
+router.delete("/admins/delete_user/:id" /* ,adminAuth */, deleteUserByIdForAdmin);
+router.get("/admins/get_all_users" /* ,adminAuth */, getAllUsersForAdmin);
 
 module.exports = router;
