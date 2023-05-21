@@ -152,7 +152,7 @@ module.exports = {
   },
 
   getById: async (req, res) => {
-    console.log("API GET request : get User by ID".new_request);
+    console.log(`API GET request : get User by ID ${req.params.id}`.new_request);
 
     try {
       const userId = req.params.id;
@@ -189,7 +189,7 @@ module.exports = {
   },
 
   updateById: async (req, res) => {
-    console.log("API PUT request : update User".new_request);
+    console.log(`API PUT request : update user ${req.params.id}`.new_request);
 
     try {
       const userId = req.params.id;
@@ -236,7 +236,7 @@ module.exports = {
   },
 
   deleteById: async (req, res) => {
-    console.log("API DELETE request : delete User".new_request);
+    console.log(`API DELETE request : delete User ${req.params.id}`.new_request);
 
     try {
       const userId = req.params.id;

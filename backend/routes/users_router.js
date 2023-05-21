@@ -24,7 +24,7 @@ const {
   changeManagerPassword,
 } = require("../controllers/managers_controller");
 
-//TODO: admin functions
+// admin functions
 const {
   addManagerForAdmin,
   updateManagerByIdForAdmin,
