@@ -52,7 +52,55 @@ module.exports = {
     }
   },
   updateManagerByIdForAdmin: async (req, res) => {
-    /* code here */
+    console.log("API PUT request : update manager by id".new_request);
+    try {
+      const managerId = req.params.id;
+      const { username, email } = req.body;
+
+      if (!managerId) {
+        throw new Error("Manager id is required");
+      }
+
+      console.log("manager id provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        throw new Error("Manager not found");
+      }
+
+      console.log("manager found".success_request);
+
+      // Create an empty object to store the fields to update
+      const updatedFields = {};
+
+      if (username) {
+        updatedFields.username = username;
+      }
+
+      if (email) {
+        updatedFields.email = email;
+      }
+
+      const updatedManager = await User.findByIdAndUpdate(managerId, updatedFields, {
+        new: true,
+        runValidators: true,
+      });
+
+      console.log("manager updated".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager updated",
+        updatedManager,
+      });
+    } catch (error) {
+      console.log(("error in update manager by id request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in update manager by id request",
+        error: error.message,
+      });
+    }
   },
   deleteManagerByIdForAdmin: async (req, res) => {
     /* code here */
