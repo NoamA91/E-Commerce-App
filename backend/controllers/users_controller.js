@@ -85,7 +85,10 @@ module.exports = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new Error("User not found");
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
       }
 
       const isMatch = await user.comparePasswords(password, user.password);
@@ -123,10 +126,15 @@ module.exports = {
     try {
       const users = await User.find();
 
-      console.log("Users found".step_done);
-      if (!users) {
-        throw new Error("No users found");
+      if (!users.length) {
+        console.log("No users found".step_done);
+        return res.status(200).json({
+          success: true,
+          message: "No users found",
+          users: [],
+        });
       }
+
       console.log("All users retrieved successfully".success_request);
 
       return res.status(200).json({
@@ -158,7 +166,10 @@ module.exports = {
       const user = await User.findById(userId);
 
       if (!user) {
-        throw new Error("User not found");
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
       }
 
       console.log("User found".success_request);
@@ -203,7 +214,10 @@ module.exports = {
       });
 
       if (!user) {
-        throw new Error("User not found");
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
       }
 
       console.log("User updated successfully".success_request);
@@ -236,7 +250,10 @@ module.exports = {
       const user = await User.findByIdAndDelete(userId);
 
       if (!user) {
-        throw new Error("User not found");
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
       }
 
       console.log("user deleted successfully".success_request);
@@ -387,7 +404,10 @@ module.exports = {
       const user = await User.findById(userId);
 
       if (!user) {
-        throw new Error("User not found");
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
       }
 
       console.log("user found".step_done);

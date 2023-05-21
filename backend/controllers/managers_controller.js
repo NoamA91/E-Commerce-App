@@ -71,7 +71,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
       }
 
       console.log("manager found".success_request);
@@ -105,7 +108,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
       }
 
       console.log("manager found".step_done);
@@ -157,7 +163,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
       }
 
       console.log("manager found".success_request);
@@ -207,7 +216,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
       }
 
       console.log("manager found".success_request);

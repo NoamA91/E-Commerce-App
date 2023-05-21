@@ -65,7 +65,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        return res.status(404).json({
+          message: "Manager not found",
+          error: "Manager with the provided id does not exist",
+        });
       }
 
       console.log("manager found".success_request);
@@ -115,7 +118,10 @@ module.exports = {
       const manager = await User.findById(managerId);
 
       if (!manager || manager.role !== "manager") {
-        throw new Error("Manager not found");
+        return res.status(404).json({
+          message: "Manager not found",
+          error: "Manager with the provided id does not exist",
+        });
       }
 
       console.log("manager found".success_request);
@@ -141,8 +147,11 @@ module.exports = {
     try {
       const managers = await User.find({ role: "manager" });
 
-      if (!managers) {
-        throw new Error("No managers found");
+      if (!managers || managers.length === 0) {
+        return res.status(404).json({
+          message: "No managers found",
+          error: "There are no managers in the database",
+        });
       }
 
       console.log("managers found".success_request);
@@ -217,7 +226,10 @@ module.exports = {
       const user = await User.findById(userId);
 
       if (!user) {
-        throw new Error("User not found");
+        return res.status(404).json({
+          message: "User not found",
+          error: "User with the provided id does not exist",
+        });
       }
 
       console.log("user found".step_done);
@@ -293,7 +305,10 @@ module.exports = {
       const users = await User.find({});
 
       if (!users || users.length === 0) {
-        throw new Error("No users found");
+        return res.status(404).json({
+          message: "No users found",
+          error: "There are no users in the database",
+        });
       }
 
       console.log("Users retrieved".success_request);
