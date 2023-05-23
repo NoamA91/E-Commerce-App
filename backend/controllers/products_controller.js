@@ -14,8 +14,9 @@ module.exports = {
     try {
       const products = await Product.find();
 
+      // in case no products are found
       if (!products.length) {
-        console.log("no products found".step_done);
+        console.log("products array is empty".success_request);
         return res.status(200).json({
           success: true,
           message: "No products found",
@@ -23,7 +24,7 @@ module.exports = {
         });
       }
 
-      console.log("Products found".step_done);
+      console.log("Success to get all products".success_request);
       return res.status(200).json({
         success: true,
         message: "Products retrieved successfully",
@@ -85,7 +86,6 @@ module.exports = {
       if (!product) {
         console.log(`Product with ID ${req.params.id} not found`.failed_request);
         return res.status(404).json({
-          success: false,
           message: "Product not found",
         });
       }
@@ -102,7 +102,79 @@ module.exports = {
     }
   },
 
-  updateById: async (req, res) => {},
+  updateById: async (req, res) => {
+    console.log(`API PUT request : Update product by ID ${req.params.id}`.new_request);
+    try {
+      const product_id = req.params.id;
+      const product = await Product.findById(product_id);
 
-  deleteById: async (req, res) => {},
+      if (!product) {
+        console.log(`Product with ID ${product_id} not found`.failed_request);
+        return res.status(404).json({
+          message: `Product with ID ${product_id} not found`,
+        });
+      }
+
+      console.log(`Product with ID ${product_id} found`.step_done);
+
+      const updatedProduct = await Product.findByIdAndUpdate(product_id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+
+      console.log(`Product with ID ${product_id} updated successfully`.success_request);
+
+      res.status(200).json({
+        success: true,
+        message: `Product with ID ${product_id} updated successfully`,
+        product: updatedProduct,
+      });
+    } catch (error) {
+      console.log(("Error in updating product by id" + error).failed_request);
+      return res.status(500).json({
+        message: "Error in updating product by id",
+        error: error.message,
+      });
+    }
+  },
+
+  deleteById: async (req, res) => {
+    console.log(`API DELETE request : Delete product by ID ${req.params.id}`.new_request);
+    try {
+      const product_id = req.params.id;
+
+      if (!product_id) {
+        console.log("Missing product ID".failed_request);
+        return res.status(400).json({
+          message: "Product ID is required",
+        });
+      }
+
+      const product = await Product.findById(product_id);
+
+      if (!product) {
+        console.log(`Product with ID ${product_id} not found`.failed_request);
+        return res.status(404).json({
+          message: `Product with ID ${product_id} not found`,
+        });
+      }
+
+      console.log(`Product with ID ${product_id} found`.step_done);
+
+      await Product.findByIdAndRemove(product_id);
+
+      console.log(`Product with ID ${product_id} deleted successfully`.success_request);
+
+      res.status(200).json({
+        success: true,
+        message: `Product with ID ${product_id} deleted successfully`,
+      });
+    } catch (error) {
+      console.log(("Error in deleting product by id" + error).failed_request);
+      return res.status(500).json({
+        message: "Error in deleting product by id",
+        error: error.message,
+      });
+    }
+  },
 };

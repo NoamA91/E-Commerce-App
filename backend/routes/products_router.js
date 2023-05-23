@@ -14,7 +14,7 @@ const {
 
 router.get("/getAll", getAll);
 router.get("/getById/:id", getById);
-router.post("/addProduct", addProduct);
+router.post("/add", addProduct);
 router.put("/updateById/:id", updateById);
 router.delete("/deleteById/:id", deleteById);
 

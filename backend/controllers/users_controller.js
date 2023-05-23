@@ -197,7 +197,6 @@ module.exports = {
 
       console.log("Updating fields are available".step_done);
 
-      // Create an empty object to store the fields to update
       const updatedFields = {};
 
       if (username) {
@@ -214,13 +213,13 @@ module.exports = {
       });
 
       if (!user) {
-        console.log("User not found".failed_request);
+        console.log(`User with ID ${userId} not found`.failed_request);
         return res.status(404).json({
           message: "User not found",
         });
       }
 
-      console.log("User updated successfully".success_request);
+      console.log("User with ID ${userId} updated successfully".success_request);
 
       return res.status(200).json({
         success: true,
@@ -242,7 +241,10 @@ module.exports = {
       const userId = req.params.id;
 
       if (!userId) {
-        throw new Error("User ID is required");
+        console.log("Missing user ID".failed_request);
+        return res.status(400).json({
+          message: "User ID is required",
+        });
       }
 
       console.log("user ID provided".step_done);
