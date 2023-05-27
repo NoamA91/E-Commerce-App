@@ -96,45 +96,6 @@ module.exports = {
   },
 
   getManagerById: async (req, res) => {
-    console.log("API GET request : get manager by ID".new_request);
-    try {
-      const managerId = req.params.id;
-
-      if (!managerId) {
-        console.log("Manager ID is required".failed_request);
-        return res.status(400).json({
-          message: "Manager ID is required",
-        });
-      }
-
-      console.log("manager ID provided".step_done);
-
-      const manager = await User.findById(managerId);
-
-      if (!manager || manager.role !== "manager") {
-        console.log("manager not found".failed_request);
-        return res.status(404).json({
-          message: "Manager not found",
-        });
-      }
-
-      console.log("manager found".success_request);
-
-      return res.status(200).json({
-        success: true,
-        message: "Manager found",
-        manager,
-      });
-    } catch (error) {
-      console.log(`error in get manager by id request - ${error}`.failed_request);
-      return res.status(500).json({
-        message: "Error in get manager by id request",
-        error: error.message,
-      });
-    }
-  },
-
-  getManagerById: async (req, res) => {
     console.log("API GET request : get manager by id".new_request);
     try {
       const managerId = req.params.id;
