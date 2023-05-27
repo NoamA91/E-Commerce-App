@@ -33,6 +33,7 @@ const {
   addAdminForAdmin,
   updateAdminById,
   deleteAdminById,
+  changeAdminPassword,
 
   addManagerForAdmin,
   updateManagerByIdForAdmin,
@@ -57,7 +58,7 @@ router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
 // managers requests from managers controller
 router.post("/managers/login", loginManager);
-// router.get("/managers/getAll" /* ,managerAuth */, getAllManagers);
+router.get("/managers/getAll" /* ,managerAuth */, getAllManagers);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
@@ -70,6 +71,7 @@ router.get("/admins/getById/:id" /* ,adminAuth */, getAdminById);
 router.post("/admins/add_admin" /* ,adminAuth */, addAdminForAdmin);
 router.put("/admins/updateById/:id" /* ,adminAuth */, updateAdminById);
 router.delete("/admins/deleteById/:id" /* ,adminAuth */, deleteAdminById);
+// router.put("/admins/change_password/:id" /* ,adminAuth */, changeAdminPassword);
 
 router.post("/admins/add_manager" /* ,adminAuth */, addManagerForAdmin);
 router.put("/admins/update_manager/:id" /* ,adminAuth */, updateManagerByIdForAdmin);
