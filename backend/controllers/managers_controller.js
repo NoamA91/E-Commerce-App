@@ -17,7 +17,10 @@ module.exports = {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        throw new Error("Email and password are required");
+        console.log("Email or password not provided".failed_request);
+        return res.status(400).json({
+          message: "Email and password are required",
+        });
       }
 
       console.log("email and password provided".step_done);
@@ -25,13 +28,19 @@ module.exports = {
       const manager = await User.findOne({ email, role: "manager" });
 
       if (!manager) {
-        throw new Error("Manager not found");
+        console.log("Manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
       }
 
       const isMatch = await manager.comparePasswords(password, manager.password);
 
       if (!isMatch) {
-        throw new Error("Invalid email or password");
+        console.log("Invalid password".failed_request);
+        return res.status(401).json({
+          message: "Invalid password",
+        });
       }
 
       const token = generateToken(manager);
@@ -57,13 +66,84 @@ module.exports = {
     }
   },
 
+  getAllManagers: async (req, res) => {
+    console.log("API GET request : get all managers".new_request);
+    try {
+      const managers = await User.find({ role: "admin" });
+
+      if (!managers || managers.length === 0) {
+        console.log("No managers found".failed_request);
+        return res.status(404).json({
+          message: "No managers found",
+          error: "There are no managers in the database",
+        });
+      }
+
+      console.log("Managers retrieved".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Managers retrieved successfully",
+        managers,
+      });
+    } catch (error) {
+      console.log(("Error in get all managers request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get all managers request",
+        error: error.message,
+      });
+    }
+  },
+
+  getManagerById: async (req, res) => {
+    console.log("API GET request : get manager by ID".new_request);
+    try {
+      const managerId = req.params.id;
+
+      if (!managerId) {
+        console.log("Manager ID is required".failed_request);
+        return res.status(400).json({
+          message: "Manager ID is required",
+        });
+      }
+
+      console.log("manager ID provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
+      }
+
+      console.log("manager found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager found",
+        manager,
+      });
+    } catch (error) {
+      console.log(`error in get manager by id request - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in get manager by id request",
+        error: error.message,
+      });
+    }
+  },
+
   getManagerById: async (req, res) => {
     console.log("API GET request : get manager by id".new_request);
     try {
       const managerId = req.params.id;
 
       if (!managerId) {
-        throw new Error("Manager id is required");
+        console.log("Manager ID is required".failed_request);
+        return res.status(400).json({
+          message: "Manager ID is required",
+        });
       }
 
       console.log("manager id provided".step_done);
@@ -85,7 +165,7 @@ module.exports = {
         manager,
       });
     } catch (error) {
-      console.log(("error in get manager by id request : " + error).failed_request);
+      console.log(`error in get manager by id request - ${error}`.failed_request);
       return res.status(500).json({
         message: "Error in get manager by id request",
         error: error.message,
@@ -155,7 +235,10 @@ module.exports = {
       const managerId = req.params.id;
 
       if (!managerId) {
-        throw new Error("Manager id is required");
+        console.log("Manager ID is required".failed_request);
+        return res.status(400).json({
+          message: "Manager ID is required",
+        });
       }
 
       console.log("manager id provided".step_done);

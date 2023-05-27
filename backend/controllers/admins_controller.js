@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const colors = require("colors");
+const generateToken = require("../utils/generate_token");
 
 colors.setTheme({
   new_request: "magenta",
@@ -9,13 +10,285 @@ colors.setTheme({
 });
 
 module.exports = {
+  loginAdmin: async (req, res) => {
+    console.log("Admin API POST request : admin login".new_request);
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        console.log("Email or password not provided".failed_request);
+        return res.status(400).json({
+          message: "Email and password are required",
+        });
+      }
+
+      console.log("Email and password provided".step_done);
+
+      const admin = await User.findOne({ email, role: "admin" });
+
+      if (!admin) {
+        console.log("Admin not found".failed_request);
+        return res.status(404).json({
+          message: "Admin not found",
+        });
+      }
+
+      const isMatch = await admin.comparePasswords(password, admin.password);
+      if (!isMatch) {
+        console.log("Invalid password".failed_request);
+        return res.status(401).json({
+          message: "Invalid password",
+        });
+      }
+
+      const token = generateToken(admin);
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      console.log("Admin login successful".success_request);
+      return res.status(200).json({
+        success: true,
+        message: "Admin logged in successfully",
+      });
+    } catch (error) {
+      console.log(`Error in admin login - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in admin login",
+        error: error.message,
+      });
+    }
+  },
+
+  getAllAdmins: async (req, res) => {
+    console.log("API GET request : get all admins".new_request);
+    try {
+      const admins = await User.find({ role: "admin" });
+
+      if (!admins || admins.length === 0) {
+        console.log("No admins found".failed_request);
+        return res.status(404).json({
+          message: "No admins found",
+          error: "There are no admins in the database",
+        });
+      }
+
+      console.log("Admins retrieved".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Admins retrieved successfully",
+        admins,
+      });
+    } catch (error) {
+      console.log(("Error in get all admins request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get all admins request",
+        error: error.message,
+      });
+    }
+  },
+
+  getAdminById: async (req, res) => {
+    console.log("API GET request : get admin by ID".new_request);
+    try {
+      const adminId = req.params.id;
+
+      if (!adminId) {
+        console.log("Admin ID is required".failed_request);
+        return res.status(400).json({
+          message: "Admin ID is required",
+        });
+      }
+
+      console.log("admin ID provided".step_done);
+
+      const admin = await User.findById(adminId);
+
+      if (!admin || admin.role !== "admin") {
+        console.log("admin not found".failed_request);
+        return res.status(404).json({
+          message: "Admin not found",
+        });
+      }
+
+      console.log("admin found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Admin found",
+        admin,
+      });
+    } catch (error) {
+      console.log(`error in get admin by id request - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in get admin by id request",
+        error: error.message,
+      });
+    }
+  },
+
+  addAdminForAdmin: async (req, res) => {
+    console.log("API POST request : add admin".new_request);
+    try {
+      const { username, email, password } = req.body;
+
+      if (!username || !email || !password) {
+        console.log("Username, email or password not provided".failed_request);
+        return res.status(400).json({
+          message: "Username, email, and password are required",
+        });
+      }
+
+      console.log("Username, email and password provided".step_done);
+
+      const existingUser = await User.findOne({ email });
+
+      if (existingUser) {
+        console.log("Email already exists".failed_request);
+        return res.status(400).json({
+          message: "Email already exists",
+        });
+      }
+
+      const newAdmin = new User({
+        username,
+        email,
+        password,
+        role: "admin",
+      });
+
+      const admin = await newAdmin.save();
+
+      console.log("Admin added".success_request);
+
+      return res.status(201).json({
+        success: true,
+        message: "Admin added successfully",
+        admin,
+      });
+    } catch (error) {
+      console.log(("Error in add admin request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in add admin request",
+        error: error.message,
+      });
+    }
+  },
+
+  updateAdminById: async (req, res) => {
+    console.log("API PUT request : update admin by id".new_request);
+    try {
+      const adminId = req.params.id;
+      const { username, email } = req.body;
+
+      if (!adminId) {
+        console.log("Admin ID is required".failed_request);
+        return res.status(400).json({
+          message: "Admin ID is required",
+        });
+      }
+
+      console.log("admin id provided".step_done);
+
+      const admin = await User.findById(adminId);
+
+      if (!admin || admin.role !== "admin") {
+        console.log("admin not found".failed_request);
+        return res.status(404).json({
+          message: "Admin not found",
+        });
+      }
+
+      console.log("admin found".step_done);
+
+      // Create an empty object to store the fields to update
+      const updatedFields = {};
+
+      if (username) {
+        updatedFields.username = username;
+      }
+
+      if (email) {
+        updatedFields.email = email;
+      }
+
+      const updatedAdmin = await User.findByIdAndUpdate(adminId, updatedFields, {
+        new: true,
+        runValidators: true,
+      });
+
+      console.log("admin updated".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Admin updated",
+        updatedAdmin,
+      });
+    } catch (error) {
+      console.log(("error in update admin by id request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in update admin by id request",
+        error: error.message,
+      });
+    }
+  },
+
+  deleteAdminById: async (req, res) => {
+    console.log("API DELETE request : delete admin by id".new_request);
+
+    try {
+      const adminId = req.params.id;
+
+      if (!adminId) {
+        console.log("Admin ID is required".failed_request);
+        return res.status(400).json({
+          message: "Admin ID is required",
+        });
+      }
+
+      console.log("admin id provided".step_done);
+
+      const admin = await User.findById(adminId);
+
+      if (!admin || admin.role !== "admin") {
+        console.log("admin not found".failed_request);
+        return res.status(404).json({
+          message: "Admin not found",
+        });
+      }
+
+      console.log("admin found".success_request);
+
+      await admin.remove();
+
+      console.log("admin deleted".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Admin deleted",
+      });
+    } catch (error) {
+      console.log(("error in delete admin by id request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in delete admin by id request",
+        error: error.message,
+      });
+    }
+  },
+
   addManagerForAdmin: async (req, res) => {
     console.log("API POST request : add manager".new_request);
     try {
       const { username, email, password } = req.body;
 
       if (!username || !email || !password) {
-        throw new Error("Username, email and password are required");
+        console.log("Username, email or password not provided".failed_request);
+        return res.status(400).json({
+          message: "Username, email, and password are required",
+        });
       }
 
       console.log("username, email and password provided".step_done);
@@ -50,6 +323,46 @@ module.exports = {
       });
     }
   },
+
+  getManagerByIdForAdmin: async (req, res) => {
+    console.log("API GET request : get manager by id".new_request);
+    try {
+      const managerId = req.params.id;
+
+      if (!managerId) {
+        console.log("Manager ID is required".failed_request);
+        return res.status(400).json({
+          message: "Manager ID is required",
+        });
+      }
+
+      console.log("manager id provided".step_done);
+
+      const manager = await User.findById(managerId);
+
+      if (!manager || manager.role !== "manager") {
+        console.log("manager not found".failed_request);
+        return res.status(404).json({
+          message: "Manager not found",
+        });
+      }
+
+      console.log("manager found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager found",
+        manager,
+      });
+    } catch (error) {
+      console.log(`error in get manager by id request - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in get manager by id request",
+        error: error.message,
+      });
+    }
+  },
+
   updateManagerByIdForAdmin: async (req, res) => {
     console.log("API PUT request : update manager by id".new_request);
     try {

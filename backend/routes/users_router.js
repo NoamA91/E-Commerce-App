@@ -18,6 +18,7 @@ const {
 // managers functions
 const {
   loginManager,
+  getAllManagers,
   getManagerById,
   updateManagerById,
   deleteManagerById,
@@ -26,10 +27,19 @@ const {
 
 // admin functions
 const {
+  loginAdmin,
+  getAllAdmins,
+  getAdminById,
+  addAdminForAdmin,
+  updateAdminById,
+  deleteAdminById,
+
   addManagerForAdmin,
   updateManagerByIdForAdmin,
   deleteManagerByIdForAdmin,
   getAllManagersForAdmin,
+  getManagerByIdForAdmin,
+
   addUserForAdmin,
   updateUserByIdForAdmin,
   deleteUserByIdForAdmin,
@@ -45,18 +55,27 @@ router.get("/getAll", getAll);
 router.delete("/deleteById/:id" /* , userAuth */, deleteById);
 router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
-// managers requests
+// managers requests from managers controller
 router.post("/managers/login", loginManager);
+// router.get("/managers/getAll" /* ,managerAuth */, getAllManagers);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
 
-//admin requests
+// admins requests from admins controller
+router.post("/admins/login", loginAdmin);
+router.get("/admins/getAll" /* ,adminAuth */, getAllAdmins);
+router.get("/admins/getById/:id" /* ,adminAuth */, getAdminById);
+router.post("/admins/add_admin" /* ,adminAuth */, addAdminForAdmin);
+router.put("/admins/updateById/:id" /* ,adminAuth */, updateAdminById);
+router.delete("/admins/deleteById/:id" /* ,adminAuth */, deleteAdminById);
+
 router.post("/admins/add_manager" /* ,adminAuth */, addManagerForAdmin);
 router.put("/admins/update_manager/:id" /* ,adminAuth */, updateManagerByIdForAdmin);
 router.delete("/admins/delete_manager/:id" /* ,adminAuth */, deleteManagerByIdForAdmin);
 router.get("/admins/get_all_managers" /* ,adminAuth */, getAllManagersForAdmin);
+router.get("/admins/get_manager_by_id/:id" /* ,adminAuth */, getManagerByIdForAdmin);
 
 router.post("/admins/add_user" /* ,adminAuth */, addUserForAdmin);
 router.put("/admins/update_user/:id" /* ,adminAuth */, updateUserByIdForAdmin);
