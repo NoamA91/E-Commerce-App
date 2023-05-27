@@ -170,7 +170,177 @@ module.exports = {
         message: `Product with ID ${product_id} deleted successfully`,
       });
     } catch (error) {
-      console.log(("Error in deleting product by id" + error).failed_request);
+      console.log(`Error in deleting product by id - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in deleting product by id",
+        error: error.message,
+      });
+    }
+  },
+
+  // managers functions
+  getAllForManagers: async (req, res) => {
+    console.log("Manager API GET request : get all products".new_request);
+    try {
+      const products = await Product.find().sort({ createdAt: -1 });
+
+      if (!products.length) {
+        console.log("No products found for manager".step_done);
+        return res.status(200).json({
+          success: true,
+          message: "No products found",
+          products,
+        });
+      }
+
+      console.log("Products found for manager".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Products retrieved successfully",
+        products: products,
+      });
+    } catch (error) {
+      console.log(
+        `Error occurred while getting all products for manager - ${error}`.failed_request
+      );
+      return res.status(500).json({
+        error: "Error in get all products",
+      });
+    }
+  },
+
+  getByIdForManagers: async (req, res) => {
+    console.log(`Manager API GET request : get product by ID ${req.params.id}`.new_request);
+    try {
+      const product_id = req.params.id;
+      const product = await Product.findById(product_id);
+
+      console.log(`product ID provided - ${product_id}`.step_done);
+
+      if (!product) {
+        console.log(`Product with ID ${product_id} not found for manager`.failed_request);
+        return res.status(404).json({
+          message: `Product with ID ${product_id} not found`,
+        });
+      }
+
+      console.log(`Product with ID ${product_id} found for manager`.success_request);
+      return res.status(200).json({
+        success: true,
+        message: `Product retrieved successfully`,
+        product: product,
+      });
+    } catch (error) {
+      console.log(
+        `Error occurred while getting product by ID for manager - ${error}`.failed_request
+      );
+      return res.status(500).json({
+        message: "Error in getting product by id for manager",
+        error: error.message,
+      });
+    }
+  },
+
+  addProductForManagers: async (req, res) => {
+    console.log("Manager API POST request : Add product".new_request);
+    try {
+      const { title, image, description, price, category, count_in_stock } = req.body;
+
+      if (!title || !image || !description || !price || !category || !count_in_stock) {
+        console.log("Missing product fields in manager request".failed_request);
+        return res.status(400).json({
+          message: "Missing fields",
+        });
+      }
+
+      console.log("All product fields provided by manager".step_done);
+
+      const newProduct = new Product({
+        title,
+        image,
+        description,
+        price,
+        category,
+        count_in_stock,
+      });
+
+      await newProduct.save();
+
+      console.log("Product created successfully by manager".success_request);
+      return res.status(201).json({
+        success: true,
+        message: "Product created successfully by manager",
+        product: newProduct,
+      });
+    } catch (error) {
+      console.log(`Create product error in manager request - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error creating product in manager request",
+        error: error.message,
+      });
+    }
+  },
+
+  updateByIdForManagers: async (req, res) => {
+    console.log(`Manager API PUT request : Update product by ID ${req.params.id}`.new_request);
+    try {
+      const product_id = req.params.id;
+      const product = await Product.findById(product_id);
+
+      if (!product) {
+        console.log(`Product with ID ${product_id} not found`.failed_request);
+        return res.status(404).json({
+          message: `Product with ID ${product_id} not found`,
+        });
+      }
+
+      console.log(`Product with ID ${product_id} found`.step_done);
+
+      const updatedProduct = await Product.findByIdAndUpdate(product_id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+
+      console.log(`Product with ID ${product_id} updated successfully`.success_request);
+
+      return res.status(200).json({
+        message: "Product updated successfully",
+        product: updatedProduct,
+      });
+    } catch (error) {
+      console.log(`Error in updating product by id - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in updating product by id",
+        error: error.message,
+      });
+    }
+  },
+
+  deleteByIdForManagers: async (req, res) => {
+    console.log(`Manager API DELETE request : Delete product by ID ${req.params.id}`.new_request);
+    try {
+      const product_id = req.params.id;
+      const product = await Product.findById(product_id);
+
+      if (!product) {
+        console.log(`Product with ID ${product_id} not found`.failed_request);
+        return res.status(404).json({
+          message: `Product with ID ${product_id} not found`,
+        });
+      }
+
+      console.log(`Product with ID ${product_id} found`.step_done);
+
+      await Product.findByIdAndDelete(product_id);
+
+      console.log(`Product with ID ${product_id} deleted successfully`.success_request);
+
+      return res.status(200).json({
+        message: "Product deleted successfully",
+      });
+    } catch (error) {
+      console.log(`Error in deleting product by id - ${error}`.failed_request);
       return res.status(500).json({
         message: "Error in deleting product by id",
         error: error.message,
