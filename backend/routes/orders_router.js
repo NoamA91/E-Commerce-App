@@ -4,6 +4,18 @@ const userAuth = require("../middlewares/auth_user");
 const managerAuth = require("../middlewares/auth_managers");
 const adminAuth = require("../middlewares/auth_admin");
 
-const {} = require("../controllers/orders_controller");
+const {
+  getAll,
+  getById,
+  addOrder,
+  updateById,
+  deleteById,
+} = require("../controllers/orders_controller");
+
+router.get("/getAll", getAll);
+router.get("/getById/:id", getById);
+router.post("/add", addOrder);
+router.put("/updateById/:id", updateById);
+router.delete("/deleteById/:id", deleteById);
 
 module.exports = router;
