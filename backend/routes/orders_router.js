@@ -12,6 +12,15 @@ const {
   deleteById,
 } = require("../controllers/orders_controller");
 
+// TODO:
+const {
+  getAllForManager,
+  getByIdForManager,
+  addOrderForManager,
+  updateByIdForManager,
+  deleteByIdForManager,
+} = require("../controllers/orders_controller");
+
 router.get("/getAll", getAll);
 router.get("/getById/:id", getById);
 router.post("/add", addOrder);
