@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import SidebarWithHeader from '../components/sections/SidebarWithHeader';
+import Sidebar from '../components/sections/Sidebar';
 
 function Root() {
 
 
     return (
         <>
-            <SidebarWithHeader />
+            <Sidebar />
             <Outlet />
         </>
     );
