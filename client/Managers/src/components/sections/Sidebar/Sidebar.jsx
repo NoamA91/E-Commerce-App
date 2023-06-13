@@ -173,7 +173,7 @@ const Sidebar = () => {
             w='100%'
             mb={4}
           >
-            <Divider display={isDrawerSidebar ? "none" : "flex"} />
+            <Divider />
             <Flex mt={4} alignItems='center'>
               <Avatar size='sm' />
               <Flex flexDir='column' ml={4} >

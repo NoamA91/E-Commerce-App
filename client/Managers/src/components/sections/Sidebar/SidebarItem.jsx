@@ -18,6 +18,7 @@ const SidebarItem = ({ icon, label, to }) => (
             style={{
                 display: 'flex',
                 alignItems: 'center',
+                width: '100%'
             }}
         >
             <Icon as={icon} w={6} h={6} />
