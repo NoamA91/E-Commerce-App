@@ -1,4 +1,4 @@
-import { Flex, Text, Icon, Menu, MenuButton, Tooltip } from "@chakra-ui/react";
+import { Flex, Text, Icon, Menu, MenuButton, Tooltip, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const NavItem = ({ navSize, title, icon, active, handleClick, to }) => {
@@ -38,7 +38,7 @@ const NavItem = ({ navSize, title, icon, active, handleClick, to }) => {
               backgroundColor={active ? "#AEC8CA" : "transparent"}
               borderRadius={8}
               _hover={{ backgroundColor: "#AEC8CA" }}
-              w={navSize === "large" && "180px"}
+              w={navSize === "large" && "100%"}
             >
               <Flex padding={3}>
                 <Icon as={icon} fontSize='xl' color={active ? "A82AAAD" : "grey.500"} />

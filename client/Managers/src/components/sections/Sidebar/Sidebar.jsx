@@ -14,12 +14,10 @@ const Sidebar = () => {
   return (
     <Flex
       pos='sticky'
-      left='5'
-      h='95vh'
-      mt='2.5vh'
+      left='0'
+      h='100vh'
       boxShadow='0 4px 12px 0 rgba(0,0,0,0.05)'
-      borderRadius={navSize === "small" ? "15" : "30px"}
-      w={navSize === "small" ? "75px" : "200px"}
+      w={navSize === "small" ? "75px" : "210px"}
       flexDir='column'
       justifyContent='space-between'
     >
