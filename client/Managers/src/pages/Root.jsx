@@ -1,17 +1,21 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sections/Sidebar/Sidebar";
-import { HStack, background } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
 function Root() {
+  const isBaseBreakpoint = useBreakpointValue({ base: true, md: false });
+
   return (
-    <>
-      <HStack>
-        <Sidebar />
-        <div style={{ width: "100%", height: "100vh" }}>
-          <Outlet />
-        </div>
-      </HStack>
-    </>
+    <Flex direction={isBaseBreakpoint ? 'column' : 'row'} h='100vh'>
+      <Sidebar />
+      <Box
+        backgroundColor='tomato'
+        w='100vw'
+        h='100vh'
+      >
+        <Outlet />
+      </Box>
+    </Flex>
   );
 }
 
