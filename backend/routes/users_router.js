@@ -13,6 +13,7 @@ const {
   getAll,
   deleteById,
   changePassword,
+  getAllUsersForManager
 } = require("../controllers/users_controller");
 
 // managers functions
@@ -58,11 +59,11 @@ router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
 // managers requests from managers controller
 router.post("/managers/login", loginManager);
-router.get("/managers/getAll" /* ,managerAuth */, getAllManagers);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
+router.get('/getAllForManager'/* , managerAuth */, getAllUsersForManager);
 
 // admins requests from admins controller
 router.post("/admins/login", loginAdmin);
