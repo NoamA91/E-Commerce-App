@@ -93,33 +93,43 @@
 
 // export default Sidebar;
 
-import React, { useState } from 'react';
-import { Box, Stack, Link, Text, Icon, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, Button, useBreakpointValue, Flex, IconButton, Divider, Avatar, Heading, DrawerFooter, DrawerBody } from '@chakra-ui/react';
+import {
+  Box,
+  Text, 
+  useDisclosure, 
+  Drawer, 
+  DrawerOverlay, 
+  DrawerContent, 
+  DrawerCloseButton, 
+  Button, 
+  useBreakpointValue, 
+  Flex, 
+  IconButton, 
+  Divider, 
+  Avatar, 
+  Heading, 
+  DrawerFooter, 
+  DrawerBody 
+} from '@chakra-ui/react';
 import { FiMenu } from "react-icons/fi"
 import SidebarContent from './SidebarContent';
 
+
 const Sidebar = () => {
-  const [currentPage, setCurrentPage] = useState('Dashboard'); // Default page
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     md: false,
   });
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    onClose();
-  }
-
   return (
     <Box>
       {isDrawerSidebar ? (
         <>
           <Flex alignItems="center" justifyContent="space-between" backgroundColor="gray.800">
-            <Button variant="ghost" onClick={onOpen} >
+            <Box variant="ghost" onClick={onOpen} >
               <IconButton icon={<FiMenu color='white' />} w={6} h={6} background='none' />
-            </Button>
-            {!isOpen && <Text>{currentPage}</Text>}
+            </Box>
           </Flex>
 
           <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
@@ -128,7 +138,7 @@ const Sidebar = () => {
               <DrawerCloseButton />
 
               <DrawerBody>
-                <SidebarContent onItemSelect={handlePageChange} />
+                <SidebarContent onClose={onClose}/>
               </DrawerBody>
 
               <DrawerFooter>
@@ -165,7 +175,7 @@ const Sidebar = () => {
           flexDir="column"
           justifyContent='space-between'
         >
-          <SidebarContent />
+        <SidebarContent/>
 
           <Flex
             p='5%'
@@ -184,7 +194,6 @@ const Sidebar = () => {
               </Flex>
             </Flex>
           </Flex>
-
         </Flex>
       )}
     </Box>
