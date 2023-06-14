@@ -1,3 +1,5 @@
+import { lazy } from "react";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -6,7 +8,8 @@ import {
 } from "react-router-dom";
 
 import Root from "./pages/Root";
-import Dashboard from "./pages/privatePages/dashboard/Dashboard";
+
+const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
 import Users from "./pages/privatePages/Users/Users";
 import Products from "./pages/privatePages/Products/Products";
 import Orders from "./pages/privatePages/Orders/Orders";

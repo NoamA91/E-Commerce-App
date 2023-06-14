@@ -11,39 +11,39 @@ colors.setTheme({
 });
 
 module.exports = {
-    // managers requests
-    getAllUsersForManager: async (req, res) => {
-      console.log("API GET request : get all Users - For managers".new_request);
-  
-      try {
-        const users = await User.find();
-  
-        if (!users.length) {
-          console.log("No users found".step_done);
-          return res.status(200).json({
-            success: true,
-            message: "No users found",
-            users: [],
-          });
-        }
-  
-        console.log("All users retrieved successfully".success_request);
-  
+  // managers requests
+  getAllUsersForManager: async (req, res) => {
+    console.log("API GET request : get all Users - For managers".new_request);
+
+    try {
+      const users = await User.find();
+
+      if (!users.length) {
+        console.log("No users found".step_done);
         return res.status(200).json({
           success: true,
-          message: "Users retrieved successfully",
-          users,
-        });
-      } catch (error) {
-        console.log(("error in getAll users request : " + error).failed_request);
-        return res.status(500).json({
-          message: "Error in get all users request",
-          error: error.message,
+          message: "No users found",
+          users: [],
         });
       }
-    },
 
-    //_________________________________________________________________________________
+      console.log("All users retrieved successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Users retrieved successfully - for managers",
+        users,
+      });
+    } catch (error) {
+      console.log(("error in getAll users request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get all users request - for managers",
+        error: error.message,
+      });
+    }
+  },
+
+  //_________________________________________________________________________________
   registerUser: async (req, res) => {
     console.log("API POST request : register User".new_request);
 
