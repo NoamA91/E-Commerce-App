@@ -32,6 +32,7 @@ const user_schema = new Schema(
       enum: ["user", "manager", "admin"],
       default: "user",
     },
+    tokens: [{ type: Object }]
   },
   { timestamps: true }
 );

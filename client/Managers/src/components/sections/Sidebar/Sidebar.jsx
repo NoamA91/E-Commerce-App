@@ -1,20 +1,20 @@
 import {
   Box,
-  Text, 
-  useDisclosure, 
-  Drawer, 
-  DrawerOverlay, 
-  DrawerContent, 
-  DrawerCloseButton, 
-  Button, 
-  useBreakpointValue, 
-  Flex, 
-  IconButton, 
-  Divider, 
-  Avatar, 
-  Heading, 
-  DrawerFooter, 
-  DrawerBody 
+  Text,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Button,
+  useBreakpointValue,
+  Flex,
+  IconButton,
+  Divider,
+  Avatar,
+  Heading,
+  DrawerFooter,
+  DrawerBody
 } from '@chakra-ui/react';
 import { FiMenu } from "react-icons/fi"
 import SidebarContent from './SidebarContent';
@@ -43,7 +43,7 @@ const Sidebar = () => {
               <DrawerCloseButton />
 
               <DrawerBody>
-                <SidebarContent onClose={onClose}/>
+                <SidebarContent onClose={onClose} />
               </DrawerBody>
 
               <DrawerFooter>
@@ -80,7 +80,7 @@ const Sidebar = () => {
           flexDir="column"
           justifyContent='space-between'
         >
-        <SidebarContent/>
+          <SidebarContent />
 
           <Flex
             p='5%'

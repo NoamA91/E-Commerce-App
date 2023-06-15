@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useFetchGet from "../../../hooks/useFetchGet";
+import axios from "axios";
 
 const users_url = `${import.meta.env.VITE_URL}/users/getAllForManager`;
 
@@ -11,6 +12,7 @@ const Users = () => {
   const [data, loading, error] = useFetchGet(users_url,
     // {Authorization: `Bearer ${cookies.token}`}
   );
+
 
   useEffect(() => {
     if (data) {
@@ -27,7 +29,11 @@ const Users = () => {
   }
 
   return (
-    <div>Users</div>
+    <div>
+      {users && users.map((user) => (
+        <div key={user._id}>{user.username}</div>
+      ))}
+    </div>
   )
 }
 
