@@ -9,6 +9,7 @@ const {
   registerUser,
   loginUser,
   logoutUser,
+  authToken,
   updateById,
   getById,
   getAll,
@@ -20,6 +21,8 @@ const {
 // managers functions
 const {
   loginManager,
+  logoutManager,
+  authManager,
   getAllManagers,
   getManagerById,
   updateManagerById,
@@ -52,7 +55,8 @@ const {
 // users requests
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/logout/", userAuth, logoutUser)
+router.post("/logout/", userAuth, logoutUser);
+router.get("/auth", authToken);
 router.put("/updateByid/:id" /* , userAuth */, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
@@ -61,6 +65,8 @@ router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
 // managers requests from managers controller
 router.post("/managers/login", loginManager);
+router.post("/managers/logout/", managerAuth, logoutManager);
+router.get("/managers/auth", authManager);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);

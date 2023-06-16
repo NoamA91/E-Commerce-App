@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const colors = require("colors");
 const generateToken = require("../utils/generate_token");
+const jwt = require("jsonwebtoken");
 // const nodemailer = require("nodemailer");
 
 colors.setTheme({
@@ -110,7 +111,10 @@ module.exports = {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        throw new Error("Email and password are required");
+        console.log("Email or password not provided".failed_request);
+        return res.status(400).json({
+          message: "Email and password are required",
+        });
       }
 
       console.log("email and password provided".step_done);
@@ -127,7 +131,10 @@ module.exports = {
       const isMatch = await user.comparePasswords(password, user.password);
 
       if (!isMatch) {
-        throw new Error("Invalid email or password");
+        console.log("Invalid password".failed_request);
+        return res.status(401).json({
+          message: "Invalid password",
+        });
       }
 
       const token = generateToken(user);
@@ -152,7 +159,7 @@ module.exports = {
         tokens: oldTokens,
       });
 
-      console.log("user logged in successfully".success_request);
+      console.log("User logged in successfully".success_request);
 
       return res.status(200).json({
         success: true,
@@ -194,11 +201,11 @@ module.exports = {
 
         return res.status(200).json({
           success: true,
-          message: "success to logout user",
+          message: "User logout successfully",
         });
       } catch (error) {
         return res.status(500).json({
-          message: "error in logout request",
+          message: "Error in logout request",
           error: error.message,
         });
       }
@@ -521,6 +528,49 @@ module.exports = {
     } catch (error) {
       return res.status(500).json({
         message: "Error in change password",
+        error: error.message,
+      });
+    }
+  },
+
+  authToken: async (req, res) => {
+    console.log("API POST request : auth token".new_request);
+    try {
+      const token = req.headers.authorization;
+
+      if (!token) {
+        return res.status(401).json({
+          message: "Token not provided"
+        })
+      }
+
+      console.log("token provided".step_done);
+
+      const bearer = token.split(" ")[1];
+
+      const decode = jwt.verify(bearer, process.env.JWT_SECRET);
+
+      const user = await User.findById(decode.id).exec();
+
+      if (!user) {
+        throw new Error("User not exists");
+      }
+
+      console.log("User Authorized".success_request);
+
+      return res.status(201).json({
+        success: true,
+        message: "User authoraized",
+        token,
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+        },
+      });
+    } catch (error) {
+      return res.status(401).json({
+        message: "Unauthoraized",
         error: error.message,
       });
     }
