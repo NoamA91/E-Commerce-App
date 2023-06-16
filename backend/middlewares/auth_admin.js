@@ -27,7 +27,7 @@ const adminAuth = async (req, res, next) => {
       });
     }
 
-    if (!user.tokens.includes(token)) { // check if token exists in tokens array
+    if (!user.tokens.some(t => t.token === token)) { // check if token exists in tokens array
       return res.status(401).json({
         message: "Access denied. Invalid token.",
       });
@@ -39,7 +39,7 @@ const adminAuth = async (req, res, next) => {
       });
     }
 
-    req.user = decoded;
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({

@@ -2,11 +2,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User"); // import the User model
 
 const managerAuth = async (req, res, next) => {
-  const token = req.header("Authorization");
+  const authHeader = req.header("Authorization");
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({
       message: "Access denied. No token provided.",
+    });
+  }
+
+  if (!process.env.JWT_SECRET) {
+    return res.status(500).json({
+      message: "Internal server error. JWT secret not found.",
     });
   }
 
@@ -20,7 +27,7 @@ const managerAuth = async (req, res, next) => {
       });
     }
 
-    if (!user.tokens.includes(token)) { // check if token exists in tokens array
+    if (!user.tokens.some(t => t.token === token)) { // check if token exists in tokens array
       return res.status(401).json({
         message: "Access denied. Invalid token.",
       });
@@ -32,7 +39,7 @@ const managerAuth = async (req, res, next) => {
       });
     }
 
-    req.user = decoded;
+    req.user = user;
     next();
   } catch (error) {
     res.status(401).json({

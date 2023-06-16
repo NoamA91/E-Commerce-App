@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useFetchGet from "../../../hooks/useFetchGet";
 import axios from "axios";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 
 const users_url = `${import.meta.env.VITE_URL}/users/getAllForManager`;
 
@@ -21,11 +22,16 @@ const Users = () => {
   }, [data]);
 
   if (loading) {
-    return <span>loading...</span>;
+    return <Flex w='100%' h='100vh' justifyContent='center' alignItems='center'><Spinner size='xl' /></Flex>;
   }
 
   if (error) {
-    return <span>{error.message}</span>;
+    return (
+      <Alert status='error'>
+        <AlertIcon />
+        {error.message}
+      </Alert>
+    )
   }
 
   return (

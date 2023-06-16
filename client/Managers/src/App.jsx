@@ -10,12 +10,11 @@ import {
 import Root from "./pages/Root";
 
 const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
-import Users from "./pages/privatePages/Users/Users";
-import Products from "./pages/privatePages/Products/Products";
-import Orders from "./pages/privatePages/Orders/Orders";
+const Users = lazy(() => import("./pages/privatePages/Users/Users"))
+const Products = lazy(() => import("./pages/privatePages/Products/Products"))
+const Orders = lazy(() => import("./pages/privatePages/Orders/Orders"))
 import Login from "./pages/publicPages/Login";
 import NotFoundPage from "./pages/privatePages/NotFoundPage";
-
 
 
 

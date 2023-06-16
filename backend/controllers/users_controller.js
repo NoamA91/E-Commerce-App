@@ -132,10 +132,24 @@ module.exports = {
 
       const token = generateToken(user);
 
-      // Set the token in a cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+      // Retrieve old tokens, if any
+      let oldTokens = user.tokens || [];
+      const currentTime = Date.now();
+
+      // Filter out expired tokens
+      if (oldTokens.length) {
+        oldTokens = oldTokens.filter((t) => {
+          const timeDiff = currentTime - t.signedAt;
+          return timeDiff <= 10800000;  // 3 hours in milliseconds
+        });
+      }
+
+      // Add new token to the list
+      oldTokens.push({ token, signedAt: currentTime });
+
+      // Update the user with the new tokens array
+      await User.findByIdAndUpdate(user._id, {
+        tokens: oldTokens,
       });
 
       console.log("user logged in successfully".success_request);
@@ -143,6 +157,12 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User logged in successfully",
+        token,
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+        },
       });
     } catch (error) {
       console.log(("error in login request : " + error).failed_request);
@@ -150,6 +170,38 @@ module.exports = {
         message: "Error in login request",
         error: error.message,
       });
+    }
+  },
+
+  logoutUser: async (req, res) => {
+    if (req.headers && req.headers.authorization) {
+
+      try {
+        const token = req.headers.authorization.split(' ')[1];
+        if (!token) {
+          return res
+            .status(401)
+            .json({ success: false, message: 'Authorization fail!' });
+        }
+
+        const tokens = req.user.tokens;
+
+        const newTokens = tokens.filter(t => t.token !== token);
+
+        await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
+
+        res.clearCookie("token");
+
+        return res.status(200).json({
+          success: true,
+          message: "success to logout user",
+        });
+      } catch (error) {
+        return res.status(500).json({
+          message: "error in logout request",
+          error: error.message,
+        });
+      }
     }
   },
 

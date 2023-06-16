@@ -19,7 +19,7 @@ const userAuth = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded._id); // find user by id
+        const user = await User.findById(decoded.id); // find user by id
 
         if (!user) {
             return res.status(404).json({
@@ -27,13 +27,13 @@ const userAuth = async (req, res, next) => {
             });
         }
 
-        if (!user.tokens.includes(token)) { // check if token exists in tokens array
+        if (!user.tokens.some(t => t.token === token)) { // check if token exists in tokens array
             return res.status(401).json({
                 message: "Access denied. Invalid token.",
             });
         }
 
-        req.user = decoded;
+        req.user = user;
         next();
     } catch (error) {
         res.status(401).json({

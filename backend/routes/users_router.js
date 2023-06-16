@@ -8,6 +8,7 @@ const adminAuth = require("../middlewares/auth_admin");
 const {
   registerUser,
   loginUser,
+  logoutUser,
   updateById,
   getById,
   getAll,
@@ -51,6 +52,7 @@ const {
 // users requests
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/logout/", userAuth, logoutUser)
 router.put("/updateByid/:id" /* , userAuth */, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
