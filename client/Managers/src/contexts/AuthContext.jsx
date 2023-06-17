@@ -52,7 +52,6 @@ const AuthProvider = ({ children }) => {
             if (!data.success) {
                 throw new Error(`${data.message} : ${data.error}`);
             }
-
             setUser(data.user);
             setIsAuthenticated(true);
             setCookies("token", data.token, { path: "/", maxAge: 10800 });
@@ -61,6 +60,7 @@ const AuthProvider = ({ children }) => {
                 success: true,
                 message: data.message
             };
+
         } catch (error) {
             return {
                 success: false,

@@ -6,12 +6,15 @@ import {
     Button,
     Flex,
     Heading,
+    useToast,
 } from '@chakra-ui/react'
 import React, { useContext, useState } from 'react'
 import AuthContext from '../../contexts/AuthContext'
 
 const LoginForm = () => {
     const { login } = useContext(AuthContext.AuthContext);
+
+    const toast = useToast()
 
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(null);
@@ -36,13 +39,29 @@ const LoginForm = () => {
                 values.password
             );
 
+            console.log(response);
+
             if (!response.success) {
                 throw new Error(response.message);
             }
 
             setData(response.message);
+            toast({
+                title: 'Login Successful',
+                description: "You are now logged in",
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            });
         } catch (error) {
             setError(error.message);
+            toast({
+                title: 'Error',
+                description: error.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
         } finally {
             setLoading(false);
         }
@@ -74,9 +93,15 @@ const LoginForm = () => {
                 >
                     Log in
                 </Button>
-
                 {error && <span>{error}</span>}
-                {data && <span>{data.message}</span>}
+
+                {data && toast({
+                    title: 'Login Successful',
+                    description: "You are now logged in",
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                })}
             </Box >
         </Flex >
     )
