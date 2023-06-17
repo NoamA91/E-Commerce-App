@@ -1,8 +1,13 @@
+import { Navigate } from "react-router-dom";
+import LoginForm from "../../components/partials/LoginForm";
 
-const Login = () => {
-  return (
-    <div>Login Page</div>
-  )
+function Login({ logged }) {
+
+  if (logged) {
+    return <Navigate to="/dashboard" />
+  }
+
+  return <LoginForm />
 }
 
 export default Login

@@ -31,7 +31,7 @@ module.exports = {
       if (!manager) {
         console.log("Manager not found".failed_request);
         return res.status(404).json({
-          message: "Manager not found",
+          message: "Incorrect Email or password",
         });
       }
 
