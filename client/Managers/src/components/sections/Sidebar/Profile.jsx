@@ -1,31 +1,3 @@
-// import { Avatar } from "@chakra-ui/avatar"
-// import { Divider, Flex, Heading, Text } from "@chakra-ui/layout"
-
-
-// const Profile = () => {
-//     return (
-//         <Flex
-//             p='5%'
-//             flexDir='column'
-//             w='100%'
-//             mb={4}
-//         >
-//             <Divider />
-//             <Flex mt={4} alignItems='center'>
-//                 <Avatar size='sm' bg='teal.500' />
-//                 <Flex flexDir='column' ml={4} >
-//                     <Heading as='h3' size='sm' color='white'>
-//                         User Name
-//                     </Heading>
-//                     <Text as='p' color='grey'>Role</Text>
-//                 </Flex>
-//             </Flex>
-//         </Flex>
-//     )
-// }
-
-// export default Profile
-
 import {
     Avatar,
     Divider,
@@ -40,7 +12,8 @@ import {
     PopoverHeader,
     PopoverCloseButton,
     PopoverBody,
-    useToast
+    useToast,
+    Box
 } from "@chakra-ui/react";
 import { useContext } from 'react';
 import AuthContext from '../../../contexts/AuthContext';
@@ -91,7 +64,7 @@ const Profile = () => {
             mb={4}
         >
             <Divider />
-            <Flex mt={4} alignItems='center'>
+            <Flex mt={4} alignItems='center' MaxW="270px">
                 <Popover >
                     <PopoverTrigger>
                         <Button p={0} bg='transparent' _hover={{ bg: 'transparent' }} _active={{ bg: 'transparent' }}>
@@ -107,11 +80,11 @@ const Profile = () => {
                         </PopoverBody>
                     </PopoverContent>
                 </Popover>
-                <Flex flexDir='column' ml={4} >
+                <Flex flexDir='column' ml={2} >
                     <Heading as='h3' size='sm' color='white'>
                         {user.username}
                     </Heading>
-                    <Text as='p' color='grey'>Role: {user.role}</Text>
+                    <Text as='p' color='gray' fontSize='sm'>{user.email}</Text>
                 </Flex>
             </Flex>
         </Flex>

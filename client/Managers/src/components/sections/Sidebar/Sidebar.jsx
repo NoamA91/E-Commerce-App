@@ -51,7 +51,7 @@ const Sidebar = () => {
       ) : (
         <Flex
           as="nav"
-          w="250px"
+          w="270px"
           h="100vh"
           p={5}
           bg="gray.800"
