@@ -9,13 +9,13 @@ function Root() {
   const isBaseBreakpoint = useBreakpointValue({ base: true, md: false });
 
   return (
-    <Flex direction={isBaseBreakpoint ? 'column' : 'row'} h='100vh'>
+    <Flex direction={isBaseBreakpoint ? 'column' : 'row'}>
 
       {isAuthenticated && <Sidebar />}
       <Box
         bgGradient="linear(to-b, blue.400, #c8e6c9)"
         w='100vw'
-        h='100vh'
+        h='100%'
       >
         <Outlet />
       </Box>

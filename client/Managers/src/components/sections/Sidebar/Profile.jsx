@@ -71,7 +71,10 @@ const Profile = () => {
                             <Avatar size='sm' bg='teal.500' cursor='pointer' />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent>
+                    <PopoverContent
+                        w="250px"
+                        color="white.500"
+                    >
                         <PopoverArrow />
                         <PopoverHeader>Press the Button to Logout</PopoverHeader>
                         <PopoverCloseButton />

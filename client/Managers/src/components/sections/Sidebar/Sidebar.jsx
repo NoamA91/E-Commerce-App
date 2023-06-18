@@ -23,47 +23,54 @@ const Sidebar = () => {
   });
 
   return (
-    <Box>
-      {isDrawerSidebar ? (
-        <>
-          <Flex alignItems="center" justifyContent="space-between" backgroundColor="gray.800">
-            <Box variant="ghost" onClick={onOpen} >
-              <IconButton icon={<FiMenu color='white' />} w={6} h={6} background='none' />
-            </Box>
-          </Flex>
+    <>
+      {
+        isDrawerSidebar ? (
+          <>
+            <Flex alignItems="center" justifyContent="space-between" backgroundColor="gray.800">
+              <Box variant="ghost" onClick={onOpen} >
+                <IconButton icon={<FiMenu color='white' />} w={6} h={6} background='none' />
+              </Box>
+            </Flex>
 
-          <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-            <DrawerOverlay />
-            <DrawerContent w="250px" bg="gray.800" >
-              <DrawerCloseButton />
+            <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+              <DrawerOverlay />
+              <DrawerContent w="250px" bg="gray.800" >
+                <DrawerCloseButton />
 
-              <DrawerBody>
-                <SidebarContent onClose={onClose} />
-              </DrawerBody>
+                <DrawerBody>
+                  <SidebarContent onClose={onClose} />
+                </DrawerBody>
 
-              <DrawerFooter>
-                <Profile />
-              </DrawerFooter>
+                <DrawerFooter>
+                  <Profile />
+                </DrawerFooter>
 
-            </DrawerContent>
-          </Drawer>
-        </>
-      ) : (
-        <Flex
-          as="nav"
-          w="270px"
-          h="100vh"
-          p={5}
-          bg="gray.800"
-          position="sticky"
-          flexDir="column"
-          justifyContent='space-between'
-        >
-          <SidebarContent />
-          <Profile />
-        </Flex>
-      )}
-    </Box>
+              </DrawerContent>
+            </Drawer>
+          </>
+        ) : (
+          <Box
+            display='block'
+            as='aside'
+          >
+            <Flex
+              as="nav"
+              w="270px"
+              h="100vh"
+              p={5}
+              bg="gray.800"
+              position="sticky"
+              top={0}
+              flexDir="column"
+              justifyContent='space-between'
+            >
+              <SidebarContent />
+              <Profile />
+            </Flex>
+          </Box >
+        )}
+    </ >
   );
 };
 
