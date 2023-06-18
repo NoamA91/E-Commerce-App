@@ -65,7 +65,7 @@ router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
 // managers requests from managers controller
 router.post("/managers/login", loginManager);
-router.post("/managers/logout/", managerAuth, logoutManager);
+router.post("/managers/logout", managerAuth, logoutManager);
 router.get("/managers/auth", authManager);
 router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);

@@ -72,7 +72,7 @@ const AuthProvider = ({ children }) => {
     const logout = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:4000/users/managers/logout",
+                `${import.meta.env.VITE_SERVER_URL}/users/managers/logout`,
                 {
                     headers: {
                         Authorization: `Bearer ${cookies.token}`,

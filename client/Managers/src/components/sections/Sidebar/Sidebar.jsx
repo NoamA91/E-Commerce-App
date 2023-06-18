@@ -1,24 +1,19 @@
 import {
   Box,
-  Text,
   useDisclosure,
   Drawer,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Button,
   useBreakpointValue,
   Flex,
   IconButton,
-  Divider,
-  Avatar,
-  Heading,
   DrawerFooter,
   DrawerBody
 } from '@chakra-ui/react';
 import { FiMenu } from "react-icons/fi"
 import SidebarContent from './SidebarContent';
-
+import Profile from './Profile';
 
 const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +34,7 @@ const Sidebar = () => {
 
           <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
             <DrawerOverlay />
-            <DrawerContent w="250px" bg="gray.800" color="white">
+            <DrawerContent w="250px" bg="gray.800" >
               <DrawerCloseButton />
 
               <DrawerBody>
@@ -47,23 +42,7 @@ const Sidebar = () => {
               </DrawerBody>
 
               <DrawerFooter>
-                <Flex
-                  p='5%'
-                  flexDir='column'
-                  w='100%'
-                  mb={4}
-                >
-                  <Divider />
-                  <Flex mt={4} alignItems='center'>
-                    <Avatar size='sm' />
-                    <Flex flexDir='column' ml={4} >
-                      <Heading as='h3' size='sm' color='white'>
-                        User Name
-                      </Heading>
-                      <Text color='grey'>Role</Text>
-                    </Flex>
-                  </Flex>
-                </Flex>
+                <Profile />
               </DrawerFooter>
 
             </DrawerContent>
@@ -81,24 +60,7 @@ const Sidebar = () => {
           justifyContent='space-between'
         >
           <SidebarContent />
-
-          <Flex
-            p='5%'
-            flexDir='column'
-            w='100%'
-            mb={4}
-          >
-            <Divider />
-            <Flex mt={4} alignItems='center'>
-              <Avatar size='sm' />
-              <Flex flexDir='column' ml={4} >
-                <Heading as='h3' size='sm' color='white'>
-                  User Name
-                </Heading>
-                <Text color='grey'>Role</Text>
-              </Flex>
-            </Flex>
-          </Flex>
+          <Profile />
         </Flex>
       )}
     </Box>

@@ -53,7 +53,7 @@ const LoginForm = () => {
                 title: 'Login Successful',
                 description: "You are now logged in",
                 status: 'success',
-                duration: 9000,
+                duration: 3000,
                 isClosable: true,
             });
         } catch (error) {
