@@ -96,6 +96,7 @@ module.exports = {
 
       try {
         const token = req.headers.authorization.split(' ')[1];
+
         if (!token) {
           return res
             .status(401)
@@ -352,8 +353,19 @@ module.exports = {
 
   authManager: async (req, res) => {
     console.log("API GET request : Auth Manager".new_request);
+
     try {
-      const token = req.headers.authorization;
+      const authorization = req.headers.authorization;
+
+      if (!authorization) {
+        return res.status(401).json({
+          message: "Authorization header not provided"
+        })
+      }
+
+      console.log("Authorization header provided".step_done);
+
+      const token = authorization.split(" ")[1];
 
       if (!token) {
         return res.status(401).json({
@@ -361,11 +373,7 @@ module.exports = {
         })
       }
 
-      console.log("Token provided".step_done);
-
-      const bearer = token.split(" ")[1];
-
-      const decode = jwt.verify(bearer, process.env.JWT_SECRET);
+      const decode = jwt.verify(token, process.env.JWT_SECRET);
 
       const manager = await User.findById(decode.id).exec();
 
@@ -375,12 +383,20 @@ module.exports = {
         })
       }
 
+      // Check if token exists in user's tokens array
+      if (!manager.tokens.find(tokenObj => tokenObj.token === token)) {
+        console.log("Token is not valid".failed_request);
+        return res.status(401).json({
+          message: "Token is not valid"
+        })
+      }
+
       console.log("Manager Authorized".success_request);
 
       return res.status(201).json({
         success: true,
-        message: "Manager Authoraized",
-        token,
+        message: "Manager Authorized",
+        token: token,
         user: {
           _id: manager._id,
           username: manager.username,
@@ -389,9 +405,10 @@ module.exports = {
       });
     } catch (error) {
       return res.status(401).json({
-        message: "Unauthoraized",
+        message: "Unauthorized",
         error: error.message,
       });
     }
   },
+
 };

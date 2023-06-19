@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User"); // import the User model
 
 const managerAuth = async (req, res, next) => {
+
   const authHeader = req.header("Authorization");
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -42,10 +43,27 @@ const managerAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({
-      message: "Access denied. Invalid token.",
-      error: error.message,
-    });
+
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        message: "Token expired",
+        error: error.message,
+      });
+    }
+
+    else if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({
+        message: "Invalid token",
+        error: error.message,
+      });
+    }
+
+    else {
+      return res.status(500).json({
+        message: "Internal server error",
+        error: error.message,
+      });
+    }
   }
 };
 
