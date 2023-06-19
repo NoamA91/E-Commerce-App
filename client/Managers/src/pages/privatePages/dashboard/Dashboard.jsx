@@ -61,9 +61,7 @@ const Dashboard = () => {
           w='400px'
         >
 
-          <StatGroup
-            w='500px'
-          >
+          <StatGroup w='500px'>
             <Stat p='5'>
               <Flex justifyContent='center'
                 alignContent='center'
@@ -97,13 +95,13 @@ const Dashboard = () => {
 
         </Flex >
 
-        <Box boxSize="sm" bg="white" boxShadow='md' borderRadius="xl" w="100%">
+        <Flex boxSize="sm" bg="white" boxShadow='md' borderRadius="xl" w="100%" >
           <Bar data={barData} options={{ responsive: true, maintainAspectRatio: true }} />
-        </Box>
+        </Flex>
 
-        <Box boxSize="sm" bg="white" borderRadius="xl">
+        <Flex boxSize="sm" bg="white" boxShadow='md' borderRadius="xl" justifyContent='center' p={9} >
           <Doughnut data={pieData} options={{ responsive: true, maintainAspectRatio: true }} />
-        </Box>
+        </Flex>
 
       </Flex >
 

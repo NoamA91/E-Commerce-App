@@ -7,10 +7,12 @@ const SidebarItem = ({ icon, label, to, onClose, active, onClick }) => {
     return (
         <Button
             display='flex'
-            p={6}
+            justifyContent='flex-start'
             borderRadius={4}
             color={isActive ? 'green.400' : 'gray.300'}
             mt={3}
+            p={0}
+            h={50}
             onClick={onClick}
             _hover={{
                 bgColor: 'gray.700',
@@ -21,14 +23,15 @@ const SidebarItem = ({ icon, label, to, onClose, active, onClick }) => {
                 color: 'green.200',
             }}
             bgColor={isActive ? 'gray.700' : 'gray.800'}
-            borderRight={isActive ? '3px solid green' : 'none'}
+            borderRight={isActive ? '2px solid #32CD32' : 'none'}
         >
             <Link
                 to={to}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    width: '100%'
+                    width: '100%',
+                    padding: '1.5rem',
                 }}
                 onClick={onClose}
             >
