@@ -13,9 +13,10 @@ function Root() {
 
       {isAuthenticated && <Sidebar />}
       <Box
-        bgGradient="linear(to-b, blue.400, #c8e6c9)"
+        bg="gray.200"
         w='100vw'
         h='100%'
+        p={isBaseBreakpoint ? '0' : '0'}
       >
         <Outlet />
       </Box>

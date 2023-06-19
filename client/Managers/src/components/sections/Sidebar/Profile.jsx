@@ -64,7 +64,7 @@ const Profile = () => {
             mb={4}
         >
             <Divider />
-            <Flex mt={4} alignItems='center' MaxW="270px">
+            <Flex mt={4} alignItems='center' maxW="270px">
                 <Popover >
                     <PopoverTrigger>
                         <Button p={0} bg='transparent' _hover={{ bg: 'transparent' }} _active={{ bg: 'transparent' }}>

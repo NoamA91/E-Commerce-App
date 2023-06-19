@@ -7,7 +7,7 @@ const SidebarItem = ({ icon, label, to, onClose, active, onClick }) => {
     return (
         <Button
             display='flex'
-            pa={8}
+            p={6}
             borderRadius={4}
             color={isActive ? 'green.400' : 'gray.300'}
             mt={3}
@@ -21,6 +21,7 @@ const SidebarItem = ({ icon, label, to, onClose, active, onClick }) => {
                 color: 'green.200',
             }}
             bgColor={isActive ? 'gray.700' : 'gray.800'}
+            borderRight={isActive ? '3px solid green' : 'none'}
         >
             <Link
                 to={to}

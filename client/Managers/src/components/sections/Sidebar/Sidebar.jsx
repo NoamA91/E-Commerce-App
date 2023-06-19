@@ -1,19 +1,14 @@
 import {
   Box,
   useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   useBreakpointValue,
   Flex,
   IconButton,
-  DrawerFooter,
-  DrawerBody
 } from '@chakra-ui/react';
 import { FiMenu } from "react-icons/fi"
 import SidebarContent from './SidebarContent';
 import Profile from './Profile';
+import SidebarDrawer from './SidebarDrawer';
 
 const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,27 +22,16 @@ const Sidebar = () => {
       {
         isDrawerSidebar ? (
           <>
-            <Flex alignItems="center" justifyContent="space-between" backgroundColor="gray.800">
-              <Box variant="ghost" onClick={onOpen} >
-                <IconButton icon={<FiMenu color='white' />} w={6} h={6} background='none' />
-              </Box>
+            <Flex alignItems="center" h="40px" justifyContent="space-between" backgroundColor="gray.800">
+              <IconButton
+                icon={<FiMenu color='white' size={20} />}
+                onClick={onOpen}
+                background='none'
+                _hover={{ background: 'none' }}
+              />
             </Flex>
 
-            <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-              <DrawerOverlay />
-              <DrawerContent w="250px" bg="gray.800" >
-                <DrawerCloseButton />
-
-                <DrawerBody>
-                  <SidebarContent onClose={onClose} />
-                </DrawerBody>
-
-                <DrawerFooter>
-                  <Profile />
-                </DrawerFooter>
-
-              </DrawerContent>
-            </Drawer>
+            <SidebarDrawer isOpen={isOpen} onClose={onClose} />
           </>
         ) : (
           <Box
@@ -55,7 +39,6 @@ const Sidebar = () => {
             as='aside'
           >
             <Flex
-              as="nav"
               w="270px"
               h="100vh"
               p={5}

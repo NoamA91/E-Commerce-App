@@ -10,6 +10,8 @@ import {
   VStack,
   Center,
   Container,
+  HStack,
+  Flex,
 } from '@chakra-ui/react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { Chart } from 'chart.js';
@@ -42,44 +44,70 @@ const pieData = {
 
 const Dashboard = () => {
   return (
-    <Box>
-      <StatGroup>
-        <Stat>
-          <StatLabel>Sent</StatLabel>
-          <StatNumber>345,670</StatNumber>
-          <StatHelpText>
-            <StatArrow type='increase' />
-            23.36%
-          </StatHelpText>
-        </Stat>
+    <>
 
-        <Stat>
-          <StatLabel>Clicked</StatLabel>
-          <StatNumber>45</StatNumber>
-          <StatHelpText>
-            <StatArrow type='decrease' />
-            9.05%
-          </StatHelpText>
-        </Stat>
-      </StatGroup>
+      <Flex
+        h='100%'
+        gap={5}
+        m={10}
+        flexDir='column'
+        flexWrap='wrap'
+      >
 
-      <VStack spacing={10}>
-        <Container centerContent maxW="container.md" p={5} bg="gray.100" borderRadius="xl">
-          <Center>
-            <Box boxSize="md">
-              <Bar data={barData} options={{ responsive: true, maintainAspectRatio: true }} />
-            </Box>
-          </Center>
-          <Center>
-            <Box boxSize="md">
-              <Doughnut data={pieData} options={{ responsive: true, maintainAspectRatio: true }} />
-            </Box>
-          </Center>
-        </Container>
-      </VStack>
-    </Box>
+        <Flex
+          bg="white"
+          boxShadow='md'
+          borderRadius="xl"
+          w='400px'
+        >
 
+          <StatGroup
+            w='500px'
+          >
+            <Stat p='5'>
+              <Flex justifyContent='center'
+                alignContent='center'
+                alignItems='center'
+                flexDir='column'
+              >
+                <StatLabel>Profit</StatLabel>
+                <StatNumber>345,670$</StatNumber>
+                <StatHelpText>
+                  <StatArrow type='increase' />
+                  23.36%
+                </StatHelpText>
+              </Flex>
+            </Stat>
 
+            <Stat p='5'>
+              <Flex justifyContent='center'
+                alignContent='center'
+                alignItems='center'
+                flexDir='column'
+              >
+                <StatLabel>Loss</StatLabel>
+                <StatNumber>450$</StatNumber>
+                <StatHelpText>
+                  <StatArrow type='decrease' />
+                  9.05%
+                </StatHelpText>
+              </Flex>
+            </Stat>
+          </StatGroup>
+
+        </Flex >
+
+        <Box boxSize="sm" bg="white" boxShadow='md' borderRadius="xl" w="100%">
+          <Bar data={barData} options={{ responsive: true, maintainAspectRatio: true }} />
+        </Box>
+
+        <Box boxSize="sm" bg="white" borderRadius="xl">
+          <Doughnut data={pieData} options={{ responsive: true, maintainAspectRatio: true }} />
+        </Box>
+
+      </Flex >
+
+    </>
   );
 };
 
