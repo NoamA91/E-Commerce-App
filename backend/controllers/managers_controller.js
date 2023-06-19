@@ -53,13 +53,15 @@ module.exports = {
       // Filter out expired tokens
       if (oldTokens.length) {
         oldTokens = oldTokens.filter((t) => {
-          const timeDiff = currentTime - t.signedAt;
-          return timeDiff <= 10800000;  // 3 hours in milliseconds
+          const timeDiff = currentTime - parseInt(t.signedAt) / 1000;
+          if (timeDiff <= 10800) {
+            return t;
+          }
         });
       }
 
       // Add new token to the list
-      oldTokens.push({ token, signedAt: currentTime });
+      oldTokens.push({ token, signedAt: currentTime.toString() });
 
       // Update the user with the new tokens array
       await User.findByIdAndUpdate(manager._id, {
@@ -124,7 +126,7 @@ module.exports = {
   getAllManagers: async (req, res) => {
     console.log("API GET request : get all managers".new_request);
     try {
-      const managers = await User.find({ role: "admin" });
+      const managers = await User.find({ role: "managers" });
 
       if (!managers || managers.length === 0) {
         console.log("No managers found".failed_request);
@@ -349,7 +351,7 @@ module.exports = {
   },
 
   authManager: async (req, res) => {
-    console.log("API POST request : auth token".new_request);
+    console.log("API GET request : Auth Manager".new_request);
     try {
       const token = req.headers.authorization;
 
@@ -359,7 +361,7 @@ module.exports = {
         })
       }
 
-      console.log("token provided".step_done);
+      console.log("Token provided".step_done);
 
       const bearer = token.split(" ")[1];
 
@@ -377,7 +379,7 @@ module.exports = {
 
       return res.status(201).json({
         success: true,
-        message: "Manager authoraized",
+        message: "Manager Authoraized",
         token,
         user: {
           _id: manager._id,

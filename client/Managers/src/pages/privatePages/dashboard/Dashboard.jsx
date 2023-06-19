@@ -51,7 +51,6 @@ const Dashboard = () => {
         gap={5}
         m={10}
         flexDir='column'
-        flexWrap='wrap'
       >
 
         <Flex
@@ -95,7 +94,7 @@ const Dashboard = () => {
 
         </Flex >
 
-        <Flex boxSize="sm" bg="white" boxShadow='md' borderRadius="xl" w="100%" >
+        <Flex boxSize='sm' w='100%' bg="white" boxShadow='md' borderRadius="xl" >
           <Bar data={barData} options={{ responsive: true, maintainAspectRatio: true }} />
         </Flex>
 

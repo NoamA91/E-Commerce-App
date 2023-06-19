@@ -14,9 +14,9 @@ function Root() {
       {isAuthenticated && <Sidebar />}
       <Box
         bg="gray.200"
-        w='100vw'
+        w='100%'
         h='100%'
-        p={isBaseBreakpoint ? '0' : '0'}
+        p='0'
       >
         <Outlet />
       </Box>

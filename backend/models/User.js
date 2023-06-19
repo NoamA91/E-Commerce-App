@@ -27,6 +27,31 @@ const user_schema = new Schema(
       minlength: [6, "Password should be longer than 6 characters"],
       required: [true, "Password is required."],
     },
+    phone_number: {
+      type: String,
+      validate: {
+        validator: (value) => validator.isMobilePhone(value),
+        message: "Phone number is invalid.",
+      },
+    },
+    address: {
+      city: {
+        type: String,
+        trim: true
+      },
+      street: {
+        type: String,
+        trim: true
+      },
+      building: {
+        type: String,
+        trim: true
+      },
+      appartment: {
+        type: String,
+        trim: true
+      }
+    },
     role: {
       type: String,
       enum: ["user", "manager", "admin"],

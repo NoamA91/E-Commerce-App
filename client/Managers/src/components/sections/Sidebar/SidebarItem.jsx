@@ -8,7 +8,7 @@ const SidebarItem = ({ icon, label, to, onClose, active, onClick }) => {
         <Button
             display='flex'
             justifyContent='flex-start'
-            borderRadius={4}
+            borderRadius={3}
             color={isActive ? 'green.400' : 'gray.300'}
             mt={3}
             p={0}

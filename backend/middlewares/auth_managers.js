@@ -19,7 +19,6 @@ const managerAuth = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
     const user = await User.findById(decoded.id); // find user by id
 
     if (!user) {

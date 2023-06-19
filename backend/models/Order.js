@@ -31,8 +31,22 @@ const order_schema = new Schema(
       },
     ],
     address: {
-      type: String,
-      required: true,
+      city: {
+        type: String,
+        trim: true
+      },
+      street: {
+        type: String,
+        trim: true
+      },
+      building: {
+        type: String,
+        trim: true
+      },
+      appartment: {
+        type: String,
+        trim: true
+      }
     },
     phone_number: {
       type: String,
