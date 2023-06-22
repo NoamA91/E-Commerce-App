@@ -11,6 +11,7 @@ const SidebarContent = ({ onClose }) => {
     const pathToLabel = {
         '/dashboard': 'Dashboard',
         '/users': 'Users',
+        // '/users/edit-user/:id': 'Users',
         '/products': 'Products',
         '/orders': 'Orders',
     };

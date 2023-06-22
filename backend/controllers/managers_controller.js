@@ -90,7 +90,7 @@ module.exports = {
   },
 
   logoutManager: async (req, res) => {
-    console.log("APII POST request : logout manager".new_request);
+    console.log("API POST request : logout manager".new_request);
 
     if (req.headers && req.headers.authorization) {
 
@@ -110,6 +110,8 @@ module.exports = {
         await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
 
         res.clearCookie("token");
+
+        console.log("Manager logout successfully");
 
         return res.status(200).json({
           success: true,

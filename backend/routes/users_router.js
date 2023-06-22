@@ -4,7 +4,7 @@ const userAuth = require("../middlewares/auth_user");
 const managerAuth = require("../middlewares/auth_managers");
 const adminAuth = require("../middlewares/auth_admin");
 
-// users functions
+// functions from users controller
 const {
   registerUser,
   loginUser,
@@ -15,7 +15,9 @@ const {
   getAll,
   deleteById,
   changePassword,
-  getAllCustomersForManager
+  getAllCustomersForManager,
+  getCustomerByIdForManager,
+  updateUserByIdForManager
 } = require("../controllers/users_controller");
 
 // managers functions
@@ -63,7 +65,7 @@ router.get("/getAll", getAll);
 router.delete("/deleteById/:id" /* , userAuth */, deleteById);
 router.post("/change_password/:id" /* ,userAuth */, changePassword);
 
-// managers requests from managers controller
+// managers requests
 router.post("/managers/login", loginManager);
 router.post("/managers/logout", managerAuth, logoutManager);
 router.get("/managers/auth", authManager);
@@ -71,7 +73,10 @@ router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
-router.get('/getAllForManager', managerAuth, getAllCustomersForManager);
+router.get('/managers/getAllForManager', managerAuth, getAllCustomersForManager);
+router.get('/customer-by-id-for-manager/:user_id', managerAuth, getCustomerByIdForManager);
+router.put('/update-user-for-managers/:user_id', managerAuth, updateUserByIdForManager);
+
 
 // admins requests from admins controller
 router.post("/admins/login", loginAdmin);

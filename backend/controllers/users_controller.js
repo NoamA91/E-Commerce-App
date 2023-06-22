@@ -12,39 +12,7 @@ colors.setTheme({
 });
 
 module.exports = {
-  // managers requests
-  getAllCustomersForManager: async (req, res) => {
-    console.log("API GET request : get all customers - For managers".new_request);
 
-    try {
-      const users = await User.find({ role: "user" });
-
-      if (!users.length) {
-        console.log("No users found".step_done);
-        return res.status(200).json({
-          success: true,
-          message: "No users found",
-          users: [],
-        });
-      }
-
-      console.log("All users retrieved successfully".success_request);
-
-      return res.status(200).json({
-        success: true,
-        message: "Customers retrieved successfully - for managers",
-        users,
-      });
-    } catch (error) {
-      console.log(("error in getAll users request : " + error).failed_request);
-      return res.status(500).json({
-        message: "Error in get all customers request - for managers",
-        error: error.message,
-      });
-    }
-  },
-
-  //_________________________________________________________________________________
   registerUser: async (req, res) => {
     console.log("API POST request : register User".new_request);
 
@@ -312,7 +280,7 @@ module.exports = {
         });
       }
 
-      console.log("User with ID ${userId} updated successfully".success_request);
+      console.log(`User with ID ${userId} updated successfully`.success_request);
 
       return res.status(200).json({
         success: true,
@@ -576,4 +544,127 @@ module.exports = {
       });
     }
   },
+
+  // managers requests
+  getAllCustomersForManager: async (req, res) => {
+    console.log("API GET request : get all customers - For managers".new_request);
+
+    try {
+      const users = await User.find({ role: "user" });
+
+      if (!users.length) {
+        console.log("No users found".step_done);
+        return res.status(200).json({
+          success: true,
+          message: "No users found",
+          users: [],
+        });
+      }
+
+      console.log("All users retrieved successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "Customers retrieved successfully - for managers",
+        users,
+      });
+    } catch (error) {
+      console.log(("error in getAll users request : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get all customers request - for managers",
+        error: error.message,
+      });
+    }
+  },
+
+  getCustomerByIdForManager: async (req, res) => {
+    console.log(`API GET request : get User by ID ${req.params.id} - for manager`.new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        return res.status(400).json({
+          message: "User ID is required",
+        });
+      }
+
+      console.log("User ID is available".step_done);
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      console.log("User found".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User retrieved successfully - for managers",
+        user,
+      });
+    } catch (error) {
+      console.log(("error in get user by ID request: " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in get user by ID request - for managers",
+        error: error.message,
+      });
+    }
+  },
+
+  updateUserByIdForManager: async (req, res) => {
+    console.log(`API PUT request : update user ${req.params.id} - for manager`.new_request);
+
+    try {
+      const userId = req.params.id;
+      const { username, email, phone_number } = req.body;
+
+      console.log("Updating fields are available".step_done);
+
+      const updatedFields = {};
+
+      if (username) {
+        updatedFields.username = username;
+      }
+
+      if (email) {
+        updatedFields.email = email;
+      }
+
+      if (phone_number) {
+        updatedFields.phone_number = phone_number;
+      }
+
+      const user = await User.findOneAndUpdate({ _id: userId }, updatedFields, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (!user) {
+        console.log(`User with ID ${userId} not found`.failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      console.log(`User with ID ${userId} updated successfully`.success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User updated successfully - for managers",
+      });
+    } catch (error) {
+      console.log(("Error in update request: " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in update user request - for managers",
+        error: error.message,
+      });
+    }
+  },
+
+  //_________________________________________________________________________________
 };

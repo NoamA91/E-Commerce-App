@@ -13,8 +13,11 @@ import {
     Button
 } from '@chakra-ui/react';
 import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const UsersTable = ({ users }) => {
+    const navigate = useNavigate();
+
     return (
         <>
             <Button
@@ -43,7 +46,9 @@ const UsersTable = ({ users }) => {
                                 <Td>{user.phone_number}</Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">
-                                        <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}>
+                                        <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
+                                            onClick={() => navigate(`../users/edit-user/${user._id}`)}
+                                        >
                                             Edit
                                         </Button>
                                         <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost">

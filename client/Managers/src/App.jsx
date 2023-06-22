@@ -11,6 +11,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
 import Root from "./pages/Root";
+import EditUser from "./pages/privatePages/Users/EditUser";
 
 const Users = lazy(() => import("./pages/privatePages/Users/Users"))
 const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
@@ -37,6 +38,7 @@ function App() {
 
           <Route path='/users'>
             <Route index element={<Users />} />
+            <Route path="edit-user/:user_id" element={<EditUser />} />
           </Route>
 
           <Route path='/products'>

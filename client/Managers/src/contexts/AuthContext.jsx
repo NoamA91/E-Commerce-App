@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
                         });
                     const data = await response.data;
 
-                    console.log(data);
 
                     if (!data.success) {
                         removeCookies('token');

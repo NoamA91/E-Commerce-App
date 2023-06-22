@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import useFetchGet from "../../../hooks/useFetchGet";
-import axios from "axios";
 import { Alert, AlertIcon, Flex, Spinner } from "@chakra-ui/react";
 import UsersTable from "../../../components/partials/users/UsersTable"
-const users_url = `${import.meta.env.VITE_SERVER_URL}/users/getAllForManager`;
 
-// import.meta.env.VITE_USERS_URL - this is how to import env variables in Vite
+const users_url = `${import.meta.env.VITE_SERVER_URL}/users/managers/getAllForManager`;
 
 const Users = () => {
   const [users, setUsers] = useState([]);
