@@ -15,8 +15,8 @@ const {
   getAll,
   deleteById,
   changePassword,
-  getAllCustomersForManager,
-  getCustomerByIdForManager,
+  getAllUsersForManager,
+  getUserByIdForManager,
   updateUserByIdForManager
 } = require("../controllers/users_controller");
 
@@ -73,9 +73,9 @@ router.get("/managers/getById/:id", getManagerById);
 router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
 router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
-router.get('/managers/getAllForManager', managerAuth, getAllCustomersForManager);
-router.get('/customer-by-id-for-manager/:user_id', managerAuth, getCustomerByIdForManager);
-router.put('/update-user-for-managers/:user_id', managerAuth, updateUserByIdForManager);
+router.get('/managers/getAllForManager', managerAuth, getAllUsersForManager);
+router.get('/managers/getUserByIdForManager/:id'/* , managerAuth */, getUserByIdForManager);
+router.put('/managers/updateCustomerByIdForManager/:id', managerAuth, updateUserByIdForManager);
 
 
 // admins requests from admins controller

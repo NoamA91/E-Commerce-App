@@ -7,17 +7,17 @@ const SidebarContent = ({ onClose }) => {
     // useLocation hook gives access to the current location.
     const location = useLocation();
 
-    // We define a mapping from paths to labels.
-    const pathToLabel = {
+    // We define a mapping from path prefixes to labels.
+    const pathPrefixToLabel = {
         '/dashboard': 'Dashboard',
         '/users': 'Users',
-        // '/users/edit-user/:id': 'Users',
         '/products': 'Products',
         '/orders': 'Orders',
     };
 
     // The active label is derived from the current path.
-    const active = pathToLabel[location.pathname];
+    const activePrefix = Object.keys(pathPrefixToLabel).find(prefix => location.pathname.startsWith(prefix));
+    const active = pathPrefixToLabel[activePrefix];
 
     return (
         <Flex

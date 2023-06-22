@@ -546,8 +546,8 @@ module.exports = {
   },
 
   // managers requests
-  getAllCustomersForManager: async (req, res) => {
-    console.log("API GET request : get all customers - For managers".new_request);
+  getAllUsersForManager: async (req, res) => {
+    console.log("API GET request : get all users - For managers".new_request);
 
     try {
       const users = await User.find({ role: "user" });
@@ -577,8 +577,8 @@ module.exports = {
     }
   },
 
-  getCustomerByIdForManager: async (req, res) => {
-    console.log(`API GET request : get User by ID ${req.params.id} - for manager`.new_request);
+  getUserByIdForManager: async (req, res) => {
+    console.log(`API GET request : get user by ID ${req.params.id} - for manager`.new_request);
 
     try {
       const userId = req.params.id;
