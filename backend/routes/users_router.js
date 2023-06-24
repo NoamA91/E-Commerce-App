@@ -77,7 +77,7 @@ router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById)
 router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
 router.get('/managers/getAllForManager', managerAuth, getAllUsersForManager);
 router.get('/managers/getUserByIdForManager/:id'/* , managerAuth */, getUserByIdForManager);
-router.put('/managers/updateCustomerByIdForManager/:id', managerAuth, updateUserByIdForManager);
+router.put('/managers/updateUserByIdForManager/:id', managerAuth, updateUserByIdForManager);
 router.post('/managers/addUserForManager', managerAuth, addUserForManager);
 router.delete('/managers/deleteUserByIdForManager/:id', managerAuth, deleteUserByIdForManager);
 

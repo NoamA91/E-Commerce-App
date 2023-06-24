@@ -67,11 +67,6 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
             const response = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/users/managers/addUserForManager`,
                 values,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                }
             )
 
             if (!response.data.success) {
