@@ -78,7 +78,6 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
                 throw new Error(response.data.message);
             }
 
-            console.log(response);
             handleUserAdded(response.data.new_user);
 
             toast({
@@ -119,7 +118,7 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} size='2xl'>
-            <ModalOverlay bg='blackAlpha.300' backdropFilter='blur(10px)' />
+            <ModalOverlay bg='blackAlpha.500' backdropFilter='blur(1px)' />
             <ModalContent>
                 <ModalHeader>Add User Form</ModalHeader>
                 <ModalCloseButton />

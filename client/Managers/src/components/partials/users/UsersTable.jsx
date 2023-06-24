@@ -13,16 +13,24 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
+    AlertDialog,
+    AlertDialogOverlay,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogBody,
+    AlertDialogFooter
 } from '@chakra-ui/react';
 import { FiChevronDown, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import AddUserForm from './AddUserForm';
 import { useDisclosure } from '@chakra-ui/react';
+import { useState } from 'react';
 
-const UsersTable = ({ users, handleUserAdded }) => {
+const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const alertDialogState = useDisclosure();
+    const [userToDelete, setUserToDelete] = useState(null);
 
     return (
         <>
@@ -65,7 +73,12 @@ const UsersTable = ({ users, handleUserAdded }) => {
                                         >
                                             Edit
                                         </Button>
-                                        <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost">
+                                        <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
+                                            onClick={() => {
+                                                setUserToDelete(user._id);
+                                                alertDialogState.onOpen();
+                                            }}
+                                        >
                                             Delete
                                         </Button>
                                     </Box>
@@ -77,8 +90,39 @@ const UsersTable = ({ users, handleUserAdded }) => {
             </TableContainer >
 
             <AddUserForm isOpen={isOpen} onClose={onClose} handleUserAdded={handleUserAdded} />
-        </>
 
+
+            <AlertDialog
+                isOpen={alertDialogState.isOpen}
+                onClose={() => {
+                    setUserToDelete(null);
+                    alertDialogState.onClose();
+                }}
+            >
+                <AlertDialogOverlay backdropFilter='blur(1px)'>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                            Delete Customer
+                        </AlertDialogHeader>
+                        <AlertDialogBody>
+                            Are you sure? You can't undo this action afterwards.
+                        </AlertDialogBody>
+                        <AlertDialogFooter>
+                            <Button onClick={alertDialogState.onClose}>
+                                Cancel
+                            </Button>
+                            <Button colorScheme='red' onClick={() => {
+                                deleteUser(userToDelete);
+                                setUserToDelete(null);
+                                alertDialogState.onClose();
+                            }} ml={3}>
+                                Yes
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent >
+                </AlertDialogOverlay >
+            </AlertDialog >
+        </>
     );
 };
 

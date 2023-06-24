@@ -670,11 +670,11 @@ module.exports = {
     console.log("API POST request : add user - For managers".new_request);
 
     try {
-      const { 
-        username, 
-        email, 
-        password, 
-        password_confirm, 
+      const {
+        username,
+        email,
+        password,
+        password_confirm,
         phone_number,
         address
       } = req.body;
@@ -691,7 +691,7 @@ module.exports = {
       // Check if passwords match
       if (password !== password_confirm) {
         console.log("passwords are match".failed_request);
-         return res.status(400).json({
+        return res.status(400).json({
           message: "Passwords do not match",
         })
       }
@@ -724,12 +724,8 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User added successfully - for managers",
-        new_user: {
-          _id: new_user._id,
-          username: new_user.username,
-          email: new_user.email,
-          phone_number: new_user.phone_number
-      }});
+        new_user
+      });
     } catch (error) {
       console.log(("error in add user request - for managers : " + error).failed_request);
       return res.status(500).json({
@@ -739,5 +735,42 @@ module.exports = {
     }
   },
 
+  deleteUserByIdForManager: async (req, res) => {
+    console.log(`API DELETE request : delete user ${req.params.id} - for manager`.new_request);
+
+    try {
+      const userId = req.params.id;
+
+      if (!userId) {
+        return res.status(400).json({
+          message: "User ID is required",
+        });
+      }
+
+      console.log("User ID is available".step_done);
+
+      const user = await User.findByIdAndDelete(userId);
+
+      if (!user) {
+        console.log("User not found".failed_request);
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+
+      console.log("User deleted successfully".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User deleted successfully - for managers",
+      });
+    } catch (error) {
+      console.log(("error in delete user request - for managers : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in delete user request - for managers",
+        error: error.message,
+      });
+    }
+  },
   //_________________________________________________________________________________
-};
+}

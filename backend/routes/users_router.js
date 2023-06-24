@@ -18,7 +18,8 @@ const {
   getAllUsersForManager,
   getUserByIdForManager,
   updateUserByIdForManager,
-  addUserForManager
+  addUserForManager,
+  deleteUserByIdForManager
 } = require("../controllers/users_controller");
 
 // managers functions
@@ -78,6 +79,7 @@ router.get('/managers/getAllForManager', managerAuth, getAllUsersForManager);
 router.get('/managers/getUserByIdForManager/:id'/* , managerAuth */, getUserByIdForManager);
 router.put('/managers/updateCustomerByIdForManager/:id', managerAuth, updateUserByIdForManager);
 router.post('/managers/addUserForManager', managerAuth, addUserForManager);
+router.delete('/managers/deleteUserByIdForManager/:id', managerAuth, deleteUserByIdForManager);
 
 
 // admins requests from admins controller

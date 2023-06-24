@@ -1,8 +1,16 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/User"); // import the User model
+const User = require("../models/User");
+const colors = require("colors");
+
+colors.setTheme({
+  new_request: "orange",
+  success_request: "green",
+  failed_request: "red",
+  step_done: "blue",
+});
 
 const managerAuth = async (req, res, next) => {
-
+  console.log("Manager auth middleware".new_request);
   const authHeader = req.header("Authorization");
   const token = authHeader && authHeader.split(" ")[1];
 
