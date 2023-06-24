@@ -666,5 +666,78 @@ module.exports = {
     }
   },
 
+  addUserForManager: async (req, res) => {
+    console.log("API POST request : add user - For managers".new_request);
+
+    try {
+      const { 
+        username, 
+        email, 
+        password, 
+        password_confirm, 
+        phone_number,
+        address
+      } = req.body;
+
+      // Check if all fields are provided
+      if (!username || !email || !password || !password_confirm) {
+        return res.status(400).json({
+          message: "All fields are required",
+        })
+      }
+
+      console.log("all fields are provided".step_done);
+
+      // Check if passwords match
+      if (password !== password_confirm) {
+        console.log("passwords are match".failed_request);
+         return res.status(400).json({
+          message: "Passwords do not match",
+        })
+      }
+
+      console.log("passwords are match".step_done);
+
+      // Check if a user with the same email already exists
+      const user = await User.findOne({ email });
+
+      if (user) {
+        console.log("User with the same email already exists".failed_request);
+        return res.status(400).json({
+          message: "User with the same email already exists",
+        });
+      }
+
+      // Create and save the new user
+      const new_user = new User({
+        username,
+        email,
+        password,
+        phone_number: phone_number || "",
+        address
+      });
+
+      await new_user.save();
+
+      console.log("user added successfully - by manager".success_request);
+
+      return res.status(200).json({
+        success: true,
+        message: "User added successfully - for managers",
+        new_user: {
+          _id: new_user._id,
+          username: new_user.username,
+          email: new_user.email,
+          phone_number: new_user.phone_number
+      }});
+    } catch (error) {
+      console.log(("error in add user request - for managers : " + error).failed_request);
+      return res.status(500).json({
+        message: "Error in add user request - for managers",
+        error: error.message,
+      });
+    }
+  },
+
   //_________________________________________________________________________________
 };

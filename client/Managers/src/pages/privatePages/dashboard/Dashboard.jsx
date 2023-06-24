@@ -1,16 +1,11 @@
 import React from 'react';
 import {
-  Box,
   Stat,
   StatLabel,
   StatNumber,
   StatHelpText,
   StatArrow,
   StatGroup,
-  VStack,
-  Center,
-  Container,
-  HStack,
   Flex,
 } from '@chakra-ui/react';
 import { Bar, Doughnut } from 'react-chartjs-2';

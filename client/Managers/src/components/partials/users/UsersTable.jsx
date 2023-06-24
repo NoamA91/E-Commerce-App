@@ -2,33 +2,47 @@ import {
     Table,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
     TableCaption,
     TableContainer,
-    Container,
     Box,
-    Button
+    Button,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
 } from '@chakra-ui/react';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+import { FiChevronDown, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import AddUserForm from './AddUserForm';
+import { useDisclosure } from '@chakra-ui/react';
 
-const UsersTable = ({ users }) => {
+const UsersTable = ({ users, handleUserAdded }) => {
     const navigate = useNavigate();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
 
     return (
         <>
-            <Button
-                mt={10}
-                colorScheme="teal"
-                float='right'
-                mr={10}
-            >
-                Add User
-            </Button>
-            <TableContainer h='100vh' w="full" mt={10}>
+            <Menu>
+                <MenuButton
+                    as={Button}
+                    colorScheme="teal"
+                    rightIcon={<FiChevronDown />}
+                    mt={10}
+                    float='right'
+                    mr={10}
+                >
+                    Actions
+                </MenuButton>
+                <MenuList>
+                    <MenuItem onClick={onOpen}>Add User</MenuItem>
+                    <MenuItem>Add Manager</MenuItem>
+                </MenuList>
+            </Menu>
+            <TableContainer h='100vh' w="full" mt={100}>
                 <Table variant="striped">
                     <TableCaption>Users Information</TableCaption>
                     <Thead>
@@ -61,6 +75,8 @@ const UsersTable = ({ users }) => {
                     </Tbody>
                 </Table>
             </TableContainer >
+
+            <AddUserForm isOpen={isOpen} onClose={onClose} handleUserAdded={handleUserAdded} />
         </>
 
     );
