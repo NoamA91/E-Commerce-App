@@ -50,7 +50,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                     <MenuItem>Add Manager</MenuItem>
                 </MenuList>
             </Menu>
-            <TableContainer h='100vh' w="full" mt={100}>
+            <TableContainer h='100vh' w="full" mt={100} >
                 <Table variant="striped">
                     <TableCaption>Users Information</TableCaption>
                     <Thead>
@@ -111,11 +111,15 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                             <Button onClick={alertDialogState.onClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme='red' onClick={() => {
-                                deleteUser(userToDelete);
-                                setUserToDelete(null);
-                                alertDialogState.onClose();
-                            }} ml={3}>
+                            <Button
+                                colorScheme='red'
+                                ml={3}
+                                onClick={() => {
+                                    deleteUser(userToDelete);
+                                    setUserToDelete(null);
+                                    alertDialogState.onClose();
+                                }}
+                            >
                                 Yes
                             </Button>
                         </AlertDialogFooter>

@@ -5,7 +5,6 @@ import {
     Flex,
     VStack,
     Box,
-    ModalFooter,
     Button,
     useToast,
     Container,

@@ -100,7 +100,7 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
             onClose();
         } catch (error) {
             toast({
-                title: 'Error',
+                title: error.response.data.message ? error.response.data.message : 'Error',
                 description: error.response.data.error,
                 status: 'error',
                 duration: 3000,

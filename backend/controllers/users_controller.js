@@ -713,7 +713,7 @@ module.exports = {
         username,
         email,
         password,
-        phone_number: phone_number || "",
+        phone_number,
         address
       });
 

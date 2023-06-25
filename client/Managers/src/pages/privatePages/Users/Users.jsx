@@ -54,6 +54,7 @@ import useFetchGet from "../../../hooks/useFetchGet";
 import { Alert, AlertIcon, Flex, Spinner, useToast } from "@chakra-ui/react";
 import UsersTable from "../../../components/partials/users/UsersTable"
 import axios from "axios";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const users_url = `${import.meta.env.VITE_SERVER_URL}/users/managers/getAllForManager`;
 
@@ -63,6 +64,7 @@ const Users = () => {
   const toast = useToast();
 
   const deleteUser = async (id) => {
+    setDeleteLoading(true)
     try {
       const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/users/managers/deleteUserByIdForManager/${id}`);
 
@@ -78,8 +80,8 @@ const Users = () => {
         isClosable: true,
       });
 
-      data.users = data.users.filter((user) => user._id !== id);
-      setUsers(data.users);
+      const updatedUsers = data.users.filter((user) => user._id !== id);
+      setUsers(updatedUsers);
 
     } catch (error) {
       toast({
@@ -99,19 +101,12 @@ const Users = () => {
   }, [data]);
 
   const handleUserAdded = (newUser) => {
-    setUsers((prevUsers) => [newUser, ...prevUsers]);
+    setUsers((prevUsers) => [...prevUsers, newUser]);
   };
 
   if (loading) {
     return (
-      <Flex
-        w='100%'
-        h='100vh'
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Spinner size='xl' />
-      </Flex>
+      <LoadingSpinner />
     )
   }
 
@@ -127,7 +122,11 @@ const Users = () => {
   return (
     <>
       {users && (
-        <UsersTable users={users} handleUserAdded={handleUserAdded} deleteUser={deleteUser} />
+        <UsersTable
+          users={users} h
+          andleUserAdded={handleUserAdded}
+          deleteUser={deleteUser}
+        />
       )}
     </>
   )
