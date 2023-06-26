@@ -151,6 +151,7 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
                                         name="password"
                                         onChange={handleChange}
                                         type="password"
+                                        autoComplete="new-password"
                                     />
                                 </FormControl>
 
@@ -162,6 +163,7 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
                                         name="password_confirm"
                                         onChange={handleChange}
                                         type="password"
+                                        autoComplete="new-password"
                                     />
                                 </FormControl>
 

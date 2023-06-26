@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import LoginForm from "../../components/partials/LoginForm";
+import LoginForm from "../../components/LoginForm";
 import { Box } from "@chakra-ui/layout";
 
 function Login({ logged }) {

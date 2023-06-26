@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FiEye, FiEyeOff } from "react-icons/fi"
 import React, { useContext, useState } from 'react'
-import AuthContext from '../../contexts/AuthContext'
+import AuthContext from '../contexts/AuthContext'
 
 const LoginForm = () => {
     const { login } = useContext(AuthContext.AuthContext);
