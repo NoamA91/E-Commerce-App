@@ -91,10 +91,9 @@ const EditUserForm = ({ user }) => {
             navigate("../");
 
         } catch (error) {
-            console.log(error);
             toast({
-                title: 'Error',
-                description: error.data.error,
+                title: error.response.data.message ? error.response.data.message : 'Error',
+                description: error.response.data.error,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,

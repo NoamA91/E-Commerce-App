@@ -30,7 +30,12 @@ const user_schema = new Schema(
     phone_number: {
       type: String,
       validate: {
-        validator: (value) => validator.isMobilePhone(value),
+        validator: (value) => {
+          if (value === "") {
+            return true;
+          }
+          return validator.isMobilePhone(value);
+        },
         message: "Phone number is invalid.",
       },
     },

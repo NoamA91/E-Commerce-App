@@ -635,7 +635,7 @@ module.exports = {
         updatedFields.email = email;
       }
 
-      if (phone_number) {
+      if (phone_number !== undefined) {
         updatedFields.phone_number = phone_number;
       }
 
