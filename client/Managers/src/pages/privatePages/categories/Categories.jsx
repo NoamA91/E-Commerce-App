@@ -5,6 +5,7 @@ import useFetchGet from '../../../hooks/useFetchGet'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { Alert, AlertIcon, useToast } from '@chakra-ui/react'
 import axios from "axios";
+import ErrorAlert from '../../../components/ErrorAlert'
 
 import CategoriesTable from '../../../components/partials/categories/CategoriesTable'
 
@@ -47,27 +48,16 @@ const Categories = () => {
         if (data) {
             setCategories(data.categories);
         }
-    }, [data]);;
+    }, [data]);
 
     const handleCategoryAdded = (newCategory) => {
         setCategories((prevCategories) => [...prevCategories, newCategory]);
     };
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
-
-    if (error) {
-        return (
-            <Alert status='error'>
-                <AlertIcon />
-                {error.message}
-            </Alert>
-        )
-    }
-
     return (
         <>
+            {loading && <LoadingSpinner />}
+            {error && <ErrorAlert error={error} />}
             {categories && (
                 <CategoriesTable
                     categories={categories}

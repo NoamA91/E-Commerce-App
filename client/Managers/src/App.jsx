@@ -12,7 +12,7 @@ import AuthContext from "./contexts/AuthContext";
 
 const Root = lazy(() => import("./pages/Root"))
 const Users = lazy(() => import("./pages/privatePages/Users/Users"))
-const EditUser = lazy(() => import("./components/partials/users/EditUserForm"))
+const EditUser = lazy(() => import("./pages/privatePages/Users/EditUser"))
 const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
 const Products = lazy(() => import("./pages/privatePages/Products/Products"))
 const Categories = lazy(() => import("./pages/privatePages/categories/Categories"))

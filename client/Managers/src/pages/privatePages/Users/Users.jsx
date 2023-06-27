@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import useFetchGet from "../../../hooks/useFetchGet";
-import { Alert, AlertIcon, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import UsersTable from "../../../components/partials/users/UsersTable"
 import axios from "axios";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import ErrorAlert from "../../../components/ErrorAlert";
 
 const users_url = `${import.meta.env.VITE_SERVER_URL}/users/managers/getAllForManager`;
 
@@ -52,23 +53,10 @@ const Users = () => {
     setUsers((prevUsers) => [...prevUsers, newUser]);
   };
 
-  if (loading) {
-    return (
-      <LoadingSpinner />
-    )
-  }
-
-  if (error) {
-    return (
-      <Alert status='error'>
-        <AlertIcon />
-        {error.message}
-      </Alert>
-    )
-  }
-
   return (
     <>
+      {loading && <LoadingSpinner />}
+      {error && <ErrorAlert error={error} />}
       {users && (
         <UsersTable
           users={users}
