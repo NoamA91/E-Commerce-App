@@ -10,12 +10,13 @@ import {
 import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
-import Root from "./pages/Root";
-import EditUser from "./pages/privatePages/Users/EditUser";
-
+const Root = lazy(() => import("./pages/Root"))
 const Users = lazy(() => import("./pages/privatePages/Users/Users"))
+const EditUser = lazy(() => import("./components/partials/users/EditUserForm"))
 const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
 const Products = lazy(() => import("./pages/privatePages/Products/Products"))
+const Categories = lazy(() => import("./pages/privatePages/categories/Categories"))
+const EditCategory = lazy(() => import("./components/partials/categories/EditCategory"))
 const Orders = lazy(() => import("./pages/privatePages/Orders/Orders"))
 const Login = lazy(() => import("./pages/publicPages/Login"))
 const NotFoundPage = lazy(() => import("./pages/privatePages/NotFoundPage"))
@@ -39,6 +40,11 @@ function App() {
           <Route path='/users'>
             <Route index element={<Users />} />
             <Route path="edit-user/:user_id" element={<EditUser />} />
+          </Route>
+
+          <Route path='/categories'>
+            <Route index element={<Categories />} />
+            <Route path="edit-category/:category_id" element={<EditCategory />} />
           </Route>
 
           <Route path='/products'>

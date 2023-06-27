@@ -13,11 +13,11 @@ const {
 
 
 // managers requests
-router.get('/managers/all', getAllCategoriesForManagers);
-router.get('/managers/get-by-id/:id', getCategoryByIdForManagers);
-router.post('/managers/add-category', addNewCategoryForManagers);
-router.delete('/managers/delete-category/:id', deleteCategoryByIdForManagers);
-router.put('/managers/update-category/:id', updateCategoryByIdForManagers);
+router.get('/managers/all', managerAuth, getAllCategoriesForManagers);
+router.get('/managers/get-by-id/:id', managerAuth, getCategoryByIdForManagers);
+router.post('/managers/add-category', managerAuth, addNewCategoryForManagers);
+router.delete('/managers/delete-category/:id', managerAuth, deleteCategoryByIdForManagers);
+router.put('/managers/update-category/:id', managerAuth, updateCategoryByIdForManagers);
 
 
 module.exports = router;

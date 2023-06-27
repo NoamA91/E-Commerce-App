@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { FiHome, FiUsers, FiBook, FiBox } from "react-icons/fi";
+import { FiHome, FiUsers, FiBook, FiBox, FiGrid } from "react-icons/fi";
 import SidebarItem from './SidebarItem';
 import { useLocation } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ const SidebarContent = ({ onClose }) => {
     const pathPrefixToLabel = {
         '/dashboard': 'Dashboard',
         '/users': 'Users',
+        '/categories': 'Categories',
         '/products': 'Products',
         '/orders': 'Orders',
     };
@@ -27,6 +28,7 @@ const SidebarContent = ({ onClose }) => {
         >
             <SidebarItem icon={FiHome} label="Dashboard" to="/dashboard" onClose={onClose} active={active} />
             <SidebarItem icon={FiUsers} label="Users" to="/users" onClose={onClose} active={active} />
+            <SidebarItem icon={FiGrid} label="Categories" to="/categories" onClose={onClose} active={active} />
             <SidebarItem icon={FiBox} label="Products" to="/products" onClose={onClose} active={active} />
             <SidebarItem icon={FiBook} label="Orders" to="/orders" onClose={onClose} active={active} />
         </Flex>

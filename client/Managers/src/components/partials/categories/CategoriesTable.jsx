@@ -18,68 +18,55 @@ import {
     AlertDialogContent,
     AlertDialogHeader,
     AlertDialogBody,
-    AlertDialogFooter
+    AlertDialogFooter,
+    useDisclosure
 } from '@chakra-ui/react';
-import { FiChevronDown, FiEdit2, FiTrash2 } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
-import AddUserForm from './AddUserForm';
-import { useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
+import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import AddCategoryForm from './AddCategoryForm'
 
-const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
+const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const alertDialogState = useDisclosure();
-    const [userToDelete, setUserToDelete] = useState(null);
+    const [categoryToDelete, setCategoryToDelete] = useState(null);
 
     return (
         <>
-            <Menu>
-                <MenuButton
-                    as={Button}
-                    colorScheme="teal"
-                    rightIcon={<FiChevronDown />}
-                    mt={10}
-                    float='right'
-                    mr={10}
-                >
-                    Actions
-                </MenuButton>
-                <MenuList>
-                    <MenuItem onClick={onOpen}>Add User</MenuItem>
-                    <MenuItem>Add Manager</MenuItem>
-                </MenuList>
-            </Menu>
-            <TableContainer h='100vh' mt={120} >
+            <Button
+                colorScheme='teal'
+                p='4'
+                leftIcon={<FiPlusCircle fontSize={25} />}
+                mt={10}
+                float='right'
+                mr={10}
+                onClick={onOpen}
+            >Add Category</Button>
+            <TableContainer h='100vh' mt={100} >
                 <Table variant="striped">
-                    <TableCaption>Users Information</TableCaption>
+                    <TableCaption>Categories Information</TableCaption>
                     <Thead>
                         <Tr>
-                            <Th>Username</Th>
-                            <Th>Email</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>Phone Number</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>City</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>Street</Th>
+                            <Th>Animal Type</Th>
+                            <Th>Name</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {users.map((user) => (
-                            <Tr key={user._id}>
-                                <Td>{user.username}</Td>
-                                <Td>{user.email}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
+                        {categories.map((category) => (
+                            <Tr key={category._id}>
+                                <Td>{category.animal_type}</Td>
+                                <Td>{category.name}</Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">
                                         <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
-                                            onClick={() => navigate(`../users/edit-user/${user._id}`)}
+                                            onClick={() => navigate(`../categories/edit-category/${category._id}`)}
                                         >
                                             Edit
                                         </Button>
                                         <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
                                             onClick={() => {
-                                                setUserToDelete(user._id);
+                                                setCategoryToDelete(category._id);
                                                 alertDialogState.onOpen();
                                             }}
                                         >
@@ -93,23 +80,23 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                 </Table>
             </TableContainer >
 
-            <AddUserForm isOpen={isOpen} onClose={onClose} handleUserAdded={handleUserAdded} />
+            <AddCategoryForm isOpen={isOpen} onClose={onClose} handleCategoryAdded={handleCategoryAdded} />
 
 
             <AlertDialog
                 isOpen={alertDialogState.isOpen}
                 onClose={() => {
-                    setUserToDelete(null);
+                    setCategoryToDelete(null);
                     alertDialogState.onClose();
                 }}
             >
                 <AlertDialogOverlay backdropFilter='blur(1px)'>
                     <AlertDialogContent>
                         <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                            Delete Customer
+                            Delete Category
                         </AlertDialogHeader>
                         <AlertDialogBody>
-                            Are you sure? You can't undo this action afterwards.
+                            Are you sure to the delete? You can't undo this action afterwards.
                         </AlertDialogBody>
                         <AlertDialogFooter>
                             <Button onClick={alertDialogState.onClose}>
@@ -119,8 +106,8 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                                 colorScheme='red'
                                 ml={3}
                                 onClick={() => {
-                                    deleteUser(userToDelete);
-                                    setUserToDelete(null);
+                                    deleteCategory(categoryToDelete);
+                                    setCategoryToDelete(null);
                                     alertDialogState.onClose();
                                 }}
                             >
@@ -131,7 +118,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                 </AlertDialogOverlay >
             </AlertDialog >
         </>
-    );
-};
+    )
+}
 
-export default UsersTable;
+export default CategoriesTable

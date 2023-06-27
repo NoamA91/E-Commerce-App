@@ -63,15 +63,15 @@ module.exports = {
         console.log("API POST request - add new category for managers".new_request);
         try {
             const { name, animal_type } = req.body;
-            const category = new Category({ name, animal_type });
+            const new_category = new Category({ name, animal_type });
 
-            await category.save();
+            await new_category.save();
 
             console.log("Success to add new category".success_request);
             return res.status(201).json({
                 success: true,
                 message: `Success to add new category - for managers`,
-                category,
+                new_category,
             });
         } catch (error) {
             console.log(`Error in add new category - ${error}`.failed_request);
