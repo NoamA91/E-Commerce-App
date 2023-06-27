@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Category = require("../models/Category");
 const colors = require("colors");
 
 colors.setTheme({
@@ -260,6 +261,15 @@ module.exports = {
         });
       }
 
+      // Verify that the category exists
+      const categoryRecord = await Category.findById(category);
+      if (!categoryRecord) {
+        console.log(`Category with ID ${category} not found`.failed_request);
+        return res.status(404).json({
+          message: `Category with ID ${category} not found`,
+        });
+      }
+
       console.log("All product fields provided by manager".step_done);
 
       const newProduct = new Product({
@@ -299,6 +309,17 @@ module.exports = {
         return res.status(404).json({
           message: `Product with ID ${product_id} not found`,
         });
+      }
+
+      // Verify that the new category exists if it's provided
+      if (req.body.category) {
+        const categoryRecord = await Category.findById(req.body.category);
+        if (!categoryRecord) {
+          console.log(`Category with ID ${req.body.category} not found`.failed_request);
+          return res.status(404).json({
+            message: `Category with ID ${req.body.category} not found`,
+          });
+        }
       }
 
       console.log(`Product with ID ${product_id} found`.step_done);

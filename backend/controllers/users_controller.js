@@ -621,22 +621,26 @@ module.exports = {
 
     try {
       const userId = req.params.id;
-      const { username, email, phone_number } = req.body;
+      const { username, email, phone_number, address } = req.body;
 
       console.log("Updating fields are available".step_done);
 
       const updatedFields = {};
 
-      if (username) {
+      if (username !== undefined) {
         updatedFields.username = username;
       }
 
-      if (email) {
+      if (email !== undefined) {
         updatedFields.email = email;
       }
 
       if (phone_number !== undefined) {
         updatedFields.phone_number = phone_number;
+      }
+
+      if (address !== undefined) {
+        updatedFields.address = address;
       }
 
       const user = await User.findOneAndUpdate({ _id: userId }, updatedFields, {

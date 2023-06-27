@@ -49,12 +49,22 @@ const user_schema = new Schema(
         trim: true
       },
       building: {
-        type: String,
-        trim: true
+        type: Number,
+        trim: true,
+        validate: {
+          validator: function (value) {
+            return value == null || Number.isInteger(value);
+          },
+          message: 'Building should be a number.'
+        }
       },
       appartment: {
-        type: String,
-        trim: true
+        type: Number,
+        trim: true,
+        validate: function (value) {
+          return value == null || Number.isInteger(value);
+        },
+        message: 'Appartment should be a number.'
       }
     },
     role: {
