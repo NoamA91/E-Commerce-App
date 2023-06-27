@@ -5,10 +5,13 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
+
 const usersRouter = require("./routes/users_router");
 const productsRouter = require("./routes/products_router");
 const ordersRouter = require("./routes/orders_router");
 const cartsRouter = require("./routes/carts_router");
+const categoriesRouter = require("./routes/categories_router");
+
 
 const app = express();
 
@@ -32,5 +35,6 @@ app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 app.use("/orders", ordersRouter);
 app.use("/carts", cartsRouter);
+app.use("/categories", categoriesRouter);
 
 module.exports = app;

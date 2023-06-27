@@ -25,7 +25,8 @@ const product_schema = new Schema(
       min: 0,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
       required: [true, "Category is required."],
     },
     count_in_stock: {
