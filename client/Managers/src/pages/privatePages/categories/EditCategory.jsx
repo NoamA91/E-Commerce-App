@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom"
-import EditUserForm from '../../../components/partials/users/EditUserForm'
+import EditCategoryForm from '../../../components/partials/categories/EditCategoryForm'
 import useFetchGet from '../../../hooks/useFetchGet';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import ErrorAlert from '../../../components/ErrorAlert';
 import { Box } from '@chakra-ui/react';
 
-const EditUser = () => {
-    const { user_id } = useParams();
-    const [user, setUser] = useState();
-    const edit_user_url = `${import.meta.env.VITE_SERVER_URL}/users/managers/getUserByIdForManager/${user_id}`;
-    const [data, loading, error] = useFetchGet(edit_user_url);
+
+
+const EditCategory = () => {
+    const { category_id } = useParams();
+    const [category, setCategory] = useState(null);
+    const edit_category_url = `${import.meta.env.VITE_SERVER_URL}/categories/managers/get-by-id/${category_id}`;
+    const [data, error, loading] = useFetchGet(edit_category_url);
 
     useEffect(() => {
         if (data) {
-            setUser(data.user);
+            setCategory(data.category);
         }
     }, [data]);
 
@@ -22,9 +24,9 @@ const EditUser = () => {
         <>
             {loading && <LoadingSpinner />}
             {error && <Box h='100vh'><ErrorAlert error={error} /></Box>}
-            {user && <EditUserForm user={user} />}
+            {category && <EditCategoryForm category={category} />}
         </>
     )
 }
 
-export default EditUser
+export default EditCategory

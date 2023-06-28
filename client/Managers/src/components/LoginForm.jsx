@@ -19,11 +19,7 @@ const LoginForm = () => {
 
     const toast = useToast()
     const [show, setShow] = useState(false);
-
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -36,7 +32,6 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null);
         setLoading(true);
         try {
             const response = await login(
@@ -48,7 +43,6 @@ const LoginForm = () => {
                 throw new Error(response.message);
             }
 
-            setData(response.message);
             toast({
                 title: 'Login Successful',
                 description: "You are now logged in",
@@ -57,7 +51,6 @@ const LoginForm = () => {
                 isClosable: true,
             });
         } catch (error) {
-            setError(error.message);
             toast({
                 title: 'Error',
                 description: error.message,

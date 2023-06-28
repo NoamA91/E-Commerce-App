@@ -88,7 +88,11 @@ module.exports = {
             const categoryId = req.params.id;
             const { name, animal_type } = req.body;
 
-            const category = await Category.findByIdAndUpdate(categoryId, { name, animal_type }, { new: true }).exec();
+            const category = await Category.findByIdAndUpdate(
+                categoryId, 
+                { name, animal_type }, 
+                { new: true, runValidators: true 
+            }).exec();
 
             if (!category) {
                 console.log("Category not found".failed_request);

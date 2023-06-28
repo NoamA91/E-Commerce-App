@@ -10,9 +10,10 @@ import ErrorAlert from '../../../components/ErrorAlert'
 import CategoriesTable from '../../../components/partials/categories/CategoriesTable'
 
 const Categories = () => {
-    const [categories, setCategories] = useState([])
-    const [data, loading, error] = useFetchGet('http://localhost:3000/categories/managers/all');
     const toast = useToast();
+    const [categories, setCategories] = useState([])
+    const categories_url = `${import.meta.env.VITE_SERVER_URL}/categories/managers/all`;
+    const [data, loading, error] = useFetchGet(categories_url);
 
     const deleteCategory = async (id) => {
         try {

@@ -40,7 +40,7 @@ module.exports = {
       if (!isMatch) {
         console.log("Invalid password".failed_request);
         return res.status(401).json({
-          message: "Invalid password",
+          message: "Incorrect Email or password",
         });
       }
 
