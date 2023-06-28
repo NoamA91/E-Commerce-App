@@ -28,10 +28,10 @@ router.put("/updateById/:id", updateById);
 router.delete("/deleteById/:id", deleteById);
 
 // managers requests
-router.get("/managers/getAllForManagers" /* , managerAuth */, getAllForManagers);
-router.get("/managers/getByIdForManagers/:id" /* , managerAuth */, getByIdForManagers);
-router.post("/managers/addForManagers" /* , managerAuth */, addProductForManagers);
-router.put("/managers/updateByIdForManagers/:id" /* , managerAuth */, updateByIdForManagers);
-router.delete("/managers/deleteByIdForManagers/:id" /* , managerAuth */, deleteByIdForManagers);
+router.get("/managers/all" , managerAuth , getAllForManagers);
+router.get("/managers/get-by-id/:id", managerAuth, getByIdForManagers);
+router.post("/managers/add-product", managerAuth , addProductForManagers);
+router.put("/managers/update-product/:id" , managerAuth , updateByIdForManagers);
+router.delete("/managers/delete-product/:id" , managerAuth , deleteByIdForManagers);
 
 module.exports = router;

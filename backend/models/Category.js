@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const validator = require("validator");
 
 const category_schema = new Schema({
     name: {
@@ -7,20 +8,18 @@ const category_schema = new Schema({
         required: [true, "Category name is required"],
         trim: true,
         validate: {
-            validator: function(value) {
-                return typeof value === 'string' && value.trim().length > 0 && isNaN(value);
-            },
-            message: "Name should be a non-empty string and not a number"
+            validator: (value) => {
+                return validator.isAlpha(value) && value.trim().length > 0 && isNaN(value);
+            },  
         }
     },
     animal_type: {
         type: String,
         required: [true, "Animal type is required"],
         validate: {
-            validator: function(value) {
-                return typeof value === 'string' && value.trim().length > 0 && isNaN(value);
+            validator: (value) => {
+                return validator.isAlpha(value) && value.trim().length > 0 && isNaN(value);
             },
-            message: "Animal type should be a non-empty string and not a number"
         }
     }
 });
