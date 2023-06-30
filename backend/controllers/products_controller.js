@@ -272,7 +272,7 @@ module.exports = {
 
       console.log("All product fields provided by manager".step_done);
 
-      const newProduct = new Product({
+      const new_product = new Product({
         title,
         image,
         description,
@@ -281,13 +281,13 @@ module.exports = {
         count_in_stock,
       });
 
-      await newProduct.save();
+      await new_product.save();
 
       console.log("Product created successfully by manager".success_request);
       return res.status(201).json({
         success: true,
         message: "Product created successfully by manager",
-        product: newProduct,
+        product: new_product,
       });
     } catch (error) {
       console.log(`Create product error in manager request - ${error}`.failed_request);

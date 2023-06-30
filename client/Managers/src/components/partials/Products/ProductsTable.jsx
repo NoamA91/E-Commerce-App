@@ -22,7 +22,7 @@ import {
     useDisclosure
 } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import { FiPlusCircle } from 'react-icons/fi';
+import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import AddProductForm from './AddProductForm'
 

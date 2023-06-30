@@ -19,7 +19,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
-    const toast = useToast()
+    const toast = useToast();
     const [values, setValues] = useState({
         username: "",
         password: "",
