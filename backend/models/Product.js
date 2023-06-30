@@ -12,7 +12,7 @@ const product_schema = new Schema(
       {
         type: String,
         required: [true, "Image is required."],
-        // match: [/\.(jpg|jpeg|png)$/i, "must be a valid image link"],
+        match: [/\.(jpg|jpeg|png)$/i, "must be a valid image link"],
       },
     ],
     description: {

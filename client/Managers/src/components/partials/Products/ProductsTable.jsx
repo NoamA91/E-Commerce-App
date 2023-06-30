@@ -19,7 +19,8 @@ import {
     AlertDialogHeader,
     AlertDialogBody,
     AlertDialogFooter,
-    useDisclosure
+    useDisclosure,
+    Image
 } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
@@ -50,6 +51,7 @@ const ProductsTable = ({ products, handleProductAdded }) => {
                         <Tr>
                             <Th>Name</Th>
                             <Th>Animal Type</Th>
+                            <Th>Category</Th>
                             <Th>Description</Th>
                             <Th>Price</Th>
                             <Th>Image</Th>
@@ -59,10 +61,17 @@ const ProductsTable = ({ products, handleProductAdded }) => {
                         {products.map((product) => (
                             <Tr key={product._id}>
                                 <Td>{product.title}</Td>
-                                <Td>{product.category}</Td>
+                                <Td>{product.category.animal_type}</Td>
+                                <Td>{product.category.name}</Td>
                                 <Td>{product.description}</Td>
                                 <Td>{product.price}</Td>
-                                <Td>{product.image}</Td>
+                                <Td><Image
+                                    boxSize='100px'
+                                    objectFit='cover'
+                                    src={product.image}
+                                    alt={product.title}
+                                />
+                                </Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">
                                         <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}

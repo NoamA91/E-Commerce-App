@@ -287,7 +287,7 @@ module.exports = {
       return res.status(201).json({
         success: true,
         message: "Product created successfully by manager",
-        product: new_product,
+        new_product
       });
     } catch (error) {
       console.log(`Create product error in manager request - ${error}`.failed_request);

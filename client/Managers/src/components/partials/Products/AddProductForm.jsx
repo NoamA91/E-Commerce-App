@@ -13,19 +13,52 @@ import {
     Box,
     ModalFooter,
     Button,
-    useToast
+    useToast,
+    Select
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
-const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
+import useFetchGet from '../../../hooks/useFetchGet';
+
+const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
     const toast = useToast();
     const [values, setValues] = useState({
         title: "",
         category: "",
         description: "",
         price: "",
-        image: ""
+        image: "",
+        count_in_stock: ""
     });
+
+    // State for selected animal and for filtered categories
+    const [selectedAnimal, setSelectedAnimal] = useState('');
+    const [filteredCategories, setFilteredCategories] = useState([]);
+
+    // Use your custom hook to fetch the category data
+    const [response, loadingCategories, error] = useFetchGet(`${import.meta.env.VITE_SERVER_URL}/categories/managers/all`);
+    const categories = response?.categories;
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: 'An error occurred.',
+                description: error.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
+        }
+    }, [error, toast]);
+
+    // Update the filtered categories whenever the selected animal or the categories change
+    useEffect(() => {
+        if (selectedAnimal && categories) {
+            const filtered = categories.filter(category => category.animal_type === selectedAnimal);
+            setFilteredCategories(filtered);
+        }
+    }, [selectedAnimal, categories]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -50,7 +83,8 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
                 throw new Error(response.data.message);
             }
 
-            handleProudctAdded(response.data.new_product);
+            handleProductAdded(response.data.new_product);
+            console.log(newProduct);
 
             toast({
                 title: 'Add Product',
@@ -65,12 +99,12 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
                 category: "",
                 description: "",
                 price: "",
-                image: ""
+                image: "",
+                count_in_stock: ""
             });
 
             onClose();
         } catch (error) {
-            console.log(error);
             toast({
                 title: error.response.data.message ? error.response.data.message : 'Error',
                 description: error.response.data.error,
@@ -83,6 +117,7 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
         }
     }
 
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} size='2xl'>
             <ModalOverlay bg='blackAlpha.500' backdropFilter='blur(1px)' />
@@ -91,7 +126,7 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
                 <ModalCloseButton />
                 <ModalBody >
                     <Box as='form' onSubmit={handleSubmit} >
-                        <Flex>
+                        <VStack spacing={4}>
                             <FormControl id='title' pb={4} isRequired>
                                 <FormLabel htmlFor='title'>Product Name</FormLabel>
                                 <Input
@@ -103,15 +138,26 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
                                 />
                             </FormControl>
 
+                            <FormControl id="animal" pb={4} isRequired>
+                                <FormLabel htmlFor="animal">Animal Type</FormLabel>
+                                <Select placeholder="Select animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
+                                    {
+                                        !loadingCategories && categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
+                                            <option key={index} value={animalType}>{animalType}</option>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+
                             <FormControl id="category" pb={4} isRequired>
                                 <FormLabel htmlFor="category">Category Name</FormLabel>
-                                <Input
-                                    placeholder='Enter Category Name'
-                                    value={values.category}
-                                    name="category"
-                                    onChange={handleChange}
-                                    type="text"
-                                />
+                                <Select placeholder="Select category" name="category" onChange={handleChange}>
+                                    {
+                                        !loadingCategories && filteredCategories && filteredCategories.map((category, index) => (
+                                            <option key={index} value={category._id}>{category.name}</option>
+                                        ))
+                                    }
+                                </Select>
                             </FormControl>
 
                             <FormControl id="description" pb={4} isRequired>
@@ -148,11 +194,18 @@ const AddProductForm = ({ isOpen, onClose, handleUserAdded }) => {
                                 />
                             </FormControl>
 
-
-
-
-
-                        </Flex>
+                            <FormControl id="count_in_stock" pb={4} isRequired>
+                                <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
+                                <Input
+                                    placeholder='Enter Count In Stock'
+                                    value={values.count_in_stock}
+                                    name="count_in_stock"
+                                    onChange={handleChange}
+                                    type="number"
+                                    min={0}
+                                />
+                            </FormControl>
+                        </VStack>
                         <ModalFooter>
                             <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
                                 Save

@@ -18,8 +18,8 @@ const Products = () => {
     }
   }, [data]);
 
-  const handleProductAdded = (newCategory) => {
-    setCategories((prevCategories) => [...prevCategories, newCategory]);
+  const handleProductAdded = (newProduct) => {
+    setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
   return (
