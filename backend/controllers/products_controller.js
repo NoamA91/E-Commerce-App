@@ -188,7 +188,7 @@ module.exports = {
   getAllForManagers: async (req, res) => {
     console.log("Manager API GET request : get all products".new_request);
     try {
-      const products = await Product.find().sort({ createdAt: -1 });
+      const products = await Product.find().populate('category').sort({ createdAt: -1 }).exec();
 
       if (!products.length) {
         console.log("No products found for manager".step_done);

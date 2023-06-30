@@ -10,18 +10,23 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const products_url = `${import.meta.env.VITE_SERVER_URL}/products/managers/all`;
   const [data, loading, error] = useFetchGet(products_url);
+  console.log(data);
 
   useEffect(() => {
     if (data) {
-      setProducts(data);
+      setProducts(data.products);
     }
   }, [data]);
+
+  const handleProductAdded = (newCategory) => {
+    setCategories((prevCategories) => [...prevCategories, newCategory]);
+  };
 
   return (
     <>
       {loading && <LoadingSpinner />}
       {error && <Box h='100vh'><ErrorAlert error={error} /></Box>}
-      {products && <ProductsTable products={products} />}
+      {products && <ProductsTable products={products} handleProductAdded={handleProductAdded} />}
     </>
   )
 }

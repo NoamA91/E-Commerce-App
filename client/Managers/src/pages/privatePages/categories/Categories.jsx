@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import useFetchGet from '../../../hooks/useFetchGet'
 import LoadingSpinner from '../../../components/LoadingSpinner'
-import { Alert, AlertIcon, useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import axios from "axios";
 import ErrorAlert from '../../../components/ErrorAlert'
 
