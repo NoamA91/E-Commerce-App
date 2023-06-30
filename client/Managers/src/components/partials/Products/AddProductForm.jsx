@@ -8,7 +8,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Flex,
     VStack,
     Box,
     ModalFooter,
@@ -84,7 +83,6 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
             }
 
             handleProductAdded(response.data.new_product);
-            console.log(newProduct);
 
             toast({
                 title: 'Add Product',
@@ -105,6 +103,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
 
             onClose();
         } catch (error) {
+            console.log(error);
             toast({
                 title: error.response.data.message ? error.response.data.message : 'Error',
                 description: error.response.data.error,

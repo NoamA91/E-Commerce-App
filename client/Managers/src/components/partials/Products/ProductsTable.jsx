@@ -9,10 +9,6 @@ import {
     TableContainer,
     Box,
     Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
     AlertDialog,
     AlertDialogOverlay,
     AlertDialogContent,
@@ -27,11 +23,11 @@ import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import AddProductForm from './AddProductForm'
 
-const ProductsTable = ({ products, handleProductAdded }) => {
+const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const alertDialogState = useDisclosure();
-    const [ProductToDelete, setProductToDelete] = useState(null);
+    const [productToDelete, setProductToDelete] = useState(null);
     return (
         <>
             <Button
@@ -48,7 +44,9 @@ const ProductsTable = ({ products, handleProductAdded }) => {
                 <Table variant="striped">
                     <TableCaption>Products Information</TableCaption>
                     <Thead>
-                        <Tr>
+                        <Tr
+                            position='sticky'
+                        >
                             <Th>Name</Th>
                             <Th>Animal Type</Th>
                             <Th>Category</Th>
@@ -65,12 +63,13 @@ const ProductsTable = ({ products, handleProductAdded }) => {
                                 <Td>{product.category.name}</Td>
                                 <Td>{product.description}</Td>
                                 <Td>{product.price}</Td>
-                                <Td><Image
-                                    boxSize='100px'
-                                    objectFit='cover'
-                                    src={product.image}
-                                    alt={product.title}
-                                />
+                                <Td>
+                                    <Image
+                                        boxSize='100px'
+                                        objectFit='cover'
+                                        src={product.image}
+                                        alt={product.title}
+                                    />
                                 </Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">
@@ -81,7 +80,7 @@ const ProductsTable = ({ products, handleProductAdded }) => {
                                         </Button>
                                         <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
                                             onClick={() => {
-                                                setProductToDelete(category._id);
+                                                setProductToDelete(product._id);
                                                 alertDialogState.onOpen();
                                             }}
                                         >
@@ -96,6 +95,41 @@ const ProductsTable = ({ products, handleProductAdded }) => {
             </TableContainer >
 
             <AddProductForm isOpen={isOpen} onClose={onClose} handleProductAdded={handleProductAdded} />
+
+            <AlertDialog
+                isOpen={alertDialogState.isOpen}
+                onClose={() => {
+                    setCategoryToDelete(null);
+                    alertDialogState.onClose();
+                }}
+            >
+                <AlertDialogOverlay backdropFilter='blur(1px)'>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                            Delete Product
+                        </AlertDialogHeader>
+                        <AlertDialogBody>
+                            Are you sure to the delete? You can't undo this action afterwards.
+                        </AlertDialogBody>
+                        <AlertDialogFooter>
+                            <Button onClick={alertDialogState.onClose}>
+                                Cancel
+                            </Button>
+                            <Button
+                                colorScheme='red'
+                                ml={3}
+                                onClick={() => {
+                                    deleteProduct(productToDelete);
+                                    setProductToDelete(null);
+                                    alertDialogState.onClose();
+                                }}
+                            >
+                                Yes
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent >
+                </AlertDialogOverlay >
+            </AlertDialog>
         </>
     )
 }

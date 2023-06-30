@@ -188,7 +188,7 @@ module.exports = {
   getAllForManagers: async (req, res) => {
     console.log("Manager API GET request : get all products".new_request);
     try {
-      const products = await Product.find().populate('category').sort({ createdAt: -1 }).exec();
+      const products = await Product.find().populate('category').exec();
 
       if (!products.length) {
         console.log("No products found for manager".step_done);
@@ -283,11 +283,13 @@ module.exports = {
 
       await new_product.save();
 
+      const populatedProduct = await Product.findById(new_product._id).populate('category');
+
       console.log("Product created successfully by manager".success_request);
       return res.status(201).json({
         success: true,
         message: "Product created successfully by manager",
-        new_product
+        new_product: populatedProduct
       });
     } catch (error) {
       console.log(`Create product error in manager request - ${error}`.failed_request);
@@ -332,6 +334,7 @@ module.exports = {
       console.log(`Product with ID ${product_id} updated successfully`.success_request);
 
       return res.status(200).json({
+        success: true,
         message: "Product updated successfully",
         product: updatedProduct,
       });
@@ -364,6 +367,7 @@ module.exports = {
       console.log(`Product with ID ${product_id} deleted successfully`.success_request);
 
       return res.status(200).json({
+        success: true,
         message: "Product deleted successfully",
       });
     } catch (error) {
