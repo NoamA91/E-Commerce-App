@@ -13,7 +13,8 @@ import {
     ModalFooter,
     Button,
     useToast,
-    Select
+    Select,
+    Image
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -35,7 +36,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
     const [selectedAnimal, setSelectedAnimal] = useState('');
     const [filteredCategories, setFilteredCategories] = useState([]);
 
-    // Use your custom hook to fetch the category data
+    // Fetch the category data
     const [response, loadingCategories, error] = useFetchGet(`${import.meta.env.VITE_SERVER_URL}/categories/managers/all`);
     const categories = response?.categories;
 
@@ -103,7 +104,6 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
 
             onClose();
         } catch (error) {
-            console.log(error);
             toast({
                 title: error.response.data.message ? error.response.data.message : 'Error',
                 description: error.response.data.error,
@@ -125,86 +125,98 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                 <ModalCloseButton />
                 <ModalBody >
                     <Box as='form' onSubmit={handleSubmit} >
-                        <VStack spacing={4}>
-                            <FormControl id='title' pb={4} isRequired>
-                                <FormLabel htmlFor='title'>Product Name</FormLabel>
-                                <Input
-                                    placeholder='Enter Animal Type'
-                                    value={values.title}
-                                    name='title'
-                                    onChange={handleChange}
-                                    type='text'
+                        <Box display="flex" flexDirection="row">
+                            <VStack spacing={4} paddingRight={5}>
+                                <FormControl id="animal" pb={4} isRequired>
+                                    <FormLabel htmlFor="animal">Animal Type</FormLabel>
+                                    <Select placeholder="Select animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
+                                        {
+                                            !loadingCategories && categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
+                                                <option key={index} value={animalType}>{animalType}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl id="category" pb={4} isRequired>
+                                    <FormLabel htmlFor="category">Category Name</FormLabel>
+                                    <Select placeholder="Select category" name="category" onChange={handleChange}>
+                                        {
+                                            !loadingCategories && filteredCategories && filteredCategories.map((category, index) => (
+                                                <option key={index} value={category._id}>{category.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl id="price" pb={4} isRequired>
+                                    <FormLabel htmlFor="price">Price</FormLabel>
+                                    <Input
+                                        placeholder='Enter Price'
+                                        value={values.price}
+                                        name="price"
+                                        onChange={handleChange}
+                                        type="number"
+                                        min={0}
+                                    />
+                                </FormControl>
+
+                                <FormControl id="count_in_stock" pb={4} isRequired>
+                                    <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
+                                    <Input
+                                        placeholder='Enter Count In Stock'
+                                        value={values.count_in_stock}
+                                        name="count_in_stock"
+                                        onChange={handleChange}
+                                        type="number"
+                                        min={0}
+                                    />
+                                </FormControl>
+                            </VStack>
+
+                            <VStack spacing={4} flexGrow={2}>
+                                <FormControl id='title' pb={4} isRequired>
+                                    <FormLabel htmlFor='title'>Product Name</FormLabel>
+                                    <Input
+                                        placeholder='Enter Animal Type'
+                                        value={values.title}
+                                        name='title'
+                                        onChange={handleChange}
+                                        type='text'
+                                    />
+                                </FormControl>
+
+                                <FormControl id="description" pb={4} isRequired>
+                                    <FormLabel htmlFor="description">Description</FormLabel>
+                                    <Input
+                                        placeholder='Write Description'
+                                        value={values.description}
+                                        name="description"
+                                        onChange={handleChange}
+                                        type="text"
+                                    />
+                                </FormControl>
+
+                                <FormControl id="image" pb={4} isRequired>
+                                    <FormLabel htmlFor="image">Image</FormLabel>
+                                    <Input
+                                        placeholder='Enter Image URL'
+                                        value={values.image}
+                                        name="image"
+                                        onChange={handleChange}
+                                        type="text"
+                                    />
+                                </FormControl>
+
+                                <Image
+                                    width={'300px'}
+                                    objectFit='cover'
+                                    border={'2px solid gray'}
+                                    src={values.image ? values.image
+                                        : 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png'}
                                 />
-                            </FormControl>
-
-                            <FormControl id="animal" pb={4} isRequired>
-                                <FormLabel htmlFor="animal">Animal Type</FormLabel>
-                                <Select placeholder="Select animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
-                                    {
-                                        !loadingCategories && categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
-                                            <option key={index} value={animalType}>{animalType}</option>
-                                        ))
-                                    }
-                                </Select>
-                            </FormControl>
-
-                            <FormControl id="category" pb={4} isRequired>
-                                <FormLabel htmlFor="category">Category Name</FormLabel>
-                                <Select placeholder="Select category" name="category" onChange={handleChange}>
-                                    {
-                                        !loadingCategories && filteredCategories && filteredCategories.map((category, index) => (
-                                            <option key={index} value={category._id}>{category.name}</option>
-                                        ))
-                                    }
-                                </Select>
-                            </FormControl>
-
-                            <FormControl id="description" pb={4} isRequired>
-                                <FormLabel htmlFor="description">Description</FormLabel>
-                                <Input
-                                    placeholder='Write Description'
-                                    value={values.description}
-                                    name="description"
-                                    onChange={handleChange}
-                                    type="text"
-                                />
-                            </FormControl>
-
-                            <FormControl id="price" pb={4} isRequired>
-                                <FormLabel htmlFor="price">Price</FormLabel>
-                                <Input
-                                    placeholder='Enter Price'
-                                    value={values.price}
-                                    name="price"
-                                    onChange={handleChange}
-                                    type="number"
-                                    min={0}
-                                />
-                            </FormControl>
-
-                            <FormControl id="image" pb={4} isRequired>
-                                <FormLabel htmlFor="image">Image</FormLabel>
-                                <Input
-                                    placeholder='Enter Image URL'
-                                    value={values.image}
-                                    name="image"
-                                    onChange={handleChange}
-                                    type="text"
-                                />
-                            </FormControl>
-
-                            <FormControl id="count_in_stock" pb={4} isRequired>
-                                <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
-                                <Input
-                                    placeholder='Enter Count In Stock'
-                                    value={values.count_in_stock}
-                                    name="count_in_stock"
-                                    onChange={handleChange}
-                                    type="number"
-                                    min={0}
-                                />
-                            </FormControl>
-                        </VStack>
+                            </VStack>
+                        </Box>
                         <ModalFooter>
                             <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
                                 Save

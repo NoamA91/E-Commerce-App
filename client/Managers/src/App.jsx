@@ -15,6 +15,7 @@ const Users = lazy(() => import("./pages/privatePages/Users/Users"))
 const EditUser = lazy(() => import("./pages/privatePages/Users/EditUser"))
 const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
 const Products = lazy(() => import("./pages/privatePages/Products/Products"))
+const EditProduct = lazy(() => import("./pages/privatePages/Products/EditProduct"))
 const Categories = lazy(() => import("./pages/privatePages/categories/Categories"))
 const EditCategory = lazy(() => import("./pages/privatePages/categories/EditCategory"))
 const Orders = lazy(() => import("./pages/privatePages/Orders/Orders"))
@@ -49,6 +50,7 @@ function App() {
 
           <Route path='/products'>
             <Route index element={<Products />} />
+            <Route path="edit-product/:product_id" element={<EditProduct />} />
           </Route>
 
           <Route path='/orders'>

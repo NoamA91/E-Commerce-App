@@ -16,7 +16,8 @@ import {
     AlertDialogBody,
     AlertDialogFooter,
     useDisclosure,
-    Image
+    Image,
+    Tooltip
 } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
@@ -48,9 +49,9 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                             position='sticky'
                         >
                             <Th>Name</Th>
-                            <Th>Animal Type</Th>
+                            <Th display={{ base: 'none', md: 'table-cell' }}>Animal Type</Th>
                             <Th>Category</Th>
-                            <Th>Description</Th>
+                            <Th display={{ base: 'none', md: 'table-cell' }}>Description</Th>
                             <Th>Price</Th>
                             <Th>Image</Th>
                         </Tr>
@@ -58,18 +59,29 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                     <Tbody>
                         {products.map((product) => (
                             <Tr key={product._id}>
-                                <Td>{product.title}</Td>
-                                <Td>{product.category.animal_type}</Td>
-                                <Td>{product.category.name}</Td>
-                                <Td>{product.description}</Td>
-                                <Td>{product.price}</Td>
                                 <Td>
-                                    <Image
-                                        boxSize='100px'
-                                        objectFit='cover'
-                                        src={product.image}
-                                        alt={product.title}
-                                    />
+                                    <Tooltip label={product.title} placement="auto" hasArrow>
+                                        <Box isTruncated maxW="200px">{product.title}</Box>
+                                    </Tooltip>
+                                </Td>
+                                <Td display={{ base: 'none', md: 'table-cell' }}>{product.category.animal_type}</Td>
+                                <Td>{product.category.name}</Td>
+                                <Td display={{ base: 'none', md: 'table-cell' }}>
+                                    <Tooltip label={product.description} placement="auto" hasArrow>
+                                        <Box isTruncated maxW="200px">{product.description}</Box>
+                                    </Tooltip>
+                                </Td>
+                                <Td>{product.price}$</Td>
+                                <Td>
+                                    <Box boxSize='100px'>
+                                        <Image
+                                            w='100%'
+                                            aspectRatio={1}
+                                            objectFit='cover'
+                                            src={product.image}
+                                            alt={product.title}
+                                        />
+                                    </Box>
                                 </Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">

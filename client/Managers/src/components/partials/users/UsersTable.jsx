@@ -65,11 +65,11 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                     <Tbody>
                         {users.map((user) => (
                             <Tr key={user._id}>
-                                <Td>{user.username}</Td>
-                                <Td>{user.email}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
-                                <Td display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
+                                <Td isTruncated maxW="200px">{user.username}</Td>
+                                <Td isTruncated maxW="200px">{user.email}</Td>
+                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
+                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
+                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
                                 <Td>
                                     <Box d="flex" justifyContent="end">
                                         <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
