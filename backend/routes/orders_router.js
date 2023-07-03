@@ -4,27 +4,23 @@ const userAuth = require("../middlewares/auth_user");
 const managerAuth = require("../middlewares/auth_managers");
 const adminAuth = require("../middlewares/auth_admin");
 
+
+// managers functions
 const {
-  getAll,
-  getById,
-  addOrder,
-  updateById,
-  deleteById,
+  getAllOrdersForManagers,
+  updateStatusForManagers,
+  getOrderByIdForManagers,
+  deleteOrderByIdForManagers
 } = require("../controllers/orders_controller");
 
-// TODO:
-const {
-  getAllForManager,
-  getByIdForManager,
-  addOrderForManager,
-  updateByIdForManager,
-  deleteByIdForManager,
-} = require("../controllers/orders_controller");
 
-router.get("/getAll", getAll);
-router.get("/getById/:id", getById);
-router.post("/add", addOrder);
-router.put("/updateById/:id", updateById);
-router.delete("/deleteById/:id", deleteById);
+
+// managers requests from orders controller
+
+router.get('/managers/all', getAllOrdersForManagers);
+router.put('/managers/update-status/:id', updateStatusForManagers);
+router.get('/managers/order-details/:id', getOrderByIdForManagers);
+router.delete('/managers/delete-order/:id', deleteOrderByIdForManagers);
+
 
 module.exports = router;

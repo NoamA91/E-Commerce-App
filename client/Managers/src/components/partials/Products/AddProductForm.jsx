@@ -16,8 +16,6 @@ import {
     Select,
     Image,
     Textarea,
-    Divider,
-    Center
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect } from 'react';

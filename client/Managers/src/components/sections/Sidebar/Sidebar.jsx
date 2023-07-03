@@ -22,16 +22,26 @@ const Sidebar = () => {
       {
         isDrawerSidebar ? (
           <>
-            <Flex alignItems="center" h="40px" justifyContent="space-between" backgroundColor="gray.800">
-              <IconButton
-                icon={<FiMenu color='white' size={20} />}
-                onClick={onOpen}
-                background='none'
-                _hover={{ background: 'none' }}
-              />
+            <Flex h="40px">
+              <Box
+                h="40px"
+                backgroundColor="gray.800"
+                position='fixed'
+                w='100%'
+                zIndex={1}
+              >
+                <IconButton
+                  icon={<FiMenu color='white' size={20} />}
+                  onClick={onOpen}
+                  background='none'
+                  _hover={{ background: 'none' }}
+                />
+              </Box>
             </Flex>
 
             <SidebarDrawer isOpen={isOpen} onClose={onClose} />
+
+
           </>
         ) : (
           <Box

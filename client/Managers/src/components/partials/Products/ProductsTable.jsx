@@ -80,7 +80,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                 </Flex>
 
                 <TableContainer h='100vh' mt={10} >
-                    <Table variant="striped" size={{ base: "xs", md: "md" }}>
+                    <Table variant="striped" size={{ base: "sm", md: "md" }}>
                         <TableCaption>Products Information</TableCaption>
                         <Thead>
                             <Tr
