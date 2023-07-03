@@ -14,7 +14,10 @@ import {
     Button,
     useToast,
     Select,
-    Image
+    Image,
+    Textarea,
+    Divider,
+    Center
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -126,7 +129,19 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                 <ModalBody >
                     <Box as='form' onSubmit={handleSubmit} >
                         <Box display="flex" flexDirection="row">
-                            <VStack spacing={4} paddingRight={5}>
+                            <VStack spacing={2} paddingRight={5} flexGrow={2}>
+
+                                <FormControl id='title' pb={4} isRequired>
+                                    <FormLabel htmlFor='title'>Product Name</FormLabel>
+                                    <Input
+                                        placeholder='Enter Animal Type'
+                                        value={values.title}
+                                        name='title'
+                                        onChange={handleChange}
+                                        type='text'
+                                    />
+                                </FormControl>
+
                                 <FormControl id="animal" pb={4} isRequired>
                                     <FormLabel htmlFor="animal">Animal Type</FormLabel>
                                     <Select placeholder="Select animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
@@ -148,6 +163,23 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                         }
                                     </Select>
                                 </FormControl>
+
+                                <FormControl id="description" pb={4} isRequired>
+                                    <FormLabel htmlFor="description">Description</FormLabel>
+                                    <Textarea
+                                        placeholder='Write Description'
+                                        value={values.description}
+                                        name="description"
+                                        onChange={handleChange}
+                                        type="text"
+                                        resize='none'
+                                        h='160px'
+                                    />
+                                </FormControl>
+
+                            </VStack>
+
+                            <VStack spacing={2} >
 
                                 <FormControl id="price" pb={4} isRequired>
                                     <FormLabel htmlFor="price">Price</FormLabel>
@@ -172,32 +204,8 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                         min={0}
                                     />
                                 </FormControl>
-                            </VStack>
 
-                            <VStack spacing={4} flexGrow={2}>
-                                <FormControl id='title' pb={4} isRequired>
-                                    <FormLabel htmlFor='title'>Product Name</FormLabel>
-                                    <Input
-                                        placeholder='Enter Animal Type'
-                                        value={values.title}
-                                        name='title'
-                                        onChange={handleChange}
-                                        type='text'
-                                    />
-                                </FormControl>
-
-                                <FormControl id="description" pb={4} isRequired>
-                                    <FormLabel htmlFor="description">Description</FormLabel>
-                                    <Input
-                                        placeholder='Write Description'
-                                        value={values.description}
-                                        name="description"
-                                        onChange={handleChange}
-                                        type="text"
-                                    />
-                                </FormControl>
-
-                                <FormControl id="image" pb={4} isRequired>
+                                <FormControl id="image" isRequired>
                                     <FormLabel htmlFor="image">Image</FormLabel>
                                     <Input
                                         placeholder='Enter Image URL'
@@ -209,7 +217,9 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                 </FormControl>
 
                                 <Image
+                                    mt={12}
                                     width={'300px'}
+                                    height={'160px'}
                                     objectFit='cover'
                                     border={'2px solid gray'}
                                     src={values.image ? values.image
