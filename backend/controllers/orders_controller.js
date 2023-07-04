@@ -187,7 +187,10 @@ module.exports = {
   getAllOrdersForManagers: async (req, res) => {
     console.log("API GET request : get all orders for managers".new_request);
     try {
-      const orders = await Order.find().populate(['userId', 'order_items.productId']).exec();
+      const orders = await Order.find().populate({
+        path: 'userId',
+        select: 'email role username' 
+      }).populate('order_items.productId').exec();
 
       if (!orders.length) {
         console.log("Orders array is empty".success_request);

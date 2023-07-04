@@ -56,10 +56,29 @@ const order_schema = new Schema(
         message: "Phone number is invalid.",
       },
     },
-    payment_method: {
-      type: String,
-      required: true,
-      default: "Paypal",
+    payment_details: {
+      terminal_number: {
+        type: String,
+        required: true,
+        match: /^[0-9]+$/,
+      },
+      transaction_number: {
+        type: String,
+        required: true,
+        match: /^[0-9]+$/,
+        unique: true,
+      },
+      transaction_date: {
+        type: Date,
+        default: function () {
+          return Date.now();
+        }
+      },
+      last_digits: {
+        type: String,
+        required: true,
+        match: /^[0-9]+$/,
+      },
     },
     status: {
       type: String,
@@ -69,6 +88,12 @@ const order_schema = new Schema(
     order_date: {
       type: Date,
       default: Date.now,
+    },
+    order_number: {
+      type: Number,
+      default: function () {
+        return Date.now();
+      },
     },
     shipping_fee: {
       type: Number,

@@ -39,9 +39,9 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                     as={Button}
                     colorScheme="teal"
                     rightIcon={<FiChevronDown />}
-                    mt={10}
+                    mt={{ base: 5, md: 10 }}
                     float='right'
-                    mr={10}
+                    mr={{ base: 5, md: 10 }}
                 >
                     Actions
                 </MenuButton>
@@ -50,7 +50,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                     <MenuItem>Add Manager</MenuItem>
                 </MenuList>
             </Menu>
-            <TableContainer h='100vh' mt={120} >
+            <TableContainer h='100vh' mt={{ base: 70, md: 120 }}>
                 <Table variant="striped">
                     <TableCaption>Users Information</TableCaption>
                     <Thead>

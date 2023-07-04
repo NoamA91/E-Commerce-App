@@ -38,9 +38,9 @@ const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) =>
                         colorScheme='teal'
                         p='4'
                         leftIcon={<FiPlusCircle fontSize={25} />}
-                        mt={10}
+                        mt={{ base: 5, md: 10 }}
                         float='right'
-                        mr={10}
+                        mr={{ base: 5, md: 10 }}
                         onClick={onOpen}
                     >Add Category</Button>
                 </Box>
