@@ -22,12 +22,17 @@ import {
     Select,
     Flex,
     Badge,
-    useDisclosure
+    useDisclosure,
+    HStack,
+    Text
 } from '@chakra-ui/react';
-import React, { useState } from 'react'
-import { FiLoader } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react'
+import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 
 const OrdersTable = ({ orders, changeStatus }) => {
+    const [sort, setSort] = useState("ASC");
+    const [sortColumn, setSortColumn] = useState("");
+    const [dataOrders, setDataOrders] = useState(orders);
     const [openAlertDialog, setOpenAlertDialog] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [newStatus, setNewStatus] = useState(null);
@@ -43,6 +48,35 @@ const OrdersTable = ({ orders, changeStatus }) => {
         setOpenAlertDialog(false);
     };
 
+    const sorting = (col, nested = false) => {
+        setSortColumn(col);
+        let nextSort = sort === "ASC" ? "DESC" : "ASC";
+        const sorted = [...dataOrders].sort((a, b) => {
+            let compareA = nested ? a.customer_details[col] : a[col];
+            let compareB = nested ? b.customer_details[col] : b[col];
+            if (typeof compareA === "string") {
+                return nextSort === "ASC"
+                    ? compareA.localeCompare(compareB)
+                    : compareB.localeCompare(compareA);
+            } else {
+                return nextSort === "ASC"
+                    ? compareA > compareB
+                        ? 1
+                        : -1
+                    : compareA > compareB
+                        ? -1
+                        : 1;
+            }
+        });
+        setDataOrders(sorted);
+        setSort(nextSort);
+    };
+
+
+    useEffect(() => {
+        setDataOrders(orders);
+    }, [orders]);
+
     return (
         <>
             <Flex
@@ -53,17 +87,73 @@ const OrdersTable = ({ orders, changeStatus }) => {
                         <TableCaption>Users Information</TableCaption>
                         <Thead>
                             <Tr>
-                                <Th>Order Number</Th>
-                                <Th display={{ base: 'none', sm: 'table-cell' }}>Order Date</Th>
-                                <Th>Username</Th>
-                                <Th display={{ base: 'none', md: 'table-cell' }}>Phone Number</Th>
-                                <Th display={{ base: 'none', md: 'table-cell' }}>Address</Th>
-                                <Th display={{ base: 'none', md: 'table-cell' }}>Total</Th>
-                                <Th>Status</Th>
+                                <Th
+                                    onClick={() => sorting('order_number', false)}
+                                >
+                                    <HStack>
+                                        <Text>Order Number</Text>
+                                        {sortColumn === 'order_number' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+                                </Th>
+                                <Th
+                                    display={{ base: 'none', sm: 'table-cell' }}
+                                    onClick={() => sorting('order_date', false)}
+                                >
+                                    <HStack>
+                                        <Text>Order Date</Text>
+                                        {sortColumn === 'order_date' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+                                </Th>
+                                <Th
+                                    onClick={() => sorting('username', false)}
+                                >
+                                    <HStack>
+                                        <Text>Username</Text>
+                                        {sortColumn === 'username' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+
+                                </Th>
+                                <Th
+                                    display={{ base: 'none', md: 'table-cell' }}
+                                    onClick={() => sorting('phone_number', false)}
+                                >
+                                    <HStack>
+                                        <Text>Phone Number</Text>
+                                        {sortColumn === 'phone_number' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+
+                                </Th>
+                                <Th
+                                    display={{ base: 'none', md: 'table-cell' }}
+                                    onClick={() => sorting('address', false)}
+                                >
+                                    <HStack>
+                                        <Text>Address</Text>
+                                        {sortColumn === 'address' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+                                </Th>
+                                <Th
+                                    display={{ base: 'none', md: 'table-cell' }}
+                                    onClick={() => sorting('order_total', false)}
+                                >
+
+                                    <HStack>
+                                        <Text>Total</Text>
+                                        {sortColumn === 'order_total' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+                                </Th>
+                                <Th
+                                    onClick={() => sorting('order_status', false)}
+                                >
+                                    <HStack>
+                                        <Text>Status</Text>
+                                        {sortColumn === 'order_status' && (sort === 'ASC' ? <FiChevronUp /> : <FiChevronDown />)}
+                                    </HStack>
+                                </Th>
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {orders.map((order) => (
+                            {dataOrders.map((order) => (
                                 <Tr key={order._id}>
                                     <Td>{order.order_number}</Td>
                                     <Td display={{ base: 'none', sm: 'table-cell' }}>{new Date(order.order_date).toLocaleString("en-US")}</Td>
@@ -74,15 +164,6 @@ const OrdersTable = ({ orders, changeStatus }) => {
                                     <Td>
                                         <Select
                                             value={order.status}
-                                            icon={
-                                                order.status === "new" ? <FiLoader /> : <FiLoader />
-                                                // 
-                                                // : order.status === "processing"
-                                                //     ? "purple.100"
-                                                //     : order.status === "done"
-                                                //         ? "green.100"
-                                                //         : "blackAlpha.100"
-                                            }
                                             w='-webkit-max-content'
                                             bg={
                                                 order.status === "new"

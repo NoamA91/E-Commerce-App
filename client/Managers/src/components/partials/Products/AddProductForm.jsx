@@ -221,7 +221,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                     objectFit='cover'
                                     border={'2px solid gray'}
                                     src={values.image ? values.image
-                                        : 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png'}
+                                        : 'https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg'}
                                 />
                             </VStack>
                         </Box>
