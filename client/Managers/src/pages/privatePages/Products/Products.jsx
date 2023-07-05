@@ -33,7 +33,6 @@ const Products = () => {
       setProducts(updatedProducts);
 
     } catch (error) {
-      console.log(error);
       toast({
         title: 'Error',
         description: error.message,

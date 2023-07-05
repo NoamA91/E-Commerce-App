@@ -20,37 +20,51 @@ const Orders = () => {
     }
   }, [data])
 
-  // const changeStatus = async (id, value) => {
-  //   try {
-  //     const response = await axios.put(
-  //       `${url}update-status/${id}`,
-  //       { status: value }
-  //     );
+  const changeStatus = async (id, value) => {
+    const change_status_url = `${import.meta.env.VITE_SERVER_URL}/orders/managers/update-status/${id}`;
+    try {
+      const response = await axios.put(
+        change_status_url,
+        { status: value }
+      );
 
-  //     if (!response.data.success) {
-  //       throw new Error(response.data.error);
-  //     }
+      if (!response.data.success) {
+        throw new Error(response.data.error);
+      }
 
-  //     toast.success(response.data.message, {
-  //       position: "top-center",
-  //       theme: "colored",
-  //       autoClose: 1000
-  //     });
+      setOrders(prevOrders =>
+        prevOrders.map(order =>
+          order._id === id ? { ...order, status: value } : order
+        )
+      );
 
-  //   } catch (error) {
-  //     toast.error(error.response.data.error, {
-  //       position: "top-center",
-  //       theme: "colored",
-  //       autoClose: 1000
-  //     });
-  //   }
-  // };
+      toast({
+        title: 'Status Changed',
+        description: 'The order status has been changed successfully',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: error.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <>
       {loading && <LoadingSpinner />}
       {error && <ErrorAlert error={error} />}
-      {data && <OrdersTable orders={orders} />}
+      {data && <OrdersTable
+        orders={orders}
+        changeStatus={changeStatus}
+      />}
     </>
   )
 }

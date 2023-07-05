@@ -70,19 +70,35 @@ module.exports = {
   addOrder: async (req, res) => {
     console.log("API POST request : Add order".new_request);
     try {
-      const { userId, order_items, address, phone_number, payment_method, shipping_fee } = req.body;
+      const {
+        userId,
+        order_items,
+        address,
+        phone_number,
+        payment_details,
+        shipping_fee
+      } = req.body;
 
       if (
         !userId ||
         !order_items ||
         !address ||
         !phone_number ||
-        !payment_method ||
+        !payment_details ||
         !shipping_fee
       ) {
         console.log("Missing order fields in request".failed_request);
         return res.status(400).json({
           message: "Missing fields",
+        });
+      }
+
+      // validation of payment details
+      const { terminal_number, transaction_number, last_digits } = payment_details;
+      if (!terminal_number || !transaction_number || !last_digits) {
+        console.log("Missing payment details fields in request".failed_request);
+        return res.status(400).json({
+          message: "Missing payment details fields",
         });
       }
 
@@ -93,7 +109,7 @@ module.exports = {
         order_items,
         address,
         phone_number,
-        payment_method,
+        payment_details,
         shipping_fee,
       });
 
@@ -189,7 +205,7 @@ module.exports = {
     try {
       const orders = await Order.find().populate({
         path: 'userId',
-        select: 'email role username' 
+        select: 'email role username'
       }).populate('order_items.productId').exec();
 
       if (!orders.length) {
