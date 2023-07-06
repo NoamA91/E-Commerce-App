@@ -238,10 +238,10 @@ module.exports = {
       const order_id = req.params.id;
       const { status } = req.body;
 
-      if (!status || !['new', 'processing', 'done', 'cancelled'].includes(status)) {
+      if (!status || !['new', 'processing', 'done', 'canceled'].includes(status)) {
         console.log("Invalid status provided".failed_request);
         return res.status(400).json({
-          message: "Invalid status. Must be either 'new', 'processing', 'done', or 'cancelled'.",
+          message: "Invalid status. Must be either 'new', 'processing', 'done', or 'canceled'.",
         });
       }
 
