@@ -22,10 +22,10 @@ const {
 
 
 // managers requests from orders controller
-router.get('/managers/all', getAllOrdersForManagers);
-router.get('/managers/get-order-by-id/:id', getOrderByIdForManagers);
-router.put('/managers/update-status/:id', updateStatusForManagers);
-router.delete('/managers/delete-order/:id', deleteOrderByIdForManagers);
+router.get('/managers/all', managerAuth, getAllOrdersForManagers);
+router.get('/managers/get-order-by-id/:id', managerAuth, getOrderByIdForManagers);
+router.put('/managers/update-status/:id', managerAuth, updateStatusForManagers);
+router.delete('/managers/delete-order/:id', managerAuth, deleteOrderByIdForManagers);
 
 // users requests from orders controller
 router.post('/add-order', addOrder);

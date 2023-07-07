@@ -291,17 +291,18 @@ const OrdersTable = ({ orders, changeStatus }) => {
                                 })
                                 .map((order) => (
                                     <Tr key={order._id}>
-                                        <Td>
-                                            <ChakraLink
-                                                color='blueviolet'
+                                        <Td
+                                            color="blueviolet"
+                                            _hover={{
+                                                textDecor: "underline"
+                                            }}
+                                        >
+                                            <Link
+                                                to={`order-details/${order._id}`}
                                             >
-                                                <Link
-                                                    to={`order-details/${order._id}`}
-                                                >
-                                                    {order.order_number}
+                                                {order.order_number}
 
-                                                </Link>
-                                            </ChakraLink>
+                                            </Link>
                                         </Td>
                                         <Td display={{ base: 'none', sm: 'table-cell' }}>{new Date(order.order_date).toLocaleString("en-UK")}</Td>
                                         <Td>{order.userId.username}</Td>

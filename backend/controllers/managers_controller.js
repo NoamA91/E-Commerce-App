@@ -393,6 +393,14 @@ module.exports = {
         })
       }
 
+      const status = manager.tokens.some((t) => t.token === token);
+      if (!status) {
+        console.log("Token is not valid".failed_request);
+        return res.status(401).json({
+          message: "Token is not valid"
+        })
+      }
+
       console.log("Manager Authorized".success_request);
 
       return res.status(201).json({

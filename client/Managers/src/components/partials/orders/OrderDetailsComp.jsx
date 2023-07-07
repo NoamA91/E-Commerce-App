@@ -126,9 +126,9 @@ const OrderDetailsComp = ({ order, changeStatus, deleteOrder }) => {
                         </Stack>
                     </CardBody>
                     <CardFooter>
-                        <Flex justify={'space-between'}>
+                        <Flex justify={'space-between'} w='full'>
+                            <Button colorScheme='teal' mr={3} onClick={() => navigate("../")}>Back</Button>
                             <Button
-                                mr={3}
                                 colorScheme={'red'}
                                 onClick={() => {
                                     alertDialogState.onOpen();
@@ -136,7 +136,6 @@ const OrderDetailsComp = ({ order, changeStatus, deleteOrder }) => {
                             >
                                 Delete Order
                             </Button>
-                            <Button onClick={() => navigate("../")}>Back</Button>
                         </Flex>
                     </CardFooter>
                 </Card>
