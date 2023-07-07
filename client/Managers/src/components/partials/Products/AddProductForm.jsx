@@ -132,7 +132,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                 <FormControl id='title' pb={4} isRequired>
                                     <FormLabel htmlFor='title'>Product Name</FormLabel>
                                     <Input
-                                        placeholder='Enter Animal Type'
+                                        placeholder='Enter Product Name'
                                         value={values.title}
                                         name='title'
                                         onChange={handleChange}
@@ -142,7 +142,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
 
                                 <FormControl id="animal" pb={4} isRequired>
                                     <FormLabel htmlFor="animal">Animal Type</FormLabel>
-                                    <Select placeholder="Select animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
+                                    <Select placeholder="Select Animal" onChange={(e) => setSelectedAnimal(e.target.value)}>
                                         {
                                             !loadingCategories && categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
                                                 <option key={index} value={animalType}>{animalType}</option>
@@ -153,7 +153,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
 
                                 <FormControl id="category" pb={4} isRequired>
                                     <FormLabel htmlFor="category">Category Name</FormLabel>
-                                    <Select placeholder="Select category" name="category" onChange={handleChange}>
+                                    <Select placeholder="Select Category" name="category" onChange={handleChange}>
                                         {
                                             !loadingCategories && filteredCategories && filteredCategories.map((category, index) => (
                                                 <option key={index} value={category._id}>{category.name}</option>
@@ -165,7 +165,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                 <FormControl id="description" pb={4} isRequired>
                                     <FormLabel htmlFor="description">Description</FormLabel>
                                     <Textarea
-                                        placeholder='Write Description'
+                                        placeholder='Write a Description'
                                         value={values.description}
                                         name="description"
                                         onChange={handleChange}
@@ -194,7 +194,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                 <FormControl id="count_in_stock" pb={4} isRequired>
                                     <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
                                     <Input
-                                        placeholder='Enter Count In Stock'
+                                        placeholder='Enter Stock Number'
                                         value={values.count_in_stock}
                                         name="count_in_stock"
                                         onChange={handleChange}

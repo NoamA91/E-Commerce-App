@@ -70,8 +70,8 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                                 <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
                                 <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
                                 <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
-                                <Td>
-                                    <Box d="flex" justifyContent="end">
+                                <Td p={{ base: '2px 0', md: '16px 14px' }}>
+                                    <Box display="flex" flexDir={{ base: 'column', md: 'row' }}>
                                         <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
                                             onClick={() => navigate(`../users/edit-user/${user._id}`)}
                                         >

@@ -10,7 +10,8 @@ import {
     Image,
     Container,
     Heading,
-    HStack
+    HStack,
+    Textarea
 } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
@@ -105,113 +106,118 @@ const EditProductForm = ({ product, categories }) => {
     return (
         <>
             <Heading as='h3' textAlign='center' my={10}>Edit Product</Heading>
-            <Box h='100vh' >
-                <Container maxW='xl'>
 
-                    <Box as='form' bg='white' p={8} onSubmit={handleSubmit} borderRadius={8} boxShadow='md' >
-                        <Box display="flex" flexDirection="row">
-                            <VStack spacing={4} paddingRight={5}>
+            <Container maxW='container.md' h='100vh'>
 
-                                <FormControl id="animal" pb={4}>
-                                    <FormLabel htmlFor="animal">Animal Type</FormLabel>
-                                    <Select placeholder="Change Animal" value={selectedAnimal} onChange={(e) => setSelectedAnimal(e.target.value)}>
-                                        {
-                                            categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
-                                                <option key={index} value={animalType}>{animalType}</option>
-                                            ))
-                                        }
-                                    </Select>
-                                </FormControl>
+                <Box as='form' bg='white' p={8} onSubmit={handleSubmit} borderRadius={8} boxShadow='md' >
+                    <Box display="flex" flexDirection="row">
+                        <VStack spacing={4} paddingRight={5} flexGrow={2}>
 
-
-                                <FormControl id="category" pb={4}>
-                                    <FormLabel htmlFor="category">Category Name</FormLabel>
-                                    <Select placeholder="Change Category" name="category" value={values.category} onChange={handleChange}>
-                                        {
-                                            filteredCategories && filteredCategories.map((category, index) => (
-                                                <option key={index} value={category._id}>{category.name}</option>
-                                            ))
-                                        }
-                                    </Select>
-                                </FormControl>
-
-                                <FormControl id="price" pb={4} isRequired>
-                                    <FormLabel htmlFor="price">Price</FormLabel>
-                                    <Input
-                                        placeholder='Enter Price'
-                                        value={values.price}
-                                        name="price"
-                                        onChange={handleChange}
-                                        type="number"
-                                        min={0}
-                                    />
-                                </FormControl>
-
-                                <FormControl id="count_in_stock" pb={4} isRequired>
-                                    <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
-                                    <Input
-                                        placeholder='Enter Count In Stock'
-                                        value={values.count_in_stock}
-                                        name="count_in_stock"
-                                        onChange={handleChange}
-                                        type="number"
-                                        min={0}
-                                    />
-                                </FormControl>
-                                <HStack pt={9}>
-                                    <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
-                                        Update
-                                    </Button>
-                                    <Button onClick={() => navigate("../")}>Back</Button>
-                                </HStack>
-                            </VStack>
-
-                            <VStack spacing={4} flexGrow={2}>
-                                <FormControl id='title' pb={4} isRequired>
-                                    <FormLabel htmlFor='title'>Product Name</FormLabel>
-                                    <Input
-                                        placeholder='Enter Animal Type'
-                                        value={values.title}
-                                        name='title'
-                                        onChange={handleChange}
-                                        type='text'
-                                    />
-                                </FormControl>
-
-                                <FormControl id="description" pb={4} isRequired>
-                                    <FormLabel htmlFor="description">Description</FormLabel>
-                                    <Input
-                                        placeholder='Write Description'
-                                        value={values.description}
-                                        name="description"
-                                        onChange={handleChange}
-                                        type="text"
-                                    />
-                                </FormControl>
-
-                                <FormControl id="image" pb={4} isRequired>
-                                    <FormLabel htmlFor="image">Image</FormLabel>
-                                    <Input
-                                        placeholder='Enter Image URL'
-                                        value={values.image}
-                                        name="image"
-                                        onChange={handleChange}
-                                        type="text"
-                                    />
-                                </FormControl>
-
-                                <Image
-                                    width={'300px'}
-                                    objectFit='cover'
-                                    border={'2px solid gray'}
-                                    src={values.image ? values.image
-                                        : 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png'}
+                            <FormControl id='title' pb={4} isRequired>
+                                <FormLabel htmlFor='title'>Product Name</FormLabel>
+                                <Input
+                                    placeholder='Enter Product Name'
+                                    value={values.title}
+                                    name='title'
+                                    onChange={handleChange}
+                                    type='text'
                                 />
-                            </VStack>
-                        </Box>
+                            </FormControl>
+
+                            <FormControl id="animal" pb={4}>
+                                <FormLabel htmlFor="animal">Animal Type</FormLabel>
+                                <Select placeholder="Change Animal" value={selectedAnimal} onChange={(e) => setSelectedAnimal(e.target.value)}>
+                                    {
+                                        categories && [...new Set(categories.map(category => category.animal_type))].map((animalType, index) => (
+                                            <option key={index} value={animalType}>{animalType}</option>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+
+
+                            <FormControl id="category" pb={4}>
+                                <FormLabel htmlFor="category">Category Name</FormLabel>
+                                <Select placeholder="Change Category" name="category" value={values.category} onChange={handleChange}>
+                                    {
+                                        filteredCategories && filteredCategories.map((category, index) => (
+                                            <option key={index} value={category._id}>{category.name}</option>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+
+                            <FormControl id="description" pb={4} isRequired>
+                                <FormLabel htmlFor="description">Description</FormLabel>
+                                <Textarea
+                                    placeholder='Write a Description'
+                                    value={values.description}
+                                    name="description"
+                                    onChange={handleChange}
+                                    type="text"
+                                    resize='none'
+                                    h='160px'
+                                />
+                            </FormControl>
+
+                        </VStack>
+
+                        <VStack spacing={4}>
+
+                            <FormControl id="price" pb={4} isRequired>
+                                <FormLabel htmlFor="price">Price</FormLabel>
+                                <Input
+                                    placeholder='Enter Price'
+                                    value={values.price}
+                                    name="price"
+                                    onChange={handleChange}
+                                    type="number"
+                                    min={0}
+                                />
+                            </FormControl>
+
+                            <FormControl id="count_in_stock" pb={4} isRequired>
+                                <FormLabel htmlFor="count_in_stock">Count In Stock</FormLabel>
+                                <Input
+                                    placeholder='Enter Stock Number'
+                                    value={values.count_in_stock}
+                                    name="count_in_stock"
+                                    onChange={handleChange}
+                                    type="number"
+                                    min={0}
+                                />
+                            </FormControl>
+
+                            <FormControl id="image" pb={4} isRequired>
+                                <FormLabel htmlFor="image">Image</FormLabel>
+                                <Input
+                                    placeholder='Enter Image URL'
+                                    value={values.image}
+                                    name="image"
+                                    onChange={handleChange}
+                                    type="text"
+                                />
+                            </FormControl>
+
+                            <Image
+                                mt={8}
+                                width={'300px'}
+                                maxH={'160px'}
+                                objectFit='contain'
+                                border={'2px solid gray'}
+                                src={values.image ? values.image
+                                    : 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png'}
+                            />
+                        </VStack>
                     </Box>
-                </Container>
-            </Box>
+                    <HStack pt={9}>
+                        <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
+                            Update
+                        </Button>
+                        <Button onClick={() => navigate("../")}>Back</Button>
+                    </HStack>
+                </Box>
+            </Container>
         </>
     )
 }

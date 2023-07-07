@@ -26,11 +26,9 @@ import {
     useDisclosure,
     Select,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const OrderDetailsComp = ({ order, changeStatus, deleteOrder }) => {
-    const [openAlertDialog, setOpenAlertDialog] = useState(false);
+const OrderDetailsComp = ({ order, deleteOrder }) => {
     const alertDialogState = useDisclosure();
     const navigate = useNavigate();
     const { order_id } = useParams();
@@ -44,6 +42,7 @@ const OrderDetailsComp = ({ order, changeStatus, deleteOrder }) => {
                 <Card
                     shadow='md'
                     h='100%'
+                    bg='whitesmoke'
                 >
                     <CardHeader>
                         <Heading size='md'>Order ID: {order.order_number}</Heading>

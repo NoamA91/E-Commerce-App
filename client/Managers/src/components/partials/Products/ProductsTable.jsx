@@ -54,7 +54,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                     mt={10}
                     justifyContent='space-between'
                 >
-                    <Box ml={10}>
+                    <Box ml={{ base: 2, md: 10 }}>
                         <Select mb={3} size='sm' variant='filled' placeholder="Filter by Animal Type" onChange={e => setSelectedAnimalType(e.target.value)}>
                             {animalTypes.map((animalType, index) => (
                                 <option key={index} value={animalType}>{animalType}</option>
@@ -72,9 +72,9 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                         colorScheme='teal'
                         p='4'
                         leftIcon={<FiPlusCircle fontSize={25} />}
-                        mt={10}
+                        mt={{ base: 0, md: 10 }}
+                        mr={{ base: 2, md: 10 }}
                         float='right'
-                        mr={10}
                         onClick={onOpen}
                     >Add Product</Button>
                 </Flex>
@@ -122,7 +122,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                         </Box>
                                     </Td>
                                     <Td>
-                                        <Box d="flex" justifyContent="end">
+                                        <Box display="flex" justifyContent="end" flexDir={{ base: 'column', md: 'row' }}>
                                             <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
                                                 onClick={() => navigate(`../products/edit-product/${product._id}`)}
                                             >

@@ -16,7 +16,8 @@ import {
     AlertDialogBody,
     AlertDialogFooter,
     useDisclosure,
-    Flex
+    Flex,
+    Container
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FiEdit2, FiPlusCircle, FiTrash2 } from 'react-icons/fi';
@@ -45,42 +46,44 @@ const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) =>
                     >Add Category</Button>
                 </Box>
 
-                <TableContainer h='100vh' mt={10} >
-                    <Table variant="striped">
-                        <TableCaption>Categories Information</TableCaption>
-                        <Thead>
-                            <Tr>
-                                <Th>Animal Type</Th>
-                                <Th>Name</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {categories.map((category) => (
-                                <Tr key={category._id}>
-                                    <Td>{category.animal_type}</Td>
-                                    <Td>{category.name}</Td>
-                                    <Td>
-                                        <Box d="flex" justifyContent="end">
-                                            <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
-                                                onClick={() => navigate(`../categories/edit-category/${category._id}`)}
-                                            >
-                                                Edit
-                                            </Button>
-                                            <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
-                                                onClick={() => {
-                                                    setCategoryToDelete(category._id);
-                                                    alertDialogState.onOpen();
-                                                }}
-                                            >
-                                                Delete
-                                            </Button>
-                                        </Box>
-                                    </Td>
+                <Container maxW='container.md' bg=''>
+                    <TableContainer h='100vh' mt={10} >
+                        <Table variant="striped">
+                            <TableCaption>Categories Information</TableCaption>
+                            <Thead>
+                                <Tr>
+                                    <Th>Animal Type</Th>
+                                    <Th>Name</Th>
                                 </Tr>
-                            ))}
-                        </Tbody>
-                    </Table>
-                </TableContainer >
+                            </Thead>
+                            <Tbody>
+                                {categories.map((category) => (
+                                    <Tr key={category._id}>
+                                        <Td>{category.animal_type}</Td>
+                                        <Td>{category.name}</Td>
+                                        <Td>
+                                            <Box display="flex" flexDir={{ base: 'column', md: 'row' }} justifyContent='end'>
+                                                <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
+                                                    onClick={() => navigate(`../categories/edit-category/${category._id}`)}
+                                                >
+                                                    Edit
+                                                </Button>
+                                                <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
+                                                    onClick={() => {
+                                                        setCategoryToDelete(category._id);
+                                                        alertDialogState.onOpen();
+                                                    }}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </Box>
+                                        </Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
+                        </Table>
+                    </TableContainer >
+                </Container>
 
                 <AddCategoryForm isOpen={isOpen} onClose={onClose} handleCategoryAdded={handleCategoryAdded} />
 
