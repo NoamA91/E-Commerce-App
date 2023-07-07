@@ -19,6 +19,7 @@ const EditProduct = lazy(() => import("./pages/privatePages/Products/EditProduct
 const Categories = lazy(() => import("./pages/privatePages/categories/Categories"))
 const EditCategory = lazy(() => import("./pages/privatePages/categories/EditCategory"))
 const Orders = lazy(() => import("./pages/privatePages/Orders/Orders"))
+const OrderDetails = lazy(() => import("./pages/privatePages/Orders/OrderDetails"))
 const Login = lazy(() => import("./pages/publicPages/Login"))
 const NotFoundPage = lazy(() => import("./pages/privatePages/NotFoundPage"))
 
@@ -55,6 +56,7 @@ function App() {
 
           <Route path='/orders'>
             <Route index element={<Orders />} />
+            <Route path="order-details/:order_id" element={<OrderDetails />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />

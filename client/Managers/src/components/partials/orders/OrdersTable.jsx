@@ -7,12 +7,7 @@ import {
     Td,
     TableCaption,
     TableContainer,
-    Box,
     Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
     AlertDialog,
     AlertDialogOverlay,
     AlertDialogContent,
@@ -21,18 +16,16 @@ import {
     AlertDialogFooter,
     Select,
     Flex,
-    Badge,
-    useDisclosure,
     HStack,
     Text,
     Input,
-    ButtonGroup,
     InputGroup,
-    InputLeftElement,
-    InputRightElement
+    InputRightElement,
+    Link as ChakraLink
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { FiChevronUp, FiChevronDown, FiSearch } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 const OrdersTable = ({ orders, changeStatus }) => {
     const [sort, setSort] = useState("ASC");
@@ -43,6 +36,7 @@ const OrdersTable = ({ orders, changeStatus }) => {
     const [newStatus, setNewStatus] = useState(null);
     const [filteredStatus, setFilteredStatus] = useState('all');
     const [searchTerm, setSearchTerm] = useState("");
+
 
     const handleStatusChange = (orderId, status) => {
         setSelectedOrder(orderId);
@@ -192,7 +186,9 @@ const OrdersTable = ({ orders, changeStatus }) => {
                     </Flex>
                 </Flex>
 
-                <TableContainer h='100vh' mt={{ base: 70, md: 50 }}>
+
+                <TableContainer h='100vh' mt={50}>
+                    <Text ml={4} mb={5}>Total Orders: {dataOrders.length}</Text>
                     <Table
                         variant="striped"
                         size={{ base: 'sm', md: 'md' }}
@@ -295,14 +291,26 @@ const OrdersTable = ({ orders, changeStatus }) => {
                                 })
                                 .map((order) => (
                                     <Tr key={order._id}>
-                                        <Td>{order.order_number}</Td>
-                                        <Td display={{ base: 'none', sm: 'table-cell' }}>{new Date(order.order_date).toLocaleString("en-US")}</Td>
+                                        <Td>
+                                            <ChakraLink
+                                                color='blueviolet'
+                                            >
+                                                <Link
+                                                    to={`order-details/${order._id}`}
+                                                >
+                                                    {order.order_number}
+
+                                                </Link>
+                                            </ChakraLink>
+                                        </Td>
+                                        <Td display={{ base: 'none', sm: 'table-cell' }}>{new Date(order.order_date).toLocaleString("en-UK")}</Td>
                                         <Td>{order.userId.username}</Td>
                                         <Td display={{ base: 'none', md: 'table-cell' }}>{order.phone_number}</Td>
                                         <Td display={{ base: 'none', md: 'table-cell' }}>{order.address.street} {order.address.building} {order.address.city}</Td>
                                         <Td display={{ base: 'none', md: 'table-cell' }}>{order.order_total}$</Td>
                                         <Td>
                                             <Select
+                                                shadow='inner'
                                                 value={order.status}
                                                 w='-webkit-max-content'
                                                 variant='outline'

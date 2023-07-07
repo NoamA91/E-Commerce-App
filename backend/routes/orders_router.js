@@ -14,8 +14,8 @@ const {
 // managers functions
 const {
   getAllOrdersForManagers,
-  updateStatusForManagers,
   getOrderByIdForManagers,
+  updateStatusForManagers,
   deleteOrderByIdForManagers
 } = require("../controllers/orders_controller");
 
@@ -23,8 +23,8 @@ const {
 
 // managers requests from orders controller
 router.get('/managers/all', getAllOrdersForManagers);
+router.get('/managers/get-order-by-id/:id', getOrderByIdForManagers);
 router.put('/managers/update-status/:id', updateStatusForManagers);
-router.get('/managers/order-details/:id', getOrderByIdForManagers);
 router.delete('/managers/delete-order/:id', deleteOrderByIdForManagers);
 
 // users requests from orders controller
