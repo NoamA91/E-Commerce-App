@@ -24,7 +24,7 @@ import {
     AlertDialogBody,
     AlertDialogFooter,
     useDisclosure,
-    Select,
+    Divider,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -45,14 +45,14 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                     bg='whitesmoke'
                 >
                     <CardHeader>
-                        <Heading size='md'>Order ID: {order.order_number}</Heading>
+                        <Heading size='lg'>Order ID: {order.order_number}</Heading>
                     </CardHeader>
-
+                    <Divider />
                     <CardBody>
                         <Stack divider={<StackDivider />} spacing='4'>
 
-                            <Box mb={5}>
-                                <Heading color='teal.600' size='sm' textTransform='uppercase'>
+                            <Box mb={5} mt={5}>
+                                <Heading color='teal.600' size='md' textTransform='uppercase'>
                                     customer details
                                 </Heading>
                                 <Text mt={2} fontSize='md'>
@@ -70,10 +70,14 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                             </Box>
 
                             <Box mb={5}>
-                                <Heading color='teal' size='sm' textTransform='uppercase' mt={5}>
+                                <Heading color='teal' size='md' textTransform='uppercase' mt={5}>
                                     Products
                                 </Heading>
-                                <Table mt={2}>
+                                <Table
+                                    variant="striped"
+                                    colorScheme='blackAlpha'
+                                    mt={2}
+                                >
                                     <Thead>
                                         <Tr position='sticky'>
                                             <Th>Name</Th>
@@ -107,7 +111,7 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                             </Box>
 
                             <Box>
-                                <Heading color='teal' size='sm' textTransform='uppercase' mt={5}>
+                                <Heading color='teal' size='md' textTransform='uppercase' mt={5}>
                                     payment details
                                 </Heading>
                                 <Text mt={2} fontSize='md'>
@@ -118,16 +122,22 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                                 </Text>
                                 <Text mt={2} fontSize='md'>
                                     <Text textDecoration='underline' as='span'>Last Digits:</Text>
-                                    XXXX-XXXX-XXXX-
+                                    <span> </span>XXXX-XXXX-XXXX-
                                     {order.payment_details.last_digits}
                                 </Text>
                             </Box>
                         </Stack>
                     </CardBody>
+                    <Divider />
                     <CardFooter>
-                        <Flex justify={'space-between'} w='full'>
-                            <Button colorScheme='teal' mr={3} onClick={() => navigate("../")}>Back</Button>
+                        <Flex justify={'end'} w='full'>
                             <Button
+                                colorScheme='teal'
+                                onClick={() => navigate("../")}
+                                mr={3}
+                            >Back</Button>
+                            <Button
+
                                 colorScheme={'red'}
                                 onClick={() => {
                                     alertDialogState.onOpen();
@@ -156,18 +166,17 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                         </AlertDialogBody>
 
                         <AlertDialogFooter>
-                            <Button onClick={alertDialogState.onClose}>
-                                Cancel
-                            </Button>
                             <Button
                                 colorScheme='red'
-                                ml={3}
                                 onClick={() => {
                                     deleteOrder(order_id)
                                     navigate("../")
                                 }}
                             >
                                 Yes
+                            </Button>
+                            <Button ml={3} onClick={alertDialogState.onClose}>
+                                Cancel
                             </Button>
                         </AlertDialogFooter>
                     </AlertDialogContent>

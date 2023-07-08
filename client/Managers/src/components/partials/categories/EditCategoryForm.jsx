@@ -78,7 +78,7 @@ const EditCategoryForm = ({ category }) => {
             <Box h='100vh' >
                 <Container maxW='xl'>
                     <Box as='form' bg='white' p={8} onSubmit={handleSubmit} borderRadius={8} boxShadow='md' >
-                        <Flex>
+                        <Flex gap={3}>
                             <FormControl id="animal_type" pb={4} isRequired>
                                 <FormLabel htmlFor="animal_type">Animal Type</FormLabel>
                                 <Input
@@ -100,10 +100,12 @@ const EditCategoryForm = ({ category }) => {
                             </FormControl>
                         </Flex>
 
-                        <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
-                            Update
-                        </Button>
-                        <Button onClick={() => navigate("../")}>Back</Button>
+                        <Flex justifyContent='flex-end' mt={4}>
+                            <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
+                                Update
+                            </Button>
+                            <Button onClick={() => navigate("../")}>Back</Button>
+                        </Flex>
                     </Box>
                 </Container>
             </Box >

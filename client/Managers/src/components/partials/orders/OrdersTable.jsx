@@ -357,11 +357,11 @@ const OrdersTable = ({ orders, changeStatus }) => {
                         </AlertDialogBody>
 
                         <AlertDialogFooter>
-                            <Button onClick={() => setOpenAlertDialog(false)}>
-                                Cancel
-                            </Button>
-                            <Button colorScheme='teal' ml={3} onClick={handleConfirmStatusChange}>
+                            <Button colorScheme='teal' onClick={handleConfirmStatusChange}>
                                 Confirm
+                            </Button>
+                            <Button ml={3} onClick={() => setOpenAlertDialog(false)}>
+                                Cancel
                             </Button>
                         </AlertDialogFooter>
                     </AlertDialogContent>

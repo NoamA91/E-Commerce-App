@@ -162,12 +162,8 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                 Are you sure to the delete? You can't undo this action afterwards.
                             </AlertDialogBody>
                             <AlertDialogFooter>
-                                <Button onClick={alertDialogState.onClose}>
-                                    Cancel
-                                </Button>
                                 <Button
                                     colorScheme='red'
-                                    ml={3}
                                     onClick={() => {
                                         deleteProduct(productToDelete);
                                         setProductToDelete(null);
@@ -175,6 +171,12 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                     }}
                                 >
                                     Yes
+                                </Button>
+                                <Button
+                                    ml={3}
+                                    onClick={alertDialogState.onClose}
+                                >
+                                    Cancel
                                 </Button>
                             </AlertDialogFooter>
                         </AlertDialogContent >

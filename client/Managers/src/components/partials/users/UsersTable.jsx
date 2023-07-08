@@ -112,12 +112,8 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                             Are you sure? You can't undo this action afterwards.
                         </AlertDialogBody>
                         <AlertDialogFooter>
-                            <Button onClick={alertDialogState.onClose}>
-                                Cancel
-                            </Button>
                             <Button
                                 colorScheme='red'
-                                ml={3}
                                 onClick={() => {
                                     deleteUser(userToDelete);
                                     setUserToDelete(null);
@@ -125,6 +121,9 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                                 }}
                             >
                                 Yes
+                            </Button>
+                            <Button ml={3} onClick={alertDialogState.onClose}>
+                                Cancel
                             </Button>
                         </AlertDialogFooter>
                     </AlertDialogContent >
