@@ -93,21 +93,13 @@ module.exports = {
     console.log("API POST request : logout manager".new_request);
 
     try {
-      const token = req.headers.authorization.split(' ')[1];
-
-      if (!token) {
-        return res
-          .status(401)
-          .json({ success: false, message: 'Authorization fail!' });
-      }
 
       const tokens = req.user.tokens;
+      const currentToken = req.token;
 
-      const newTokens = tokens.filter(t => t.token !== req.token);
+      const newTokens = tokens.filter(t => t.token !== currentToken);
 
       await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
-
-      res.clearCookie("token");
 
       console.log("Manager logout successfully");
 
@@ -398,12 +390,18 @@ module.exports = {
         })
       }
 
+
+      const newToken = generateToken(manager);
+      const updatedTokens = manager.tokens = manager.tokens.filter((t) => t.token !== token);
+      await User.findByIdAndUpdate(manager._id, {
+        tokens: [...updatedTokens, { token: newToken, signedAt: Date.now().toString() }]
+      })
       console.log("Manager Authorized".success_request);
 
       return res.status(201).json({
         success: true,
         message: "Manager Authorized",
-        token: token,
+        token: newToken,
         user: {
           _id: manager._id,
           username: manager.username,

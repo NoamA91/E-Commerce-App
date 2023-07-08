@@ -24,14 +24,12 @@ const AuthProvider = ({ children }) => {
                         });
                     const data = await response.data;
 
-
-                    if (!data.success) {
-                        removeCookies('token');
-                        throw new Error(`${data.message} : ${data.error}`);
-                    }
+                    setCookies("token", data.token, { path: "/", maxAge: 10800 });
                     setUser(data.user);
                     setIsAuthenticated(true);
+
                 } catch (error) {
+                    removeCookies('token');
                     setIsAuthenticated(false);
                     setError(error);
                 } finally {
@@ -47,16 +45,16 @@ const AuthProvider = ({ children }) => {
             const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/managers/login`,
                 { email, password }
             );
-
             const data = response.data;
 
             if (!data.success) {
                 throw new Error(`${data.message} : ${data.error}`);
             }
+
+
+            setCookies("token", data.token, { path: "/", maxAge: 10800 });
             setUser(data.user);
             setIsAuthenticated(true);
-            setCookies("token", data.token, { path: "/", maxAge: 10800 });
-
             return {
                 success: true,
                 message: data.message
