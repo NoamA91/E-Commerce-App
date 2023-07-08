@@ -92,37 +92,34 @@ module.exports = {
   logoutManager: async (req, res) => {
     console.log("API POST request : logout manager".new_request);
 
-    if (req.headers && req.headers.authorization) {
+    try {
+      const token = req.headers.authorization.split(' ')[1];
 
-      try {
-        const token = req.headers.authorization.split(' ')[1];
-
-        if (!token) {
-          return res
-            .status(401)
-            .json({ success: false, message: 'Authorization fail!' });
-        }
-
-        const tokens = req.user.tokens;
-
-        const newTokens = tokens.filter(t => t.token !== token);
-
-        await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
-
-        res.clearCookie("token");
-
-        console.log("Manager logout successfully");
-
-        return res.status(200).json({
-          success: true,
-          message: "Manager logout successfully",
-        });
-      } catch (error) {
-        return res.status(500).json({
-          message: "Error in logout request",
-          error: error.message,
-        });
+      if (!token) {
+        return res
+          .status(401)
+          .json({ success: false, message: 'Authorization fail!' });
       }
+
+      const tokens = req.user.tokens;
+
+      const newTokens = tokens.filter(t => t.token !== req.token);
+
+      await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
+
+      res.clearCookie("token");
+
+      console.log("Manager logout successfully");
+
+      return res.status(200).json({
+        success: true,
+        message: "Manager logout successfully",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Error in logout request",
+        error: error.message,
+      });
     }
   },
 
