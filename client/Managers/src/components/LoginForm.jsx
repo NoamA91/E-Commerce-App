@@ -9,6 +9,7 @@ import {
     useToast,
     InputRightElement,
     InputGroup,
+    Image,
 } from '@chakra-ui/react'
 import { FiEye, FiEyeOff } from "react-icons/fi"
 import React, { useContext, useState } from 'react'
@@ -65,48 +66,69 @@ const LoginForm = () => {
 
 
     return (
-        <Flex justify='center' align='center' h='100vh' w='100%'>
+        <Flex justify='center' align='center' minH='100vh' w='100%'>
 
             <Box as='form' w={500} bg='whiteAlpha.500' borderRadius='10px' px={10} onSubmit={handleSubmit}>
-                <Heading textAlign='center' mt={15}>LOGIN</Heading>
 
-                <FormControl id='email' mt={5} isRequired >
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <Input name="email" bg='whiteAlpha.700' onChange={handleChange} type="email" placeholder='name@example.com' />
-                </FormControl >
+                <Flex justify='center' align='center' mt={5} >
+                    <Image
+                        src='/LoIdTTpj78.png'
+                        alt='logo'
+                        w='100%'
+                        borderRadius={10}
+                        shadow='lg'
+                    />
+                </Flex>
 
-                <FormControl id='password' mt={5} isRequired>
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <InputGroup>
+                <Box>
+                    <Heading as='h2' size='md' textAlign='center' mt={15}>MANAGEMENT</Heading>
+
+                    <FormControl id='email' mt={4} isRequired >
+                        <FormLabel htmlFor="email">Email</FormLabel>
                         <Input
-                            name="password"
+                            name="email"
                             bg='whiteAlpha.700'
                             onChange={handleChange}
-                            type={show ? 'text' : 'password'}
-                            placeholder='Enter your password'
+                            ype="email"
+                            placeholder='name@example.com'
+                            shadow='inner'
                         />
-                        <InputRightElement width='4.5rem'>
-                            <Button
-                                size='lg'
-                                bg='inherit'
-                                onClick={() => setShow(!show)}
-                                _hover={{ bg: 'inherit' }}
-                            >
-                                {show ? <FiEyeOff /> : <FiEye />}
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
-                </FormControl>
+                    </FormControl >
 
-                <Button
-                    type="submit"
-                    colorScheme={loading ? 'gray' : 'blue'}
-                    w='100%'
-                    mt={10} mb={10}
-                    isLoading={loading}
-                >
-                    Log in
-                </Button>
+                    <FormControl id='password' mt={5} isRequired>
+                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <InputGroup>
+                            <Input
+                                name="password"
+                                bg='whiteAlpha.700'
+                                onChange={handleChange}
+                                type={show ? 'text' : 'password'}
+                                placeholder='Enter your password'
+                                shadow='inner'
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button
+                                    size='lg'
+                                    bg='inherit'
+                                    onClick={() => setShow(!show)}
+                                    _hover={{ bg: 'inherit' }}
+                                >
+                                    {show ? <FiEyeOff /> : <FiEye />}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </FormControl>
+
+                    <Button
+                        type="submit"
+                        colorScheme={loading ? 'gray' : 'blue'}
+                        w='100%'
+                        mt={10} mb={10}
+                        isLoading={loading}
+                    >
+                        Log in
+                    </Button>
+                </Box>
             </Box >
         </Flex >
     )
