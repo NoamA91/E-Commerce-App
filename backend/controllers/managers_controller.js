@@ -53,7 +53,7 @@ module.exports = {
       // Filter out expired tokens
       if (oldTokens.length) {
         oldTokens = oldTokens.filter((t) => {
-          const timeDiff = currentTime - parseInt(t.signedAt) / 1000;
+          const timeDiff = (currentTime - parseInt(t.signedAt)) / 1000;
           if (timeDiff <= 10800) {
             return t;
           }
@@ -375,24 +375,15 @@ module.exports = {
       }
 
       // Check if token exists in user's tokens array
-      if (!manager.tokens.find(tokenObj => tokenObj.token === token)) {
+      if (!manager.tokens.find(t => t.token === token)) {
         console.log("Token is not valid".failed_request);
         return res.status(401).json({
           message: "Token is not valid"
         })
       }
-
-      const status = manager.tokens.some((t) => t.token === token);
-      if (!status) {
-        console.log("Token is not valid".failed_request);
-        return res.status(401).json({
-          message: "Token is not valid"
-        })
-      }
-
 
       const newToken = generateToken(manager);
-      const updatedTokens = manager.tokens = manager.tokens.filter((t) => t.token !== token);
+      const updatedTokens = manager.tokens.filter((t) => t.token !== token);
       await User.findByIdAndUpdate(manager._id, {
         tokens: [...updatedTokens, { token: newToken, signedAt: Date.now().toString() }]
       })
