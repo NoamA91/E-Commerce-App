@@ -38,6 +38,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                 <MenuButton
                     as={Button}
                     colorScheme="teal"
+                    shadow='md'
                     rightIcon={<FiChevronDown />}
                     mt={{ base: 5, md: 10 }}
                     float='right'

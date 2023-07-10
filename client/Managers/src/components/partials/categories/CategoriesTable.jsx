@@ -37,6 +37,7 @@ const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) =>
                 <Box>
                     <Button
                         colorScheme='teal'
+                        shadow='md'
                         p='4'
                         leftIcon={<FiPlusCircle fontSize={25} />}
                         mt={{ base: 5, md: 10 }}

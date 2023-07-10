@@ -72,7 +72,7 @@ const LoginForm = () => {
 
                 <Flex justify='center' align='center' mt={5} >
                     <Image
-                        src='/LoIdTTpj78.png'
+                        src='/Logo.png'
                         alt='logo'
                         w='100%'
                         borderRadius={10}

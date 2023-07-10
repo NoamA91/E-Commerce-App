@@ -55,13 +55,25 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                     justifyContent='space-between'
                 >
                     <Box ml={{ base: 2, md: 10 }}>
-                        <Select mb={3} size='sm' variant='filled' placeholder="Filter by Animal Type" onChange={e => setSelectedAnimalType(e.target.value)}>
+                        <Select mb={3}
+                            size='sm'
+                            shadow='md'
+                            variant='filled'
+                            placeholder="Filter by Animal Type"
+                            onChange={e => setSelectedAnimalType(e.target.value)}
+                        >
                             {animalTypes.map((animalType, index) => (
                                 <option key={index} value={animalType}>{animalType}</option>
                             ))}
                         </Select>
 
-                        <Select size='sm' variant='filled' placeholder="Filter by Category" onChange={e => setSelectedCategoryName(e.target.value)}>
+                        <Select
+                            size='sm'
+                            shadow='md'
+                            variant='filled'
+                            placeholder="Filter by Category"
+                            onChange={e => setSelectedCategoryName(e.target.value)}
+                        >
                             {categoryNames.map((categoryName, index) => (
                                 <option key={index} value={categoryName}>{categoryName}</option>
                             ))}
@@ -70,6 +82,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
 
                     <Button
                         colorScheme='teal'
+                        shadow='md'
                         p='4'
                         leftIcon={<FiPlusCircle fontSize={25} />}
                         mt={{ base: 0, md: 10 }}
