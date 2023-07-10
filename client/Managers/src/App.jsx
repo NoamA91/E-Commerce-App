@@ -11,17 +11,17 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import AuthContext from "./contexts/AuthContext";
 
 const Root = lazy(() => import("./pages/Root"))
-const Users = lazy(() => import("./pages/privatePages/Users/Users"))
-const EditUser = lazy(() => import("./pages/privatePages/Users/EditUser"))
-const Dashboard = lazy(() => import("./pages/privatePages/dashboard/Dashboard"))
-const Products = lazy(() => import("./pages/privatePages/Products/Products"))
-const EditProduct = lazy(() => import("./pages/privatePages/Products/EditProduct"))
-const Categories = lazy(() => import("./pages/privatePages/categories/Categories"))
-const EditCategory = lazy(() => import("./pages/privatePages/categories/EditCategory"))
-const Orders = lazy(() => import("./pages/privatePages/Orders/Orders"))
-const OrderDetails = lazy(() => import("./pages/privatePages/Orders/OrderDetails"))
-const Login = lazy(() => import("./pages/publicPages/Login"))
-const NotFoundPage = lazy(() => import("./pages/privatePages/NotFoundPage"))
+const Users = lazy(() => import("./pages/private/Users/Users"))
+const EditUser = lazy(() => import("./pages/private/Users/EditUser"))
+const Dashboard = lazy(() => import("./pages/private/dashboard/Dashboard"))
+const Products = lazy(() => import("./pages/private/Products/Products"))
+const EditProduct = lazy(() => import("./pages/private/Products/EditProduct"))
+const Categories = lazy(() => import("./pages/private/categories/Categories"))
+const EditCategory = lazy(() => import("./pages/private/categories/EditCategory"))
+const Orders = lazy(() => import("./pages/private/Orders/Orders"))
+const OrderDetails = lazy(() => import("./pages/private/Orders/OrderDetails"))
+const Login = lazy(() => import("./pages/public/Login"))
+const NotFoundPage = lazy(() => import("./pages/private/NotFoundPage"))
 
 
 

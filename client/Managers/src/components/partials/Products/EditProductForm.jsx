@@ -203,10 +203,10 @@ const EditProductForm = ({ product, categories }) => {
                                 mt={8}
                                 width={'300px'}
                                 maxH={'160px'}
-                                objectFit='contain'
+                                objectFit='cover'
                                 border={'2px solid gray'}
                                 src={values.image ? values.image
-                                    : 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png'}
+                                    : '/placeholder-image.jpg'}
                             />
                         </VStack>
                     </Box>
