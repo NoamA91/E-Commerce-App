@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useFetchGet from '../../../hooks/useFetchGet';
-import ProductsTable from '../../../components/partials/Products/ProductsTable'
+import ProductsTable from '../../../components/partials/products/ProductsTable'
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { useEffect } from 'react';
 import ErrorAlert from '../../../components/ErrorAlert';
