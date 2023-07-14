@@ -6,10 +6,9 @@ import {
     DrawerFooter,
     DrawerOverlay
 } from '@chakra-ui/modal'
-import Profile from './Profile'
-import SidebarContent from './SidebarContent'
+// import SidebarContent from './SidebarContent'
 
-const DrawerSidebar = ({ isOpen, onClose }) => {
+const SidebarDrawer = ({ isOpen, onClose }) => {
 
     return (
         <>
@@ -19,11 +18,11 @@ const DrawerSidebar = ({ isOpen, onClose }) => {
                     <DrawerCloseButton color="white" />
 
                     <DrawerBody mt={5}>
-                        <SidebarContent onClose={onClose} />
+                        {/* <SidebarContent onClose={onClose} /> */}
                     </DrawerBody>
 
                     <DrawerFooter>
-                        <Profile />
+                        {/* <Profile /> */}
                     </DrawerFooter>
 
                 </DrawerContent >
@@ -32,4 +31,4 @@ const DrawerSidebar = ({ isOpen, onClose }) => {
     )
 }
 
-export default DrawerSidebar
+export default SidebarDrawer
