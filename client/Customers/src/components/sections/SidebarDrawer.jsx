@@ -12,10 +12,18 @@ const SidebarDrawer = ({ isOpen, onClose }) => {
 
     return (
         <>
-            <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+            <Drawer
+                isOpen={isOpen}
+                placement="left"
+                onClose={onClose}
+            >
                 <DrawerOverlay />
-                <DrawerContent w="250px" bg="gray.800" >
-                    <DrawerCloseButton color="white" />
+                <DrawerContent w="250px" bg='blackAlpha.900' >
+                    <DrawerCloseButton
+                        color='ShopYellow'
+                        size={3}
+                        mt={2}
+                    />
 
                     <DrawerBody mt={5}>
                         {/* <SidebarContent onClose={onClose} /> */}

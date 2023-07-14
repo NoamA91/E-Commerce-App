@@ -79,7 +79,7 @@ const Nav = () => {
                                 color: 'blackAlpha.900',
                             }}
                         >
-                            <Link to='/shop'>Shop</Link>
+                            <Link to='/shop'>All Products</Link>
                         </Button>
                         <Button
                             size='lg'
