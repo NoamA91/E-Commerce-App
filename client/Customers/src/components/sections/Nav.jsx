@@ -3,22 +3,15 @@ import {
     Button,
     ButtonGroup,
     Flex,
-    Image,
-    Input,
-    Avatar,
-    HStack,
-    VStack,
-    Text,
-    useBreakpointValue,
     useDisclosure,
-    IconButton
 } from "@chakra-ui/react"
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { Link } from "react-router-dom"
 import { PiBasketFill } from "react-icons/pi"
 import { CgProfile } from "react-icons/cg"
-import { FiMenu } from "react-icons/fi"
 import SidebarDrawer from './SidebarDrawer'
+import { motion } from 'framer-motion';
+
 
 const Nav = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,15 +32,14 @@ const Nav = () => {
                     justifyContent='center'
                 >
                     <Box
+                        display={{ base: 'none', md: 'block' }}
                         borderRadius={20}
                         w='400px'
                         h='100px'
-
                         bgImage='url(/Logo.png)'
                         backgroundSize='cover'
                         backgroundPosition='center'
-                    >
-                    </Box>
+                    />
                 </Flex>
 
                 {/* Menu buttons */}
@@ -61,70 +53,94 @@ const Nav = () => {
                         gap={5}
                         display={{ base: "none", md: 'flex' }}
                     >
-                        <Button
-                            size='lg'
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                        >
-                            <Link to='/'>Home</Link>
-                        </Button>
-                        <Button
-                            size='lg'
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                        >
-                            <Link to='/shop'>All Products</Link>
-                        </Button>
-                        <Button
-                            size='lg'
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                        >
-                            <Link to='/about'>About Us</Link>
-                        </Button>
-                        <Button
-                            size='lg'
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                        >
-                            <Link to='/contact'>Contact</Link>
-                        </Button>
-                        <Button
-                            size='lg'
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                        >
-                            <Link to='/blog'>Blog</Link>
-                        </Button>
+                        <Link to='/'>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size='lg'
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                >
+                                    Home
+                                </Button>
+                            </motion.div>
+                        </Link>
+
+                        <Link to='/shop'>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size='lg'
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                >
+                                    All Products
+                                </Button>
+                            </motion.div>
+                        </Link>
+
+                        <Link to='/about'>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size='lg'
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                >
+                                    About Us
+                                </Button>
+                            </motion.div>
+                        </Link>
+
+                        <Link to='/contact'>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size='lg'
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                >
+                                    Contact
+                                </Button>
+                            </motion.div>
+                        </Link>
+
+                        <Link to='/blog'>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size='lg'
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                >
+                                    Blog
+                                </Button>
+                            </motion.div>
+                        </Link>
                     </ButtonGroup>
 
 
                     {/* Mobile menu  */}
-                    {/* <Flex
-                        display={{ base: 'flex', md: 'none' }}
-                    >
-                        <IconButton
-                            icon={<HamburgerIcon color='ShopTeal.200' boxSize={7} />}
-                            onClick={onOpen}
-                            background='none'
-                            _hover={{ background: 'none' }}
-                        />
-                    </Flex> */}
                     <Button
                         variant={'unstyled'}
                         onClick={onOpen}
@@ -144,29 +160,40 @@ const Nav = () => {
                         variant='ghost'
                         gap={{ md: 5 }}
                     >
-                        <Button
-                            size={{ base: 'sm', md: 'lg' }}
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                            rightIcon={<CgProfile size={30} />}
-                        >
-                            Sign in
-                        </Button>
-                        <Button
-                            size={{ base: 'sm', md: 'lg' }}
-
-                            color='ShopTeal.200'
-                            _hover={{
-                                bg: 'ShopTeal.200',
-                                color: 'blackAlpha.900',
-                            }}
-                            rightIcon={<PiBasketFill size={30} />}
-                        >
-                            Cart
-                        </Button>
+                        <Link to=''>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size={{ base: 'sm', md: 'lg' }}
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                    rightIcon={<CgProfile size={30} />}
+                                >
+                                    Sign in
+                                </Button>
+                            </motion.div>
+                        </Link>
+                        <Link to=''>
+                            <motion.div
+                                whileHover={{ scale: 1.050 }}
+                            >
+                                <Button
+                                    size={{ base: 'sm', md: 'lg' }}
+                                    color='ShopTeal.200'
+                                    _hover={{
+                                        bg: 'ShopTeal.200',
+                                        color: 'blackAlpha.900',
+                                    }}
+                                    rightIcon={<PiBasketFill size={30} />}
+                                >
+                                    Cart
+                                </Button>
+                            </motion.div>
+                        </Link>
                     </ButtonGroup>
                 </Flex>
             </Flex >

@@ -1,4 +1,3 @@
-import * as url from 'url';
 import { Box, Heading, Text, Image, Flex, position, Circle, Grid, GridItem, Button } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Parallax, ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
@@ -47,6 +46,7 @@ const Home = () => {
                                     }}
                                     initial={{ opacity: 0 }}
                                     animate={{
+                                        scale: [0.9, 1],
                                         opacity: 1,
                                         transition: { duration: 0.6, delay: 0.1 }
                                     }}
