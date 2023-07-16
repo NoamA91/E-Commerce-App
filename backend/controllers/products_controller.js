@@ -13,7 +13,7 @@ module.exports = {
   getAll: async (req, res) => {
     console.log("API GET request : get all products".new_request);
     try {
-      const products = await Product.find();
+      const products = await Product.find().populate('category').exec();
 
       // in case no products are found
       if (!products.length) {

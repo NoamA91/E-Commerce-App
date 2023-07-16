@@ -35,6 +35,17 @@ const Products = () => {
 
     }, [])
 
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedAnimalType, setSelectedAnimalType] = useState(null);
+
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+    }
+
+    const handleAnimalTypeChange = (animalType) => {
+        setSelectedAnimalType(animalType);
+    }
+
     return (
         <motion.div
             style={{
@@ -53,14 +64,20 @@ const Products = () => {
             }}
             exit={{ opacity: 0 }}
         >
-            <Flex>
-                <CatgoriesSidebar />
+            <Flex
+                flexDir={{ base: 'column', md: 'row' }}
+            >
+                <CatgoriesSidebar
+                    products={products}
+                    onCategoryChange={handleCategoryChange}
+                    onAnimalTypeChange={handleAnimalTypeChange}
+                />
                 <Box w="80%" bg="gray.200">
                     {/* Products Container */}
                     {loading && <div>Loading...</div>}
                     {error && <div>Error: {error.message}</div>}
                     {products.map((product, index) => (
-                        <Box key={index} border="1px" borderColor="gray.200" p="4" rounded="md" m="2">
+                        <Box key={index} border="1px" borderColor="gray.200" p="4" rounded="md">
                             <h2>{product.title}</h2>
                             <img src={product.image} alt={product.title} />
                             <p>{product.price}</p>
