@@ -6,7 +6,8 @@ const Home = () => {
     return (
         <motion.div
             style={{
-                width: '100%'
+                width: '100%',
+                minHeight: '100vh'
             }}
             initial={{ opacity: 0 }}
             animate={{
@@ -25,8 +26,9 @@ const Home = () => {
 
 
                 <ParallaxBanner style={{
-                    aspectRatio: '2 / 1.2',
-                    height: '100vh',
+                    aspectRatio: '2 / 1',
+                    minHeight: '100vh',
+
                 }}>
 
                     <ParallaxBannerLayer image="/2.png" speed={-40} />
@@ -35,14 +37,15 @@ const Home = () => {
                         <Flex
                             flexDir={{ base: 'column', md: 'row' }}
                         >
+                            {/* Heading */}
                             <Box
                                 mt={{ base: '1rem', md: '10rem' }}
                                 ml={{ base: '1rem', md: '10rem' }}
+                                p={{ base: '2rem', md: '2rem' }}
                             >
                                 <motion.div
                                     style={{
                                         minWidth: '300px',
-                                        padding: '2rem',
                                     }}
                                     initial={{ opacity: 0 }}
                                     animate={{
@@ -55,17 +58,17 @@ const Home = () => {
                                         as='h1'
                                         size={{ base: 'xl', md: '3xl' }}
                                         color='ShopYellow'
+
                                     >
                                         Online Shopping <br /> Make Life Easier
                                     </Heading>
                                     <Text
                                         mt={4}
                                         color='gray.200'
-
                                         fontSize={{ base: 'md', md: 'lg' }}
                                         lineHeight='2rem'
                                     >
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, facere doloremque ad asperiores, sit distinctio odit ea debitis adipisci fuga recusandae dolores, ex impedit quas reiciendis! Et commodi atque aperiam.
+                                        Experience the joy of finding everything your pet needs under one roof. From tasty treats to playful toys, we have it all. Shop with us and let's make your furry friend's life even more enjoyable and vibrant!
                                     </Text>
                                     <Button
                                         mt={10}
@@ -81,16 +84,18 @@ const Home = () => {
                             </Box>
 
                             <Box>
+                                {/* desktop images */}
                                 <Grid
+                                    display={{ base: 'none', md: 'none', lg: 'grid' }}
                                     templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
                                     templateRows={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
                                     gap={4}
-                                    m={{ base: '1rem', md: '7rem' }}
+                                    m={{ md: '7rem' }}
                                 >
                                     <GridItem
-                                        minW={{ base: '150px', md: '250px' }}
+                                        minW={{ md: '250px' }}
                                         maxW='300px'
-                                        height={{ base: '150px', md: '250px' }}
+                                        height={{ md: '250px' }}
                                     >
                                         <motion.div
                                             style={{
@@ -180,6 +185,16 @@ const Home = () => {
                         </Flex>
                     </ParallaxBannerLayer>
                 </ParallaxBanner>
+
+                {/* <ParallaxBanner
+                    style={{
+                        aspectRatio: '2 / 1',
+                        minHeight: '100vh',
+
+                    }}
+                >
+
+                </ParallaxBanner> */}
 
             </Parallax>
         </motion.div >

@@ -26,6 +26,7 @@ const Nav = () => {
                 flexDir='column'
                 pb={3}
             >
+
                 {/* Logo */}
                 <Flex
                     pt={2}
@@ -45,12 +46,12 @@ const Nav = () => {
                 {/* Menu buttons */}
                 <Flex
                     mt={2}
-                    justifyContent='space-between'
-                    mx={{ base: 4, md: 20 }}
+                    justifyContent={{ base: 'space-between', md: 'center', lg: 'space-between' }}
+                    mx={{ base: 4, md: 0, lg: 20 }}
                 >
                     <ButtonGroup
                         variant='ghost'
-                        gap={5}
+                        gap={{ md: 0, lg: 5 }}
                         display={{ base: "none", md: 'flex' }}
                     >
                         <Link to='/'>
@@ -58,7 +59,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size='lg'
+                                    size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -75,7 +76,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size='lg'
+                                    size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -92,7 +93,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size='lg'
+                                    size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -109,7 +110,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size='lg'
+                                    size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -126,7 +127,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size='lg'
+                                    size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -158,14 +159,14 @@ const Nav = () => {
                     {/* Profile and cart */}
                     <ButtonGroup
                         variant='ghost'
-                        gap={{ md: 5 }}
+                        gap={{ lg: 2 }}
                     >
                         <Link to=''>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size={{ base: 'sm', md: 'lg' }}
+                                    size={{ base: 'sm', md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
@@ -182,7 +183,7 @@ const Nav = () => {
                                 whileHover={{ scale: 1.050 }}
                             >
                                 <Button
-                                    size={{ base: 'sm', md: 'lg' }}
+                                    size={{ base: 'sm', md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
                                         bg: 'ShopTeal.200',
