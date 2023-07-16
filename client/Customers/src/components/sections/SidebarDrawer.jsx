@@ -31,6 +31,7 @@ const SidebarDrawer = ({ isOpen, onClose }) => {
                     <Box
                         w='200px'
                         h='90px'
+                        ml='55px'
                         bgImage='url(/Logo.png)'
                         backgroundSize='contain'
                         backgroundRepeat='no-repeat'

@@ -1,5 +1,6 @@
 import { Box, Heading, Text, Image, Flex, position, Circle, Grid, GridItem, Button } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Parallax, ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
 
 const Home = () => {
@@ -70,16 +71,21 @@ const Home = () => {
                                     >
                                         Experience the joy of finding everything your pet needs under one roof. From tasty treats to playful toys, we have it all. Shop with us and let's make your furry friend's life even more enjoyable and vibrant!
                                     </Text>
-                                    <Button
-                                        mt={10}
-                                        bg='ShopYellow'
-                                        color='black'
-                                        _hover={{
-                                            bg: 'ShopTeal.100',
-                                        }}
-                                    >
-                                        Shop Now
-                                    </Button>
+
+                                    <Link to='/shop'>
+                                        <Button
+                                            mt={10}
+                                            size='lg'
+                                            bg='ShopYellow'
+                                            color='black'
+                                            _hover={{
+                                                bg: 'ShopTeal.100',
+                                            }}
+                                        >
+                                            Shop Now
+                                        </Button>
+                                    </Link>
+
                                 </motion.div>
                             </Box>
 
