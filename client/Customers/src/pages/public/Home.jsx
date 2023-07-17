@@ -61,7 +61,7 @@ const Home = () => {
                                         color='ShopYellow'
 
                                     >
-                                        Online Shopping <br /> Make Life Easier
+                                        Online Shopping <br /> Makes Life Easier
                                     </Heading>
                                     <Text
                                         mt={4}
