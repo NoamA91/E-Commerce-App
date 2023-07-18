@@ -24,6 +24,7 @@ import useFetchGet from '../../../hooks/useFetchGet';
 
 const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
     const toast = useToast();
+    const [imagePreview, setImagePreview] = useState(null);
     const [values, setValues] = useState({
         title: "",
         category: "",
@@ -38,7 +39,8 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
     const [filteredCategories, setFilteredCategories] = useState([]);
 
     // Fetch the category data
-    const [response, loadingCategories, error] = useFetchGet(`${import.meta.env.VITE_SERVER_URL}/categories/managers/all`);
+    const [response, loadingCategories, error] = useFetchGet(
+        `${import.meta.env.VITE_SERVER_URL}/categories/managers/all`);
     const categories = response?.categories;
 
     useEffect(() => {
@@ -68,21 +70,34 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
         }));
     };
 
+    const handleFileChange = (e) => {
+        setValues(() => ({ ...values, image: e.target.files[0] }));
+
+        if (e.target.files[0]) {
+            setImagePreview(URL.createObjectURL(e.target.files[0]));
+        } else {
+            setImagePreview(null);
+        }
+    };
+
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
         try {
             setLoading(true);
+            const formData = new FormData();
+            formData.append('title', values.title);
+            formData.append('category', values.category);
+            formData.append('description', values.description);
+            formData.append('price', values.price);
+            formData.append('image', values.image);
+            formData.append('count_in_stock', values.count_in_stock);
+
             const response = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/products/managers/add-product`,
-                values,
-            )
-
-            if (!response.data.success) {
-                throw new Error(response.data.message);
-            }
+                formData,
+            );
 
             handleProductAdded(response.data.new_product);
 
@@ -99,7 +114,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                 category: "",
                 description: "",
                 price: "",
-                image: "",
+                image: null,
                 count_in_stock: ""
             });
 
@@ -206,11 +221,12 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                 <FormControl id="image" isRequired>
                                     <FormLabel htmlFor="image">Image</FormLabel>
                                     <Input
+                                        variant='flushed'
                                         placeholder='Enter Image URL'
-                                        value={values.image}
+                                        defaultValue={values.image}
                                         name="image"
-                                        onChange={handleChange}
-                                        type="text"
+                                        onChange={handleFileChange}
+                                        type="file"
                                     />
                                 </FormControl>
 
@@ -220,7 +236,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                     height={'160px'}
                                     objectFit='cover'
                                     border={'2px solid gray'}
-                                    src={values.image ? values.image
+                                    src={imagePreview ? imagePreview
                                         : '/placeholder-image.jpg'}
                                 />
                             </VStack>

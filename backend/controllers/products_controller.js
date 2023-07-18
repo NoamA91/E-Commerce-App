@@ -1,6 +1,8 @@
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const colors = require("colors");
+const path = require('path');
+const fs = require('fs');
 
 colors.setTheme({
   new_request: "magenta",
@@ -13,7 +15,7 @@ module.exports = {
   getAll: async (req, res) => {
     console.log("API GET request : get all products".new_request);
     try {
-      const products = await Product.find();
+      const products = await Product.find().populate('category').exec();
 
       // in case no products are found
       if (!products.length) {
@@ -252,9 +254,17 @@ module.exports = {
   addProductForManagers: async (req, res) => {
     console.log("Manager API POST request : Add product".new_request);
     try {
-      const { title, image, description, price, category, count_in_stock } = req.body;
+      const {
+        title,
+        description,
+        price,
+        category,
+        count_in_stock
+      } = req.body;
 
-      if (!title || !image || !description || !price || !category || !count_in_stock) {
+      const image = `http://localhost:3000/uploads/${req.file.filename}`;
+
+      if (!title || !description || !price || !category || !count_in_stock) {
         console.log("Missing product fields in manager request".failed_request);
         return res.status(400).json({
           message: "Missing fields",
@@ -326,6 +336,19 @@ module.exports = {
 
       console.log(`Product with ID ${product_id} found`.step_done);
 
+      const oldImages = Array.isArray(product.image) ? product.image : [product.image];
+      oldImages.forEach(async (oldImageURL) => {
+        const oldImageFileName = path.basename(oldImageURL);
+        const oldImagePath = path.join(__dirname, '../public/uploads', oldImageFileName);
+        if (fs.existsSync(oldImagePath)) {
+          try {
+            await fs.promises.unlink(oldImagePath);
+          } catch (error) {
+            console.log(`Error deleting old image - ${error}`.failed_request);
+          }
+        }
+      });
+
       const updatedProduct = await Product.findByIdAndUpdate(product_id, req.body, {
         new: true,
         runValidators: true,
@@ -347,6 +370,7 @@ module.exports = {
     }
   },
 
+
   deleteByIdForManagers: async (req, res) => {
     console.log(`Manager API DELETE request : Delete product by ID ${req.params.id}`.new_request);
     try {
@@ -362,6 +386,19 @@ module.exports = {
 
       console.log(`Product with ID ${product_id} found`.step_done);
 
+      const oldImages = Array.isArray(product.image) ? product.image : [product.image];
+      oldImages.forEach(async (oldImageURL) => {
+        const oldImageFileName = path.basename(oldImageURL);
+        const oldImagePath = path.join(__dirname, '../public/uploads', oldImageFileName);
+        if (fs.existsSync(oldImagePath)) {
+          try {
+            await fs.promises.unlink(oldImagePath);
+          } catch (error) {
+            console.log(`Error deleting old image - ${error}`.failed_request);
+          }
+        }
+      });
+
       await Product.findByIdAndDelete(product_id);
 
       console.log(`Product with ID ${product_id} deleted successfully`.success_request);
@@ -376,6 +413,26 @@ module.exports = {
         message: "Error in deleting product by id",
         error: error.message,
       });
+    }
+  },
+
+  uploadNewProductImageForManager: async (req, res) => {
+    console.log(`Manager API POST request : Upload new product image`.new_request);
+    try {
+      const image = `http://localhost:3000/uploads/${req.file.filename}`;
+
+      return res.status(200).json({
+        success: true,
+        message: `success to upload new product image - for managers`,
+        image
+      })
+
+    } catch (error) {
+      return res.status(500).json({
+        message: `error in upload new product image - for managers`,
+        error: error.message,
+      })
+
     }
   },
 };

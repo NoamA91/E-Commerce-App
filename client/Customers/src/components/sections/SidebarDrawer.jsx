@@ -6,8 +6,7 @@ import {
     DrawerFooter,
     DrawerOverlay
 } from '@chakra-ui/modal'
-import { Box, Button, Divider, Flex } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Box, Divider } from '@chakra-ui/react'
 import SidebarContent from '../partials/sidebar/SidebarContent'
 
 const SidebarDrawer = ({ isOpen, onClose }) => {

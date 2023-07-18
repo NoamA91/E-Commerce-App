@@ -59,7 +59,6 @@ const Home = () => {
                                         as='h1'
                                         size={{ base: 'xl', md: '3xl' }}
                                         color='ShopYellow'
-
                                     >
                                         Online Shopping <br /> Makes Life Easier
                                     </Heading>

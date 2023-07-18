@@ -1,13 +1,19 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar'
+import ProductsContainer from '../../../components/partials/products/ProductsContainer';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const [selectedCategorySidebar, setSelectedCategorySidebar] = useState("");
+    const [selectedAnimalTypeSidebar, setSelectedAnimalTypeSidebar] = useState("");
 
     const getAllProducts = async () => {
         const source = axios.CancelToken.source();
@@ -32,15 +38,27 @@ const Products = () => {
 
     useEffect(() => {
         getAllProducts();
-
     }, [])
+
+    const handleCategoryChange = (category) => {
+        setSelectedCategorySidebar(category);
+    }
+
+    const handleAnimalTypeChange = (animalType) => {
+        setSelectedAnimalTypeSidebar(animalType);
+    }
+
+    const filteredProducts = products.filter(product =>
+        (selectedAnimalTypeSidebar === "" || product.category.animal_type === selectedAnimalTypeSidebar) &&
+        (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
+    );
+
 
     return (
         <motion.div
             style={{
                 minHeight: '100vh',
                 width: '100%',
-                backgroundColor: ''
             }}
             initial={{ opacity: 0 }}
             animate={{
@@ -53,19 +71,19 @@ const Products = () => {
             }}
             exit={{ opacity: 0 }}
         >
-            <Flex>
-                <CatgoriesSidebar />
-                <Box w="80%" bg="gray.200">
-                    {/* Products Container */}
-                    {loading && <div>Loading...</div>}
+            <Flex
+                flexDir={{ base: 'column', md: 'row' }}
+            >
+                <CatgoriesSidebar
+                    products={products}
+                    onCategoryChange={handleCategoryChange}
+                    onAnimalTypeChange={handleAnimalTypeChange}
+                />
+                {/* <Box w='100%' bg='gray.200' px={{ base: '1%', md: '10%' }}> */}
+                <Box w='100%' bg='gray.200'>
+                    {loading && <LoadingSpinner />}
                     {error && <div>Error: {error.message}</div>}
-                    {products.map((product, index) => (
-                        <Box key={index} border="1px" borderColor="gray.200" p="4" rounded="md" m="2">
-                            <h2>{product.title}</h2>
-                            <img src={product.image} alt={product.title} />
-                            <p>{product.price}</p>
-                        </Box>
-                    ))}
+                    {filteredProducts && <ProductsContainer products={filteredProducts} />}
                 </Box>
             </Flex>
         </motion.div>
