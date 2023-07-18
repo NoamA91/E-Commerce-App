@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) => {
 
-    const layout = useBreakpointValue({ base: 'select', md: 'sidebar' });
+    const layout = useBreakpointValue({ base: 'base', md: 'sidebar' });
 
     const [selectedAnimalType, setSelectedAnimalType] = useState("All");
     const [selectedCategoryName, setSelectedCategoryName] = useState("All");
@@ -28,7 +28,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
 
     const handleAnimalTypeCheckboxChange = (e, layoutType) => {
         const value = e.target.checked ? e.target.value : null;
-        if (layoutType === "select") {
+        if (layoutType === "base") {
             setSelectedAnimalType(value);
             setSelectedAnimalTypeSidebar(value);
         } else {
@@ -40,7 +40,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
 
     const handleCategoryCheckboxChange = (e, layoutType) => {
         const value = e.target.checked ? e.target.value : null;
-        if (layoutType === "select") {
+        if (layoutType === "base") {
             setSelectedCategoryName(value);
             setSelectedCategorySidebar(value);
         } else {
@@ -59,7 +59,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
 
     return (
         <>
-            {layout === 'select' && (
+            {layout === 'base' && (
                 <>
                     <Box
                         bg='gray.200'
@@ -128,7 +128,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                 </>
             )}
             {layout === 'sidebar' && (
-                <Box w='20%' bg='gray.200'>
+                <Box w='14%' bg='gray.200'>
                     <Box
                         m={5}
                         border='1px solid #ccc'
