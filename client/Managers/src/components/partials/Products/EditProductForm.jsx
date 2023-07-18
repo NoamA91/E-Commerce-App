@@ -11,12 +11,14 @@ import {
     Container,
     Heading,
     HStack,
-    Textarea
+    Textarea,
+    Text,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import ErrorAlert from '../../ErrorAlert';
 
 const EditProductForm = ({ product, categories }) => {
     const navigate = useNavigate();
@@ -53,6 +55,12 @@ const EditProductForm = ({ product, categories }) => {
         }
     }, [selectedAnimal, categories]);
 
+    const [newImage, setNewImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+
+    const [errorNewImage, setErrorNewImage] = useState(null);
+    const [loadingNewImage, setLoadingNewImage] = useState(false);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'category') {
@@ -64,6 +72,46 @@ const EditProductForm = ({ product, categories }) => {
             [name]: value,
         }));
     }
+
+    const handleFileChange = (e) => {
+        setNewImage(e.target.files[0]);
+    };
+
+    const handleUploadNewImage = async () => {
+        try {
+            setLoadingNewImage(true);
+            const formData = new FormData();
+            formData.append("image", newImage);
+
+            const response = await axios.post(
+                "http://localhost:3000/products/managers/add-new-image",
+                formData
+            );
+
+            setNewImage(null);
+            setImagePreview(response.data.image);
+            setValues((prevValues) => ({
+                ...prevValues,
+                image: response.data.image,
+            }));
+
+            setLoadingNewImage(false);
+            setErrorNewImage(null);
+
+            toast({
+                title: "Image upload success",
+                description: "The image has been uploaded successfully.",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+        } catch (error) {
+            setErrorNewImage(error.response.data.error);
+
+        } finally {
+            setLoadingNewImage(false);
+        }
+    };
 
     const [loading, setLoading] = useState(false);
 
@@ -188,28 +236,39 @@ const EditProductForm = ({ product, categories }) => {
                                 />
                             </FormControl>
 
-                            <FormControl id="image" pb={4} isRequired>
-                                <FormLabel htmlFor="image">Image</FormLabel>
-                                <Input
-                                    placeholder='Enter Image URL'
-                                    value={values.image}
-                                    name="image"
-                                    onChange={handleChange}
-                                    type="text"
-                                />
-                            </FormControl>
+                            <VStack>
+                                <FormControl id="image" pb={2} isRequired>
+                                    <FormLabel htmlFor="image">Image</FormLabel>
+                                    <Input
+                                        variant='flushed'
+                                        placeholder='Choose an Image File'
+                                        name="image"
+                                        onChange={handleFileChange}
+                                        type="file"
+                                        accept="image/*"
+                                    />
+                                </FormControl>
+
+                                <Button
+                                    onClick={handleUploadNewImage}
+                                    isLoading={loadingNewImage}
+                                    size='sm'
+                                >
+                                    Upload New Image
+                                </Button>
+                            </VStack>
 
                             <Image
-                                mt={8}
+                                // mt={8}
                                 width={'300px'}
                                 maxH={'160px'}
                                 objectFit='cover'
                                 border={'2px solid gray'}
-                                src={values.image ? values.image
-                                    : '/placeholder-image.jpg'}
+                                src={imagePreview ? imagePreview : values.image ? values.image : '/placeholder-image.jpg'}
                             />
                         </VStack>
                     </Box>
+                    {errorNewImage && <ErrorAlert error={errorNewImage} />}
                     <HStack pt={9}>
                         <Button type='submit' mr={3} isLoading={loading} colorScheme={loading ? 'gray' : 'teal'}>
                             Update
@@ -221,5 +280,4 @@ const EditProductForm = ({ product, categories }) => {
         </>
     )
 }
-
 export default EditProductForm

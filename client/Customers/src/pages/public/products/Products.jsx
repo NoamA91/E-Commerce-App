@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Spinner } from '@chakra-ui/react';
 import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar'
+import LoadingSpinner from '../../../components/LoadingSpinner';
+
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -36,7 +39,6 @@ const Products = () => {
     useEffect(() => {
         getAllProducts();
     }, [])
-
 
     const handleCategoryChange = (category) => {
         setSelectedCategorySidebar(category);
@@ -79,8 +81,10 @@ const Products = () => {
                     onAnimalTypeChange={handleAnimalTypeChange}
                 />
                 <Box w="80%" bg="gray.200">
+
                     {/* Products Container */}
-                    {loading && <div>Loading...</div>}
+
+                    {loading && <LoadingSpinner />}
                     {error && <div>Error: {error.message}</div>}
                     {filteredProducts.map((product, index) => (
                         <Box key={index} border="1px" borderColor="gray.200" p="4" rounded="md">
