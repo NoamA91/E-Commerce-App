@@ -9,8 +9,6 @@ import ProductsContainer from '../../../components/partials/products/ProductsCon
 const Products = () => {
     const [products, setProducts] = useState([]);
 
-    const layout = useBreakpointValue({ base: 'select', md: 'sidebar' });
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
