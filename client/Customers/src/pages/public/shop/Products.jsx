@@ -9,6 +9,9 @@ const Products = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const [selectedCategorySidebar, setSelectedCategorySidebar] = useState("");
+    const [selectedAnimalTypeSidebar, setSelectedAnimalTypeSidebar] = useState("");
+
     const getAllProducts = async () => {
         const source = axios.CancelToken.source();
 
@@ -32,19 +35,22 @@ const Products = () => {
 
     useEffect(() => {
         getAllProducts();
-
     }, [])
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedAnimalType, setSelectedAnimalType] = useState(null);
 
     const handleCategoryChange = (category) => {
-        setSelectedCategory(category);
+        setSelectedCategorySidebar(category);
     }
 
     const handleAnimalTypeChange = (animalType) => {
-        setSelectedAnimalType(animalType);
+        setSelectedAnimalTypeSidebar(animalType);
     }
+
+    const filteredProducts = products.filter(product =>
+        (selectedAnimalTypeSidebar === "" || product.category.animal_type === selectedAnimalTypeSidebar) &&
+        (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
+    );
+
 
     return (
         <motion.div
@@ -76,7 +82,7 @@ const Products = () => {
                     {/* Products Container */}
                     {loading && <div>Loading...</div>}
                     {error && <div>Error: {error.message}</div>}
-                    {products.map((product, index) => (
+                    {filteredProducts.map((product, index) => (
                         <Box key={index} border="1px" borderColor="gray.200" p="4" rounded="md">
                             <h2>{product.title}</h2>
                             <img src={product.image} alt={product.title} />

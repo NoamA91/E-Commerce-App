@@ -8,7 +8,7 @@ const Footer = () => {
             role="contentinfo"
             mx="auto"
             w='full'
-            py="12"
+            py={{ base: '4', md: '12' }}
             px={{ base: '4', md: '8' }}
         >
             <Flex
@@ -16,22 +16,28 @@ const Footer = () => {
                 align={{ base: 'center', md: 'start' }}
                 justify="space-between"
             >
-                <Text fontSize="sm" color='gray.400'>© 2023 PetShop, Inc. All rights reserved to Noam Ashkenazi.</Text>
+                <Text fontSize={{ base: 'xs', md: 'sm' }} color='gray.400'>© 2023 ThePetShop, Inc. All rights reserved to Noam Ashkenazi.</Text>
 
                 <Flex
                     direction={{ base: 'column-reverse', md: 'row' }}
                     align="center"
                     justify="center"
-                    mt={{ base: '4', md: '0' }}
+                    mt={{ base: '2', md: '0' }}
+                    py={{ base: '3', md: '0' }}
                 >
-                    <Link href="/" px="3" color="gray.400" fontSize="sm">Home</Link>
-                    <Link href="/about" px="3" color="gray.400" fontSize="sm">About</Link>
-                    <Link href="/contact" px="3" color="gray.400" fontSize="sm">Contact Us</Link>
-                    <Link href="/shop" px="3" color="gray.400" fontSize="sm">All Products</Link>
-                    <Link href="/blog" px="3" color="gray.400" fontSize="sm">Blog</Link>
+                    <Link py={{ base: '1', md: '0' }}
+                        href="/" px="3" color="gray.400" fontSize="sm">Home</Link>
+                    <Link py={{ base: '1', md: '0' }}
+                        href="/about" px="3" color="gray.400" fontSize="sm">About</Link>
+                    <Link py={{ base: '1', md: '0' }}
+                        href="/contact" px="3" color="gray.400" fontSize="sm">Contact Us</Link>
+                    <Link py={{ base: '1', md: '0' }}
+                        href="/shop" px="3" color="gray.400" fontSize="sm">All Products</Link>
+                    <Link py={{ base: '1', md: '0' }}
+                        href="/blog" px="3" color="gray.400" fontSize="sm">Blog</Link>
                 </Flex>
             </Flex>
-        </Box>
+        </Box >
     );
 }
 
