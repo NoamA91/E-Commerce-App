@@ -67,14 +67,14 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                         <Box
                             bg='blackAlpha.900'
                             border='1px solid #ccc'
-                            borderTopRadius={5}
+                            borderRadius={5}
                             p='10px'
                             m='10px 10px 0px 10px'
                             onClick={() => setIsOpen(!isOpen)}
                             display='flex'
                             justifyContent='space-between'
                         >
-                            <Text color='ShopYellow'>Browse by Category</Text>
+                            <Text color='ShopTeal.200'>Browse by Category</Text>
                             <Box>
                                 {isOpen ? <MinusIcon color='ShopYellow' /> : <AddIcon color='ShopYellow' />}
                             </Box>
@@ -91,7 +91,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                 px={5}
                                 border='1px solid #ccc'
                                 borderBottomRadius={5}
-                                bg='white'
+                                bg='whiteAlpha.700'
                             >
                                 <VStack align="start" spacing={2}>
                                     <h2>Choose Pet Type:</h2>
@@ -99,6 +99,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                         <Checkbox
                                             key={index}
                                             value={animalType}
+                                            colorScheme='teal'
                                             isChecked={selectedAnimalType === animalType}
                                             onChange={(e) => handleAnimalTypeCheckboxChange(e, 'select')}>
                                             {animalType}
@@ -114,6 +115,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                         <Checkbox
                                             key={index}
                                             value={category}
+                                            colorScheme='teal'
                                             isChecked={selectedCategoryName === category}
                                             onChange={(e) => handleCategoryCheckboxChange(e, 'select')}>
                                             {category}
@@ -128,9 +130,10 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                 </>
             )}
             {layout === 'sidebar' && (
-                <Box w='14%' bg='gray.200'>
+                <Box minW='15%' bg='gray.200'>
                     <Box
-                        m={5}
+                        mt={5}
+                        ml={2}
                         border='1px solid #ccc'
                         borderRadius={5}
                         p={5}
@@ -145,6 +148,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                 <Checkbox
                                     key={index}
                                     value={animalType}
+                                    colorScheme='teal'
                                     isChecked={selectedAnimalTypeSidebar === animalType}
                                     onChange={(e) => handleAnimalTypeCheckboxChange(e, 'sidebar')}>
                                     {animalType}
@@ -163,6 +167,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                 <Checkbox
                                     key={index}
                                     value={categoryName}
+                                    colorScheme='teal'
                                     isChecked={selectedCategorySidebar === categoryName}
                                     onChange={(e) => handleCategoryCheckboxChange(e, 'sidebar')}>
                                     {categoryName}

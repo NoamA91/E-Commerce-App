@@ -203,6 +203,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
                                         onChange={handleChange}
                                         type="number"
                                         min={0}
+                                        step="0.01"
                                     />
                                 </FormControl>
 

@@ -16,7 +16,7 @@ const Footer = () => {
                 align={{ base: 'center', md: 'start' }}
                 justify="space-between"
             >
-                <Text fontSize={{ base: 'xs', md: 'sm' }} color='gray.400'>© 2023 ThePetShop, Inc. All rights reserved to Noam Ashkenazi.</Text>
+                <Text fontSize={{ base: 'xs', md: 'sm' }} color='gray'>© 2023 ThePetShop, Inc. All rights reserved to Noam Ashkenazi.</Text>
 
                 <Flex
                     direction={{ base: 'column-reverse', md: 'row' }}
@@ -26,15 +26,15 @@ const Footer = () => {
                     py={{ base: '3', md: '0' }}
                 >
                     <Link py={{ base: '1', md: '0' }}
-                        href="/" px="3" color="gray.400" fontSize="sm">Home</Link>
+                        href="/" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>Home</Link>
                     <Link py={{ base: '1', md: '0' }}
-                        href="/about" px="3" color="gray.400" fontSize="sm">About</Link>
+                        href="/about" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>About</Link>
                     <Link py={{ base: '1', md: '0' }}
-                        href="/contact" px="3" color="gray.400" fontSize="sm">Contact Us</Link>
+                        href="/contact" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>Contact Us</Link>
                     <Link py={{ base: '1', md: '0' }}
-                        href="/shop" px="3" color="gray.400" fontSize="sm">All Products</Link>
+                        href="/shop" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>All Products</Link>
                     <Link py={{ base: '1', md: '0' }}
-                        href="/blog" px="3" color="gray.400" fontSize="sm">Blog</Link>
+                        href="/blog" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>Blog</Link>
                 </Flex>
             </Flex>
         </Box >

@@ -12,7 +12,6 @@ import {
     Heading,
     HStack,
     Textarea,
-    Text,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
@@ -221,6 +220,7 @@ const EditProductForm = ({ product, categories }) => {
                                     onChange={handleChange}
                                     type="number"
                                     min={0}
+                                    step="0.01"
                                 />
                             </FormControl>
 
@@ -237,18 +237,17 @@ const EditProductForm = ({ product, categories }) => {
                             </FormControl>
 
                             <VStack>
-                                <FormControl id="image" pb={2} isRequired>
+                                <FormControl id="image" pb={2}>
                                     <FormLabel htmlFor="image">Image</FormLabel>
                                     <Input
+                                        defaultValue={newImage}
                                         variant='flushed'
-                                        placeholder='Choose an Image File'
                                         name="image"
                                         onChange={handleFileChange}
                                         type="file"
                                         accept="image/*"
                                     />
                                 </FormControl>
-
                                 <Button
                                     onClick={handleUploadNewImage}
                                     isLoading={loadingNewImage}
@@ -259,7 +258,6 @@ const EditProductForm = ({ product, categories }) => {
                             </VStack>
 
                             <Image
-                                // mt={8}
                                 width={'300px'}
                                 maxH={'160px'}
                                 objectFit='cover'

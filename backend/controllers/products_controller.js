@@ -370,7 +370,6 @@ module.exports = {
     }
   },
 
-
   deleteByIdForManagers: async (req, res) => {
     console.log(`Manager API DELETE request : Delete product by ID ${req.params.id}`.new_request);
     try {

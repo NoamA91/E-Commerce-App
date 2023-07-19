@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
-import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar'
+import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar';
 import ProductsContainer from '../../../components/partials/products/ProductsContainer';
+import ErrorAlert from '../../../components/ErrorAlert';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -27,7 +28,6 @@ const Products = () => {
 
         } catch (error) {
             setError(error)
-            return console.log(error);
         } finally {
             setLoading(false);
         }
@@ -53,6 +53,16 @@ const Products = () => {
         (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
     );
 
+    if (error) return (
+        <Box
+            w='100%'
+            h='100vh'
+            bg='gray.200'
+        >
+            <ErrorAlert error={error.message} />
+        </Box>
+    )
+
 
     return (
         <motion.div
@@ -73,16 +83,18 @@ const Products = () => {
         >
             <Flex
                 flexDir={{ base: 'column', md: 'row' }}
+                justifyContent='cetner'
             >
                 <CatgoriesSidebar
                     products={products}
                     onCategoryChange={handleCategoryChange}
                     onAnimalTypeChange={handleAnimalTypeChange}
                 />
-                {/* <Box w='100%' bg='gray.200' px={{ base: '1%', md: '10%' }}> */}
-                <Box w='100%' bg='gray.200'>
+
+                <Box w='100%'
+                    bg='gray.200'
+                >
                     {loading && <LoadingSpinner />}
-                    {error && <div>Error: {error.message}</div>}
                     {filteredProducts && <ProductsContainer products={filteredProducts} />}
                 </Box>
             </Flex>

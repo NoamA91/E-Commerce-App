@@ -1,4 +1,12 @@
-import { Box, Heading, Text, Image, Flex, position, Circle, Grid, GridItem, Button } from '@chakra-ui/react';
+import {
+    Box,
+    Heading,
+    Text,
+    Flex,
+    Grid,
+    GridItem,
+    Button
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Parallax, ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
@@ -29,7 +37,6 @@ const Home = () => {
                 <ParallaxBanner style={{
                     aspectRatio: '2 / 1',
                     minHeight: '100vh',
-
                 }}>
 
                     <ParallaxBannerLayer image="/2.png" speed={-40} />
@@ -71,20 +78,28 @@ const Home = () => {
                                         Experience the joy of finding everything your pet needs under one roof. From tasty treats to playful toys, we have it all. Shop with us and let's make your furry friend's life even more enjoyable and vibrant!
                                     </Text>
 
+
+
                                     <Link to='/shop'>
-                                        <Button
-                                            mt={10}
-                                            size='lg'
-                                            bg='ShopYellow'
-                                            color='black'
-                                            _hover={{
-                                                bg: 'ShopTeal.100',
+                                        <motion.div
+                                            whileHover={{ scale: 1.030 }}
+                                            style={{
+                                                display: 'inline-block'
                                             }}
                                         >
-                                            Shop Now
-                                        </Button>
+                                            <Button
+                                                mt={10}
+                                                size='lg'
+                                                bg='ShopYellow'
+                                                color='black'
+                                                _hover={{
+                                                    bg: 'ShopTeal.100',
+                                                }}
+                                            >
+                                                Shop Now
+                                            </Button>
+                                        </motion.div>
                                     </Link>
-
                                 </motion.div>
                             </Box>
 

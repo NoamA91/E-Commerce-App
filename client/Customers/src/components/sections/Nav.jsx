@@ -33,6 +33,8 @@ const Nav = () => {
                     justifyContent='center'
                 >
                     <Box
+                        as={Link}
+                        to='/'
                         display={{ base: 'none', md: 'block' }}
                         borderRadius={20}
                         w='400px'
@@ -57,12 +59,13 @@ const Nav = () => {
                         <Link to='/'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                 >
@@ -74,12 +77,13 @@ const Nav = () => {
                         <Link to='/shop'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                 >
@@ -91,12 +95,13 @@ const Nav = () => {
                         <Link to='/about'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                 >
@@ -108,12 +113,13 @@ const Nav = () => {
                         <Link to='/contact'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                 >
@@ -125,12 +131,13 @@ const Nav = () => {
                         <Link to='/blog'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                 >
@@ -164,12 +171,13 @@ const Nav = () => {
                         <Link to=''>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ base: 'sm', md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                     rightIcon={<CgProfile size={30} />}
@@ -181,12 +189,13 @@ const Nav = () => {
                         <Link to=''>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
+                                whileTap={{ scale: 0.980 }}
                             >
                                 <Button
                                     size={{ base: 'sm', md: 'md', lg: 'lg' }}
                                     color='ShopTeal.200'
                                     _hover={{
-                                        bg: 'ShopTeal.200',
+                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
                                     rightIcon={<PiBasketFill size={30} />}
