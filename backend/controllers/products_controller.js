@@ -313,6 +313,7 @@ module.exports = {
   updateByIdForManagers: async (req, res) => {
     console.log(`Manager API PUT request : Update product by ID ${req.params.id}`.new_request);
     try {
+      console.log(req.body);
       const product_id = req.params.id;
       const product = await Product.findById(product_id);
 
@@ -336,18 +337,22 @@ module.exports = {
 
       console.log(`Product with ID ${product_id} found`.step_done);
 
-      const oldImages = Array.isArray(product.image) ? product.image : [product.image];
-      oldImages.forEach(async (oldImageURL) => {
-        const oldImageFileName = path.basename(oldImageURL);
-        const oldImagePath = path.join(__dirname, '../public/uploads', oldImageFileName);
-        if (fs.existsSync(oldImagePath)) {
-          try {
-            await fs.promises.unlink(oldImagePath);
-          } catch (error) {
-            console.log(`Error deleting old image - ${error}`.failed_request);
+
+      // check if new image is provided
+      if (req.body.image) {
+        const oldImages = Array.isArray(product.image) ? product.image : [product.image];
+        oldImages.forEach(async (oldImageURL) => {
+          const oldImageFileName = path.basename(oldImageURL);
+          const oldImagePath = path.join(__dirname, '../public/uploads', oldImageFileName);
+          if (fs.existsSync(oldImagePath)) {
+            try {
+              await fs.promises.unlink(oldImagePath);
+            } catch (error) {
+              console.log(`Error deleting old image - ${error}`.failed_request);
+            }
           }
-        }
-      });
+        });
+      }
 
       const updatedProduct = await Product.findByIdAndUpdate(product_id, req.body, {
         new: true,
@@ -422,16 +427,15 @@ module.exports = {
 
       return res.status(200).json({
         success: true,
-        message: `success to upload new product image - for managers`,
+        message: `Success to upload new product image - for managers`,
         image
       })
 
     } catch (error) {
       return res.status(500).json({
-        message: `error in upload new product image - for managers`,
+        message: `Error in upload new product image - for managers`,
         error: error.message,
       })
-
     }
   },
 };
