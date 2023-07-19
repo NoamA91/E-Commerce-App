@@ -1,4 +1,15 @@
-import { Box, Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Heading, Stack, Text, Image } from "@chakra-ui/react";
+import {
+    Button,
+    ButtonGroup,
+    Card,
+    CardBody,
+    CardFooter,
+    Divider,
+    Heading,
+    Stack,
+    Text,
+    Image
+} from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 
 const ProductCard = ({ product }) => {
@@ -17,7 +28,7 @@ const ProductCard = ({ product }) => {
                     <Heading size='md'>{product.title}</Heading>
 
                     <Text color='blue.600' fontSize='2xl'>
-                        $450
+                        {product.price}$
                     </Text>
                 </Stack>
             </CardBody>
