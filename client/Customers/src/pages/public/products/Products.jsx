@@ -94,8 +94,7 @@ const Products = () => {
                 <Box w='100%'
                     bg='gray.200'
                 >
-                    {loading && <LoadingSpinner />}
-                    {filteredProducts && <ProductsContainer products={filteredProducts} />}
+                    {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
                 </Box>
             </Flex>
         </motion.div>

@@ -1,9 +1,15 @@
 import { Box, Flex, Grid, SimpleGrid } from "@chakra-ui/react"
 import ProductCard from "./ProductCard"
 import PropTypes from 'prop-types';
+import LoadingSpinner from "../../LoadingSpinner";
 
 
-const ProductsContainer = ({ products }) => {
+const ProductsContainer = ({ products, loading }) => {
+
+    if (loading) {
+        return <LoadingSpinner />
+    }
+
     return (
         <Flex
             mt={{ base: 0, md: 5 }}

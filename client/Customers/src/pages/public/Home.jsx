@@ -75,7 +75,7 @@ const Home = () => {
                                         fontSize={{ base: 'md', md: 'lg' }}
                                         lineHeight='2rem'
                                     >
-                                        Experience the joy of finding everything your pet needs under one roof. From tasty treats to playful toys, we have it all. Shop with us and let's make your furry friend's life even more enjoyable and vibrant!
+                                        Experience the joy of finding everything your pet needs under one roof. From tasty treats to playful toys, we have it all. Shop with us and let&apos;s make your furry friend&apos;s life even more enjoyable and vibrant!
                                     </Text>
 
 
