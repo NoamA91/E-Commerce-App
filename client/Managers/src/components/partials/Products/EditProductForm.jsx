@@ -87,7 +87,7 @@ const EditProductForm = ({ product, categories }) => {
                 formData
             );
 
-            setNewImage(null);
+            // setNewImage(null);
             setImagePreview(response.data.image);
             setValues((prevValues) => ({
                 ...prevValues,
@@ -118,14 +118,20 @@ const EditProductForm = ({ product, categories }) => {
         e.preventDefault();
         try {
             setLoading(true);
+
+            const updatedValues = { ...values };
+
+            // If no new image is uploaded, don't send 'image' field
+            if (!newImage) {
+                delete updatedValues.image;
+            }
+
             const response = await axios.put(
                 `${import.meta.env.VITE_SERVER_URL}/products/managers/update-product/${product._id}`,
-                values,
+                updatedValues,
             )
 
-            if (!response.data.success) {
-                throw new Error(response.data.message);
-            }
+            console.log(response);
 
             toast({
                 title: 'Edit Product',
