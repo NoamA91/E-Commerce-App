@@ -8,37 +8,54 @@ import {
     Heading,
     Stack,
     Text,
-    Image
+    Image,
 } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 
 const ProductCard = ({ product }) => {
     return (
         <Card
             maxW='sm'
+            h={420}
+            as={motion.div}
+            whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.2 },
+                boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+            }}
         >
-            <CardBody>
+            <CardBody
+                display='flex'
+                flexDirection='column'
+                justifyContent='space-between'
+                h={250}
+            >
                 <Image
                     src={product.image}
                     alt={product.title}
                     borderRadius='lg'
+                    w='100%'
+                    h={200}
                     objectFit='cover'
                 />
-                <Stack mt='6' spacing='3'>
-                    <Heading size='md'>{product.title}</Heading>
+                <Stack
+                    mt='5'
+                >
+                    <Heading as='h1' size='sm' isTruncated>{product.title}</Heading>
 
-                    <Text color='blue.600' fontSize='2xl'>
-                        {product.price}$
+                    <Text color='red.600' fontSize='2xl'>
+                        ${product.price}
                     </Text>
                 </Stack>
             </CardBody>
-            <Divider />
+            <Divider color='gray.200' />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='blue'>
+                    <Button variant='solid' colorScheme='yellow'>
                         Buy now
                     </Button>
-                    <Button variant='ghost' colorScheme='blue'>
+                    <Button variant='ghost' colorScheme='teal'>
                         Add to cart
                     </Button>
                 </ButtonGroup>
