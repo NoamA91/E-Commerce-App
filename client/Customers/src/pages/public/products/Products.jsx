@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Flex } from '@chakra-ui/react';
-import LoadingSpinner from '../../../components/LoadingSpinner';
+import {
+    Box,
+    Flex,
+} from '@chakra-ui/react';
 import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar';
 import ProductsContainer from '../../../components/partials/products/ProductsContainer';
 import ErrorAlert from '../../../components/ErrorAlert';
@@ -65,11 +67,12 @@ const Products = () => {
 
 
     return (
-        <motion.div
-            style={{
-                minHeight: '100vh',
-                width: '100%',
-            }}
+        <Flex
+            as={motion.div}
+            minH='100vh'
+            w='100%'
+            flexDir={{ base: 'column', md: 'row' }}
+            justifyContent='cetner'
             initial={{ opacity: 0 }}
             animate={{
                 opacity: 1,
@@ -81,23 +84,18 @@ const Products = () => {
             }}
             exit={{ opacity: 0 }}
         >
-            <Flex
-                flexDir={{ base: 'column', md: 'row' }}
-                justifyContent='cetner'
-            >
-                <CatgoriesSidebar
-                    products={products}
-                    onCategoryChange={handleCategoryChange}
-                    onAnimalTypeChange={handleAnimalTypeChange}
-                />
+            <CatgoriesSidebar
+                products={products}
+                onCategoryChange={handleCategoryChange}
+                onAnimalTypeChange={handleAnimalTypeChange}
+            />
 
-                <Box w='100%'
-                    bg='gray.200'
-                >
-                    {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
-                </Box>
-            </Flex>
-        </motion.div>
+            <Box w='100%'
+                bg='gray.200'
+            >
+                {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
+            </Box>
+        </Flex>
     )
 }
 

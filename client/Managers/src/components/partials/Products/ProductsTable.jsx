@@ -111,18 +111,16 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                             {filteredProducts.map((product) => (
                                 <Tr key={product._id}>
                                     <Td>
-                                        <Tooltip label={product.title} placement="auto" hasArrow>
-                                            <Text isTruncated maxW={{ base: "100px", md: "200px" }}>{product.title}</Text>
-                                        </Tooltip>
+                                        <Text maxW={{ base: "100px", md: "200px" }} noOfLines={2}>{product.title}</Text>
                                     </Td>
                                     <Td display={{ base: 'none', md: 'table-cell' }}>{product.category.animal_type}</Td>
                                     <Td display={{ base: 'none', md: 'table-cell' }}>{product.category.name}</Td>
                                     <Td display={{ base: 'none', md: 'table-cell' }}>
-                                        <Tooltip label={product.description} placement="auto" hasArrow>
+                                        <Tooltip label={product.description} placement="top" hasArrow>
                                             <Text isTruncated maxW={{ base: "100px", md: "200px" }}>{product.description}</Text>
                                         </Tooltip>
                                     </Td>
-                                    <Td>{product.price}$</Td>
+                                    <Td>${product.price}</Td>
                                     <Td>
                                         <Box boxSize='100px'>
                                             <Image
