@@ -3,18 +3,26 @@ import {
     Flex,
     Image,
     Input,
+    Stack,
     Text
 } from "@chakra-ui/react"
 import ProductCard from "./ProductCard"
 import PropTypes from 'prop-types';
 import LoadingSpinner from "../../LoadingSpinner";
+import { useState } from "react";
 
 
 const ProductsContainer = ({ products, loading }) => {
+    const [search, setSearch] = useState("");
 
-    if (loading) {
-        return <LoadingSpinner />
+    const handleSearch = (e) => setSearch(e.target.value);
+
+    const filteredProducts = products.filter(product => {
+        return product.title.toLowerCase().includes(search.toLowerCase())
     }
+    );
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <Flex
@@ -28,40 +36,53 @@ const ProductsContainer = ({ products, loading }) => {
             minH='100vh'
             wrap="wrap"
         >
-            {products.length > 0 ? (
-                <>
-                    {products.map((product, index) => (
-                        <Box
-                            w={{ base: "100%", sm: "250px" }}
-                            m={2}
-                            key={index}
+            <Stack w='100%'>
+                <Input
+                    placeholder="Search..."
+                    value={search}
+                    onChange={handleSearch}
+                    mb={3}
+                    variant='outline'
+                    bg='whiteAlpha.900'
+                />
+                <Flex wrap="wrap">
+                    {filteredProducts.length > 0 ? (
+                        <>
+                            {filteredProducts.map((product, index) => (
+                                <Box
+                                    w={{ base: "100%", sm: "250px" }}
+                                    m={2}
+                                    key={index}
+                                >
+                                    <ProductCard product={product} key={index} />
+                                </Box>
+                            ))}
+                        </>
+                    ) : (
+                        <Flex
+                            w='100%'
+                            h='100%'
+                            align='center'
+                            justify='center'
+                            flexDir='column'
                         >
-                            <ProductCard product={product} key={index} />
-                        </Box>
-                    ))}
-                </>
-            ) : (
-                <Flex
-                    w='100%'
-                    h='100%'
-                    align='center'
-                    justify='center'
-                    flexDir='column'
-                >
-                    <Image
-                        w={150}
-                        src='/crying-cat_1f63f.png'
-                        alt="No products found"
-                    />
-                    <Text>No products found</Text>
+                            <Image
+                                w={150}
+                                src='/crying-cat_1f63f.png'
+                                alt="No products found"
+                            />
+                            <Text>No products found</Text>
+                        </Flex>
+                    )}
                 </Flex>
-            )}
+            </Stack>
         </Flex>
     )
 }
 
 ProductsContainer.propTypes = {
     products: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
 };
 
 export default ProductsContainer

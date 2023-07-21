@@ -55,7 +55,6 @@ const ProductCard = ({ product }) => {
                         onClick={() => {
                             navigate(`/product/${product._id}`);
                         }}
-
                     >
                         <Heading
                             display='inline-block'
@@ -74,7 +73,7 @@ const ProductCard = ({ product }) => {
             <Divider color='gray.200' />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='yellow'>
+                    <Button variant='solid' colorScheme='teal'>
                         Buy now
                     </Button>
                     <Button variant='ghost' colorScheme='teal'>
