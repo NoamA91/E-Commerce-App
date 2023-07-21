@@ -8,9 +8,6 @@ const adminAuth = require("../middlewares/auth_admin");
 const {
   getAll,
   getById,
-  addProduct,
-  updateById,
-  deleteById,
 } = require("../controllers/products_controller");
 
 // managers functions
@@ -25,9 +22,6 @@ const {
 
 router.get("/getAll", getAll);
 router.get("/getById/:id", getById);
-router.post("/add", addProduct);
-router.put("/updateById/:id", updateById);
-router.delete("/deleteById/:id", deleteById);
 
 // managers requests
 router.get("/managers/all", managerAuth, getAllForManagers);

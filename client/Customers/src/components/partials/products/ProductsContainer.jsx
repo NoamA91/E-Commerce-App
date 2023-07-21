@@ -10,6 +10,7 @@ import ProductCard from "./ProductCard"
 import PropTypes from 'prop-types';
 import LoadingSpinner from "../../LoadingSpinner";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 
 const ProductsContainer = ({ products, loading }) => {
@@ -50,9 +51,19 @@ const ProductsContainer = ({ products, loading }) => {
                         <>
                             {filteredProducts.map((product, index) => (
                                 <Box
+                                    as={motion.div}
                                     w={{ base: "100%", sm: "250px" }}
                                     m={2}
                                     key={index}
+                                    initial={{
+                                        scale: 0.7,
+                                    }}
+                                    animate={{
+                                        scale: 1,
+                                    }}
+                                    transition={{
+                                        duration: 0.2,
+                                    }}
                                 >
                                     <ProductCard product={product} key={index} />
                                 </Box>

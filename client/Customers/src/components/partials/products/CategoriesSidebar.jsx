@@ -143,7 +143,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                             align="start"
                             spacing={2}
                         >
-                            <Text>Pet Type:</Text>
+                            <Text fontWeight='bold'>Pet Type:</Text>
                             {animalTypes.map((animalType, index) => (
                                 <Checkbox
                                     key={index}
@@ -162,7 +162,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                             align="start"
                             spacing={2}
                         >
-                            <Text>Category Type:</Text>
+                            <Text fontWeight='bold'>Category Type:</Text>
                             {categories.map((categoryName, index) => (
                                 <Checkbox
                                     key={index}

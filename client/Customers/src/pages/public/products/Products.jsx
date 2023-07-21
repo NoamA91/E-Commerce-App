@@ -1,10 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-    Box,
-    Flex,
-} from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar';
 import ProductsContainer from '../../../components/partials/products/ProductsContainer';
 import ErrorAlert from '../../../components/ErrorAlert';
@@ -23,7 +20,7 @@ const Products = () => {
 
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:3000/products/getAll',
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getAll`,
                 { cancelToken: source.token }
             );
             setProducts(response.data.products);
