@@ -79,6 +79,7 @@ const ShoppingCart = () => {
                         <DrawerFooter
                             display='flex'
                             justifyContent='space-between'
+                            gap={16}
                         >
                             <HStack>
                                 <Button
@@ -98,7 +99,7 @@ const ShoppingCart = () => {
                                 </Button>
                             </HStack>
                             <Text
-                                mr={3}
+                                // mr={3}
                                 fontSize={{ base: '1em', md: '1.2em' }}
                                 fontWeight='bold'
                             >

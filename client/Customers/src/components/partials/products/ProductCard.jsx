@@ -109,12 +109,12 @@ const ProductCard = ({ product }) => {
                     right={0}
                     bg='whiteAlpha.700'
                     borderRadius='md'
-                    backdropFilter='blur(1px)'
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
                     fontWeight='bold'
                     fontSize='xl'
+
                 >
                     <Box
                         bg='black'
