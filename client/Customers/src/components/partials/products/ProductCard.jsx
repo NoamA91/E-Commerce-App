@@ -25,6 +25,10 @@ const ProductCard = ({ product }) => {
     const handleClick = () => {
         addToCart(product, 1);
         setIsAddedToCart(true);
+
+        setTimeout(() => {
+            setIsAddedToCart(false);
+        }, 2000);
     }
 
     return (
@@ -97,27 +101,27 @@ const ProductCard = ({ product }) => {
             </CardFooter>
             {isAddedToCart &&
                 <Box
+                    as={motion.div}
                     position='absolute'
                     top={0}
                     bottom={0}
                     left={0}
                     right={0}
-                    bg='blackAlpha.700'
+                    bg='whiteAlpha.700'
                     borderRadius='md'
                     backdropFilter='blur(1px)'
                     display='flex'
                     alignItems='center'
                     justifyContent='center'
-                    color='white'
                     fontWeight='bold'
                     fontSize='xl'
                 >
                     <Box
-                        bg='teal.100'
+                        bg='black'
                         borderRadius='md'
                         p={2}
                         fontWeight='bold'
-                        color='blackAlpha.700'
+                        color='ShopYellow'
                     >
                         Added to Cart
                     </Box>
