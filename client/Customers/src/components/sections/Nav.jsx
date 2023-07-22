@@ -11,6 +11,7 @@ import { PiBasketFill } from "react-icons/pi"
 import { CgProfile } from "react-icons/cg"
 import SidebarDrawer from './SidebarDrawer'
 import { motion } from 'framer-motion';
+import ShoppingCart from "./ShoppingCart"
 
 
 const Nav = () => {
@@ -186,24 +187,7 @@ const Nav = () => {
                                 </Button>
                             </motion.div>
                         </Link>
-                        <Link to=''>
-                            <motion.div
-                                whileHover={{ scale: 1.050 }}
-                                whileTap={{ scale: 0.980 }}
-                            >
-                                <Button
-                                    size={{ base: 'sm', md: 'md', lg: 'lg' }}
-                                    color='ShopTeal.200'
-                                    _hover={{
-                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
-                                        color: 'blackAlpha.900',
-                                    }}
-                                    rightIcon={<PiBasketFill size={30} />}
-                                >
-                                    Cart
-                                </Button>
-                            </motion.div>
-                        </Link>
+                        <ShoppingCart />
                     </ButtonGroup>
                 </Flex>
             </Flex >

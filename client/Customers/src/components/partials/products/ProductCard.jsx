@@ -1,6 +1,5 @@
 import {
     Button,
-    ButtonGroup,
     Card,
     CardBody,
     CardFooter,
@@ -9,14 +8,24 @@ import {
     Stack,
     Text,
     Image,
+    Box,
     Link as ChakraLink
 } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
+import { useContext, useState } from 'react';
+import { CartContext } from '../../../context/CartContext'
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
+    const { addToCart } = useContext(CartContext);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+    const handleClick = () => {
+        addToCart(product, 1);
+        setIsAddedToCart(true);
+    }
 
     return (
         <Card
@@ -58,12 +67,13 @@ const ProductCard = ({ product }) => {
                         }}
                     >
                         <Heading
-                            display='inline-block'
                             size='sm'
                             noOfLines={2}
                         >
                             {product.title}
                         </Heading>
+                        <Text size='sm'
+                            noOfLines={2}>{product.description}</Text>
                     </ChakraLink>
 
                     <Text color='red.600' fontSize='xl' fontFamily='fantasy'>
@@ -73,15 +83,46 @@ const ProductCard = ({ product }) => {
             </CardBody>
             <Divider color='gray.200' />
             <CardFooter>
-                <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='teal'>
-                        Buy now
-                    </Button>
-                    <Button variant='ghost' colorScheme='teal'>
-                        Add to cart
-                    </Button>
-                </ButtonGroup>
+                <Button
+                    variant='outline'
+                    colorScheme='teal'
+                    w='100%'
+                    onClick={() => {
+                        handleClick()
+                        addToCart(product, 1)
+                    }}
+                >
+                    Add to cart
+                </Button>
             </CardFooter>
+            {isAddedToCart &&
+                <Box
+                    position='absolute'
+                    top={0}
+                    bottom={0}
+                    left={0}
+                    right={0}
+                    bg='blackAlpha.700'
+                    borderRadius='md'
+                    backdropFilter='blur(1px)'
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='center'
+                    color='white'
+                    fontWeight='bold'
+                    fontSize='xl'
+                >
+                    <Box
+                        bg='teal.100'
+                        borderRadius='md'
+                        p={2}
+                        fontWeight='bold'
+                        color='blackAlpha.700'
+                    >
+                        Added to Cart
+                    </Box>
+                </Box>
+            }
         </Card>
     )
 }
