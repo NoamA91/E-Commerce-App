@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import {
     Box,
@@ -20,7 +20,6 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 
 
 const Product = () => {
-    const navigate = useNavigate();
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -29,8 +28,8 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getById/${id}`);
-                setProduct(response.data);
+                const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getById/${id}`);
+                setProduct(data.product);
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -42,10 +41,6 @@ const Product = () => {
 
     if (loading) {
         return <LoadingSpinner />
-    }
-
-    if (!product) {
-        return <Text>No product found.</Text>;
     }
 
     const handleBuyNow = () => {
@@ -63,7 +58,7 @@ const Product = () => {
     return (
         <Box
             p={5}
-            h='90vh'
+            minH='80vh'
             w='100%'
             bg='gray.200'
             as={motion.div}
@@ -78,22 +73,29 @@ const Product = () => {
             }}
             exit={{ opacity: 0 }}
         >
+            <Link to='/shop'>
+                <Button>Back</Button>
+            </Link>
             <Flex
                 direction={['column', 'row']}
-                align='start'
+                align={{ md: 'center' }}
+                justify={{ md: 'center' }}
+                gap={{ md: 10 }}
                 bg='whiteAlpha.700'
                 border='1px solid #ccc'
                 borderRadius={5}
                 p={10}
-                minH='90%'
+                mt={5}
+                mx={{ md: '25%' }}
+                minH='300px'
             >
-                <Box flexShrink={0} mr={5} >
-                    <Image src={product.image} alt={product.title} boxSize="300px" objectFit="contain" />
+                <Box flexShrink={0} mr={{ md: 5 }}>
+                    <Image src={product.image} alt={product.title} boxSize={{ md: "400px" }} objectFit="contain" />
                 </Box>
                 <Stack spacing={3}>
                     <Heading>{product.title}</Heading>
                     <Text>{product.description}</Text>
-                    <Text fontSize="2xl">Price: ${product.price}</Text>
+                    <Text fontSize="2xl" fontFamily='fantasy' color='red.600'>Price: ${product.price}</Text>
                     <NumberInput min={1} value={quantity} onChange={handleChangeQuantity}>
                         <NumberInputField />
                         <NumberInputStepper>
@@ -103,7 +105,7 @@ const Product = () => {
                     </NumberInput>
                     <Stack direction="row" spacing={2}>
                         <Button colorScheme="teal" onClick={handleBuyNow}>Buy Now</Button>
-                        <Button colorScheme="blue" onClick={handleAddToCart}>Add to Cart</Button>
+                        <Button colorScheme="blue" variant='ghost' onClick={handleAddToCart}>Add to Cart</Button>
                     </Stack>
                 </Stack>
             </Flex>

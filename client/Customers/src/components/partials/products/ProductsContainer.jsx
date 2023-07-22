@@ -46,13 +46,16 @@ const ProductsContainer = ({ products, loading }) => {
                     variant='outline'
                     bg='whiteAlpha.900'
                 />
-                <Flex wrap="wrap">
+                <Flex
+                    wrap="wrap"
+                    pl={2}
+                >
                     {filteredProducts.length > 0 ? (
                         <>
                             {filteredProducts.map((product, index) => (
                                 <Box
                                     as={motion.div}
-                                    w={{ base: "100%", sm: "250px" }}
+                                    w={{ base: "100%", sm: "245px" }}
                                     m={2}
                                     key={index}
                                     initial={{
