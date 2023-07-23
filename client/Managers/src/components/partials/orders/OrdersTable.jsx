@@ -187,7 +187,7 @@ const OrdersTable = ({ orders, changeStatus }) => {
                 </Flex>
 
 
-                <TableContainer h='100vh' mt={50}>
+                <TableContainer h='100vh' overflowY='auto' mt={50}>
                     <Text ml={4} mb={5}>Total Orders: {dataOrders.length}</Text>
                     <Table
                         variant="striped"
@@ -195,7 +195,12 @@ const OrdersTable = ({ orders, changeStatus }) => {
                     >
                         <TableCaption>Users Information</TableCaption>
                         <Thead>
-                            <Tr>
+                            <Tr
+                                position='sticky'
+                                top={0}
+                                bg='gray.200'
+                                w='100%'
+                            >
                                 <Th
                                     onClick={() => sorting('order_number', false)}
                                     _hover={{ bg: 'gray.300' }}

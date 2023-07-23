@@ -18,7 +18,8 @@ import {
     AlertDialogContent,
     AlertDialogHeader,
     AlertDialogBody,
-    AlertDialogFooter
+    AlertDialogFooter,
+    Flex
 } from '@chakra-ui/react';
 import { FiChevronDown, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -34,65 +35,77 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
 
     return (
         <>
-            <Menu>
-                <MenuButton
-                    as={Button}
-                    colorScheme="teal"
-                    shadow='md'
-                    rightIcon={<FiChevronDown />}
-                    mt={{ base: 5, md: 10 }}
-                    float='right'
-                    mr={{ base: 5, md: 10 }}
-                >
-                    Actions
-                </MenuButton>
-                <MenuList>
-                    <MenuItem onClick={onOpen}>Add User</MenuItem>
-                    <MenuItem>Add Manager</MenuItem>
-                </MenuList>
-            </Menu>
-            <TableContainer h='100vh' mt={{ base: 70, md: 120 }}>
-                <Table variant="striped">
-                    <TableCaption>Users Information</TableCaption>
-                    <Thead>
-                        <Tr>
-                            <Th>Username</Th>
-                            <Th>Email</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>Phone Number</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>City</Th>
-                            <Th display={{ base: 'none', md: 'table-cell' }}>Street</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {users.map((user) => (
-                            <Tr key={user._id}>
-                                <Td isTruncated maxW="200px">{user.username}</Td>
-                                <Td isTruncated maxW="200px">{user.email}</Td>
-                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
-                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
-                                <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
-                                <Td p={{ base: '2px 0', md: '16px 14px' }}>
-                                    <Box display="flex" flexDir={{ base: 'column', md: 'row' }}>
-                                        <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
-                                            onClick={() => navigate(`../users/edit-user/${user._id}`)}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
-                                            onClick={() => {
-                                                setUserToDelete(user._id);
-                                                alertDialogState.onOpen();
-                                            }}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </Box>
-                                </Td>
+            <Flex
+                flexDir={'column'}
+                h='100vh'
+            >
+                <Box>
+                    <Menu>
+                        <MenuButton
+                            as={Button}
+                            colorScheme="teal"
+                            shadow='md'
+                            rightIcon={<FiChevronDown />}
+                            mt={{ base: 5, md: 10 }}
+                            float='right'
+                            mr={{ base: 5, md: 10 }}
+                        >
+                            Actions
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem onClick={onOpen}>Add User</MenuItem>
+                            <MenuItem>Add Manager</MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Box>
+                <TableContainer h='100%' overflowY='auto' mt={{ base: 70, md: 120 }} >
+                    <Table variant="striped">
+                        <TableCaption>Users Information</TableCaption>
+                        <Thead>
+                            <Tr
+                                position='sticky'
+                                top={0}
+                                bg='gray.200'
+                                w='100%'
+                            >
+                                <Th>Username</Th>
+                                <Th>Email</Th>
+                                <Th display={{ base: 'none', md: 'table-cell' }}>Phone Number</Th>
+                                <Th display={{ base: 'none', md: 'table-cell' }}>City</Th>
+                                <Th display={{ base: 'none', md: 'table-cell' }}>Street</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-            </TableContainer >
+                        </Thead>
+                        <Tbody>
+                            {users.map((user) => (
+                                <Tr key={user._id}>
+                                    <Td isTruncated maxW="200px">{user.username}</Td>
+                                    <Td isTruncated maxW="200px">{user.email}</Td>
+                                    <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
+                                    <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>
+                                    <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.street}</Td>
+                                    <Td p={{ base: '2px 0', md: '16px 14px' }}>
+                                        <Box display="flex" flexDir={{ base: 'column', md: 'row' }}>
+                                            <Button leftIcon={<FiEdit2 />} colorScheme="teal" variant="ghost" mr={2}
+                                                onClick={() => navigate(`../users/edit-user/${user._id}`)}
+                                            >
+                                                Edit
+                                            </Button>
+                                            <Button leftIcon={<FiTrash2 />} colorScheme="red" variant="ghost"
+                                                onClick={() => {
+                                                    setUserToDelete(user._id);
+                                                    alertDialogState.onOpen();
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </Box>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </TableContainer >
+            </Flex>
 
             <AddUserForm isOpen={isOpen} onClose={onClose} handleUserAdded={handleUserAdded} />
 

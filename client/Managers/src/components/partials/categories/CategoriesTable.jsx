@@ -32,7 +32,10 @@ const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) =>
 
     return (
         <>
-            <Flex flexDir='column'>
+            <Flex
+                flexDir='column'
+                h='100vh'
+            >
 
                 <Box>
                     <Button
@@ -47,14 +50,19 @@ const CategoriesTable = ({ categories, handleCategoryAdded, deleteCategory }) =>
                     >Add Category</Button>
                 </Box>
 
-                <Container maxW='container.md' bg=''>
-                    <TableContainer h='100vh' mt={10} >
+                <Container maxW='container.md'>
+                    <TableContainer h='80vh' overflowY='auto' mt={10} >
                         <Table variant="striped">
                             <TableCaption>Categories Information</TableCaption>
                             <Thead>
-                                <Tr>
+                                <Tr
+                                    position='sticky'
+                                    top={0}
+                                    bg='gray.200'
+                                >
                                     <Th>Animal Type</Th>
                                     <Th>Name</Th>
+                                    <Th></Th>
                                 </Tr>
                             </Thead>
                             <Tbody>

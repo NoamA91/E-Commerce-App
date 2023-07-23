@@ -49,7 +49,10 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
 
     return (
         <>
-            <Flex flexDir={'column'}>
+            <Flex
+                flexDir={'column'}
+                h='100vh'
+            >
                 <Flex
                     mt={10}
                     justifyContent='space-between'
@@ -92,12 +95,15 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                     >Add Product</Button>
                 </Flex>
 
-                <TableContainer h='100vh' mt={10} >
+                <TableContainer h='100%' overflowY='auto' mt={10} >
                     <Table variant="striped" size={{ base: "sm", md: "md" }}>
                         <TableCaption>Products Information</TableCaption>
                         <Thead>
                             <Tr
                                 position='sticky'
+                                top={0}
+                                bg='gray.200'
+                                w='100%'
                             >
                                 <Th>Name</Th>
                                 <Th display={{ base: 'none', md: 'table-cell' }}>Animal Type</Th>
@@ -105,6 +111,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                 <Th display={{ base: 'none', md: 'table-cell' }}>Description</Th>
                                 <Th>Price</Th>
                                 <Th>Image</Th>
+                                <Th></Th>
                             </Tr>
                         </Thead>
                         <Tbody>

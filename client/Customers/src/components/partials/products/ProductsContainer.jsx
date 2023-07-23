@@ -5,28 +5,37 @@ import {
     Input,
     Stack,
     Text
-} from '@chakra-ui/react'
-import ProductCard from './ProductCard'
+} from '@chakra-ui/react';
+import ProductCard from './ProductCard';
 import PropTypes from 'prop-types';
 import LoadingSpinner from '../../LoadingSpinner';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-
+import Pagination from './Pagination';
 
 const ProductsContainer = ({ products, loading }) => {
     const [search, setSearch] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 8;
 
     const handleSearch = (e) => setSearch(e.target.value);
 
-    const filteredProducts = products.filter(product => {
-        return product.title.toLowerCase().includes(search.toLowerCase())
-    }
+    const filteredProducts = products.filter(product =>
+        product.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    if (loading) return <LoadingSpinner />
+    const lastProductIndex = currentPage * productsPerPage;
+    const firstProductIndex = lastProductIndex - productsPerPage;
+    const currentProducts = filteredProducts.slice(firstProductIndex, lastProductIndex);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    if (loading) return <LoadingSpinner />;
 
     return (
-        <Flex
+        <Stack
             mt={{ base: 0, md: 5 }}
             mx={{ base: 1.5 }}
             mr={{ md: '15%' }}
@@ -34,10 +43,13 @@ const ProductsContainer = ({ products, loading }) => {
             borderRadius={5}
             p={5}
             bg='whiteAlpha.700'
-            minH='100vh'
-            wrap='wrap'
+            minH={currentProducts < 5 ? '100vh' : 'auto'}
+        // justifyContent='space-between' // Adjust this to set the space between your products container and pagination
         >
-            <Stack w='100%'>
+            <Flex
+                w='100%'
+                direction='column'
+            >
                 <Input
                     placeholder='Search...'
                     value={search}
@@ -47,12 +59,13 @@ const ProductsContainer = ({ products, loading }) => {
                     bg='whiteAlpha.900'
                 />
                 <Flex
-                    wrap='wrap'
-                    pl={2}
+                    direction='column'
+                    flex='1'
+                    justifyContent='space-between'
                 >
-                    {filteredProducts.length > 0 ? (
-                        <>
-                            {filteredProducts.map((product, index) => (
+                    {currentProducts.length > 0 ? (
+                        <Flex flexWrap='wrap'>
+                            {currentProducts.map((product, index) => (
                                 <Box
                                     as={motion.div}
                                     w={{ base: '100%', sm: '245px' }}
@@ -71,7 +84,7 @@ const ProductsContainer = ({ products, loading }) => {
                                     <ProductCard product={product} key={index} />
                                 </Box>
                             ))}
-                        </>
+                        </Flex>
                     ) : (
                         <Flex
                             w='100%'
@@ -89,9 +102,15 @@ const ProductsContainer = ({ products, loading }) => {
                         </Flex>
                     )}
                 </Flex>
-            </Stack>
-        </Flex>
-    )
+            </Flex>
+            <Pagination
+                currentPage={currentPage}
+                productsPerPage={productsPerPage}
+                totalProducts={filteredProducts.length}
+                onPageChange={handlePageChange}
+            />
+        </Stack>
+    );
 }
 
 ProductsContainer.propTypes = {
@@ -99,4 +118,4 @@ ProductsContainer.propTypes = {
     loading: PropTypes.bool.isRequired
 };
 
-export default ProductsContainer
+export default ProductsContainer;
