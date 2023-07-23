@@ -128,7 +128,6 @@ const ProductCard = ({ product }) => {
                     w='100%'
                     onClick={() => {
                         handleClick()
-                        addToCart(product, 1)
                     }}
                     isLoading={isAddedToCart}
                     isDisabled={outOfStock}

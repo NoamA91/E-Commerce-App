@@ -9,22 +9,24 @@ import {
     DrawerContent,
     DrawerCloseButton,
     useDisclosure,
-    VStack,
     Text,
     Badge,
     Stack,
-    HStack
+    HStack,
+    Center
 } from '@chakra-ui/react';
 import { useContext, useRef } from 'react';
 import { CartContext } from '../../context/CartContext';
 import { motion } from 'framer-motion'
 import { PiBasketFill } from 'react-icons/pi';
+import CartItem from '../partials/cart/CartItem';
+import { AnimatePresence } from "framer-motion";
 
 const ShoppingCart = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
 
-    const { cart } = useContext(CartContext);
+    const { cart, clearCart } = useContext(CartContext);
 
     const totalItems = cart.reduce((acc, cur) => acc + cur.quantity, 0);
     const subtotal = cart.reduce((acc, cur) => acc + (cur.price * cur.quantity), 0);
@@ -74,39 +76,55 @@ const ShoppingCart = () => {
                         <DrawerHeader>Cart ({totalItems} items)</DrawerHeader>
 
                         <DrawerBody>
-                            {/* Render your cart items here */}
+                            {cart.length === 0 ?
+                                <Center h="100%"><Text fontSize="1.2em" fontWeight="bold">Your cart is empty</Text></Center>
+                                :
+                                <AnimatePresence>
+                                    {cart.map(item => (
+                                        <motion.div
+                                            key={item._id}
+                                            initial={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                        >
+                                            <CartItem item={item} />
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            }
                         </DrawerBody>
 
-                        <DrawerFooter
-                            display='flex'
-                            justifyContent='space-between'
-                            gap={16}
-                        >
-                            <HStack>
-                                <Button
-                                    variant='solid'
-                                    colorScheme='teal'
-                                    mr={{ base: 0, md: 3 }}
-                                    onClick={onClose}
-                                    size='md'
-                                >
-                                    Checkout
-                                </Button>
-                                <Button
-                                    colorScheme='red'
-                                    size={{ base: 'sm', md: 'md' }}
-                                >
-                                    Clear Cart
-                                </Button>
-                            </HStack>
-                            <Text
-                                // mr={3}
-                                fontSize={{ base: '1em', md: '1.2em' }}
-                                fontWeight='bold'
+                        {cart.length > 0 && (
+                            <DrawerFooter
+                                display='flex'
+                                justifyContent='space-between'
+                                gap={16}
                             >
-                                Subtotal: ${subtotal.toFixed(2)}
-                            </Text>
-                        </DrawerFooter>
+                                <HStack>
+                                    <Button
+                                        variant='solid'
+                                        colorScheme='teal'
+                                        mr={{ base: 0, md: 3 }}
+                                        onClick={onClose}
+                                        size='md'
+                                    >
+                                        Checkout
+                                    </Button>
+                                    <Button
+                                        colorScheme='red'
+                                        size={{ base: 'sm', md: 'md' }}
+                                        onClick={clearCart}
+                                    >
+                                        Clear Cart
+                                    </Button>
+                                </HStack>
+                                <Text
+                                    fontSize={{ base: '1em', md: '1.2em' }}
+                                    fontWeight='bold'
+                                >
+                                    Subtotal: ${subtotal.toFixed(2)}
+                                </Text>
+                            </DrawerFooter>
+                        )}
                     </DrawerContent>
                 </DrawerOverlay>
             </Drawer>

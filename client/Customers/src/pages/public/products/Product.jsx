@@ -16,6 +16,7 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
+    Alert,
 } from '@chakra-ui/react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { CartContext } from '../../../context/CartContext'
@@ -173,7 +174,7 @@ const Product = () => {
                                 fontWeight="bold"
                                 zIndex="1"
                             >
-                                'Aw Snap!' Just sold out. Don't worry, we'll restock soon.
+                                <Alert status='error'>&apos;Aw Snap!&apos; Just sold out. Don&apos;t worry, we&apos;ll restock soon.</Alert>
                             </Box>
                         )}
                     </Stack>

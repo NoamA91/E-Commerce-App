@@ -40,12 +40,16 @@ export const CartProvider = ({ children }) => {
     };
 
     const removeFromCart = (productId) => {
-        setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+        setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+    };
+
+    const clearCart = () => {
+        setCart([]);
     };
 
     const adjustQuantity = (productId, quantity) => {
         setCart((prevCart) => prevCart.map((item) =>
-            item.id === productId ? { ...item, quantity } : item
+            item._id === productId ? { ...item, quantity } : item
         ));
     };
 
@@ -54,6 +58,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         adjustQuantity,
+        clearCart
     };
 
     useEffect(() => {

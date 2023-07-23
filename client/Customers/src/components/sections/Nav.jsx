@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { Link } from "react-router-dom"
-import { PiBasketFill } from "react-icons/pi"
 import { CgProfile } from "react-icons/cg"
 import SidebarDrawer from './SidebarDrawer'
 import { motion } from 'framer-motion';
