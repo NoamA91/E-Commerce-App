@@ -1,7 +1,3 @@
-import { useState, useEffect, useContext } from 'react';
-import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
 import {
     Box,
     Button,
@@ -20,7 +16,10 @@ import {
 } from '@chakra-ui/react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { CartContext } from '../../../context/CartContext'
-
+import { useState, useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Product = () => {
     const { id } = useParams();
@@ -55,7 +54,7 @@ const Product = () => {
     }
 
     const handleAddToCart = () => {
-        addToCart(product, 1);
+        addToCart(product, quantity);
         setIsAddedToCart(true);
 
         toast({
@@ -73,7 +72,7 @@ const Product = () => {
     }
 
     const handleChangeQuantity = (value) => {
-        setQuantity(value);
+        setQuantity(parseInt(value));
     }
 
     return (

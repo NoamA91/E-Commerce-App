@@ -14,32 +14,38 @@ import {
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext'
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
-    const { addToCart } = useContext(CartContext);
-    const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const { cart, addToCart, removeFromCart } = useContext(CartContext);
+    const isAddedToCart = cart.find(item => item._id === product._id);
     const toast = useToast();
     const outOfStock = product?.count_in_stock === 0;
 
     const handleClick = () => {
-        addToCart(product, 1);
-        setIsAddedToCart(true);
-
-        toast({
-            title: "Product added.",
-            position: 'top',
-            description: `${product.title} has been added to your cart.`,
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-        })
-
-        setTimeout(() => {
-            setIsAddedToCart(false);
-        }, 2000);
+        if (isAddedToCart) {
+            removeFromCart(product._id);
+            toast({
+                title: "Product removed.",
+                position: 'top',
+                description: `${product.title} has been removed from your cart.`,
+                status: "info",
+                duration: 3000,
+                isClosable: true,
+            });
+        } else {
+            addToCart(product, 1);
+            toast({
+                title: "Product added.",
+                position: 'top',
+                description: `${product.title} has been added to your cart.`,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+        }
     }
 
     return (
@@ -123,16 +129,15 @@ const ProductCard = ({ product }) => {
             <Divider color='gray.200' />
             <CardFooter>
                 <Button
-                    variant='outline'
-                    colorScheme='teal'
+                    variant={isAddedToCart ? 'solid' : 'outline'}
+                    colorScheme={isAddedToCart ? 'gray' : 'teal'}
                     w='100%'
                     onClick={() => {
                         handleClick()
                     }}
-                    isLoading={isAddedToCart}
                     isDisabled={outOfStock}
                 >
-                    Add to cart
+                    {isAddedToCart ? "Remove from cart" : "Add to cart"}
                 </Button>
             </CardFooter>
         </Card>
