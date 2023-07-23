@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
 import {
     Box,
     Button,
@@ -10,13 +10,15 @@ import {
     Text,
     Stack,
     Heading,
+    useToast,
     NumberInput,
     NumberInputField,
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
+import { CartContext } from '../../../context/CartContext'
 
 
 const Product = () => {
@@ -24,6 +26,10 @@ const Product = () => {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const { addToCart } = useContext(CartContext);
+    const toast = useToast();
+    const outOfStock = product?.count_in_stock === 0;
 
     useEffect(() => {
         const getProduct = async () => {
@@ -48,7 +54,21 @@ const Product = () => {
     }
 
     const handleAddToCart = () => {
-        // handle add to cart functionality
+        addToCart(product, 1);
+        setIsAddedToCart(true);
+
+        toast({
+            title: "Product added.",
+            position: 'top',
+            description: `${product.title} has been added to your cart.`,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+        })
+
+        setTimeout(() => {
+            setIsAddedToCart(false);
+        }, 2000);
     }
 
     const handleChangeQuantity = (value) => {
@@ -77,35 +97,85 @@ const Product = () => {
                 <Button>Back</Button>
             </Link>
             <Flex
-                direction={['column', 'row']}
+                direction={['column', 'column', 'row']}
                 align={{ md: 'center' }}
                 justify={{ md: 'center' }}
                 gap={{ md: 10 }}
                 bg='whiteAlpha.700'
                 border='1px solid #ccc'
                 borderRadius={5}
-                p={10}
+                p={{ base: 5, md: 10 }}
                 mt={5}
-                mx={{ md: '25%' }}
                 minH='300px'
             >
-                <Box flexShrink={0} mr={{ md: 5 }}>
-                    <Image src={product.image} alt={product.title} boxSize={{ md: "400px" }} objectFit="contain" />
+                <Box flexShrink={0}>
+                    <Image
+                        src={product.image}
+                        alt={product.title}
+                        boxSize='400px'
+                        objectFit='contain'
+                    />
                 </Box>
-                <Stack spacing={3}>
-                    <Heading>{product.title}</Heading>
+                <Stack
+                    spacing={3}
+                    minW={200}
+                    w={500}
+                    maxW={{ base: '280px', md: '100%' }}
+                >
+                    <Heading mt={{ base: 2, md: 0 }}>{product.title}</Heading>
                     <Text>{product.description}</Text>
-                    <Text fontSize="2xl" fontFamily='fantasy' color='red.600'>Price: ${product.price}</Text>
-                    <NumberInput min={1} value={quantity} onChange={handleChangeQuantity}>
+                    <Text
+                        fontSize='2xl'
+                        fontFamily='fantasy'
+                        color='red.600'
+                    >
+                        Price: ${product.price}
+                    </Text>
+                    <NumberInput
+                        w='30%'
+                        min={1}
+                        max={product.count_in_stock}
+                        value={quantity}
+                        onChange={handleChangeQuantity}
+                        isDisabled={outOfStock}
+                    >
                         <NumberInputField />
                         <NumberInputStepper>
                             <NumberIncrementStepper />
                             <NumberDecrementStepper />
                         </NumberInputStepper>
                     </NumberInput>
-                    <Stack direction="row" spacing={2}>
-                        <Button colorScheme="teal" onClick={handleBuyNow}>Buy Now</Button>
-                        <Button colorScheme="blue" variant='ghost' onClick={handleAddToCart}>Add to Cart</Button>
+                    <Stack direction='column' spacing={3}>
+                        <Button
+                            colorScheme='teal'
+                            onClick={handleBuyNow}
+                            isDisabled={outOfStock}
+                        >
+                            Buy Now
+                        </Button>
+                        <Button
+                            colorScheme='teal'
+                            variant='outline'
+                            onClick={handleAddToCart}
+                            maxW={{ base: '280px', md: '100%' }}
+                            isLoading={isAddedToCart}
+                            isDisabled={outOfStock}
+                        >
+                            Add to Cart
+                        </Button>
+                        {outOfStock && (
+                            <Box
+                                color="red.500"
+                                px="2"
+                                py="1"
+                                borderRadius="md"
+                                fontSize="sm"
+                                fontWeight="bold"
+                                zIndex="1"
+                            >
+                                'Aw Snap!' Just sold out. Don't worry, we'll restock soon.
+                            </Box>
+                        )}
                     </Stack>
                 </Stack>
             </Flex>

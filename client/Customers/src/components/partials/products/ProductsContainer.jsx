@@ -5,16 +5,16 @@ import {
     Input,
     Stack,
     Text
-} from "@chakra-ui/react"
-import ProductCard from "./ProductCard"
+} from '@chakra-ui/react'
+import ProductCard from './ProductCard'
 import PropTypes from 'prop-types';
-import LoadingSpinner from "../../LoadingSpinner";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import LoadingSpinner from '../../LoadingSpinner';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 
 const ProductsContainer = ({ products, loading }) => {
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
 
     const handleSearch = (e) => setSearch(e.target.value);
 
@@ -35,11 +35,11 @@ const ProductsContainer = ({ products, loading }) => {
             p={5}
             bg='whiteAlpha.700'
             minH='100vh'
-            wrap="wrap"
+            wrap='wrap'
         >
             <Stack w='100%'>
                 <Input
-                    placeholder="Search..."
+                    placeholder='Search...'
                     value={search}
                     onChange={handleSearch}
                     mb={3}
@@ -47,7 +47,7 @@ const ProductsContainer = ({ products, loading }) => {
                     bg='whiteAlpha.900'
                 />
                 <Flex
-                    wrap="wrap"
+                    wrap='wrap'
                     pl={2}
                 >
                     {filteredProducts.length > 0 ? (
@@ -55,7 +55,7 @@ const ProductsContainer = ({ products, loading }) => {
                             {filteredProducts.map((product, index) => (
                                 <Box
                                     as={motion.div}
-                                    w={{ base: "100%", sm: "245px" }}
+                                    w={{ base: '100%', sm: '245px' }}
                                     m={2}
                                     key={index}
                                     initial={{
@@ -83,7 +83,7 @@ const ProductsContainer = ({ products, loading }) => {
                             <Image
                                 w={150}
                                 src='/crying-cat_1f63f.png'
-                                alt="No products found"
+                                alt='No products found'
                             />
                             <Text>No products found</Text>
                         </Flex>

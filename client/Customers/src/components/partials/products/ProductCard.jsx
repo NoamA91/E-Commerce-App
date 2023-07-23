@@ -8,12 +8,12 @@ import {
     Stack,
     Text,
     Image,
-    Box,
-    Link as ChakraLink
+    useToast,
+    Box
 } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from 'react';
 import { CartContext } from '../../../context/CartContext'
 
@@ -21,10 +21,21 @@ const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const { addToCart } = useContext(CartContext);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const toast = useToast();
+    const outOfStock = product?.count_in_stock === 0;
 
     const handleClick = () => {
         addToCart(product, 1);
         setIsAddedToCart(true);
+
+        toast({
+            title: "Product added.",
+            position: 'top',
+            description: `${product.title} has been added to your cart.`,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+        })
 
         setTimeout(() => {
             setIsAddedToCart(false);
@@ -37,17 +48,35 @@ const ProductCard = ({ product }) => {
             maxW='sm'
             h={420}
             whileHover={{
-                scale: 1.013,
+                scale: 1.010,
                 transition: { duration: 0.2 },
                 boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
             }}
-
+            position='relative'
         >
+            {outOfStock && (
+                <Box
+                    position="absolute"
+                    top="2"
+                    right="2"
+                    bg="red.500"
+                    color="white"
+                    px="2"
+                    py="1"
+                    borderRadius="md"
+                    fontSize="sm"
+                    fontWeight="bold"
+                    zIndex="1"
+                >
+                    Sold Out
+                </Box>
+            )}
             <CardBody
                 display='flex'
                 flexDirection='column'
                 justifyContent='space-between'
                 h={250}
+                pb={0}
             >
                 <Image
                     src={product.image}
@@ -64,8 +93,9 @@ const ProductCard = ({ product }) => {
                 <Stack
                     mt='5'
                     maxW='200px'
+                    alignContent='space-between'
                 >
-                    <ChakraLink
+                    <Link
                         onClick={() => {
                             navigate(`/product/${product._id}`);
                         }}
@@ -76,9 +106,14 @@ const ProductCard = ({ product }) => {
                         >
                             {product.title}
                         </Heading>
-                        <Text size='sm'
-                            noOfLines={2}>{product.description}</Text>
-                    </ChakraLink>
+                        <Text
+                            fontSize='sm'
+                            _hover={{ textDecoration: 'underline' }}
+                            noOfLines={2}
+                        >
+                            {product.description}
+                        </Text>
+                    </Link>
 
                     <Text color='red.600' fontSize='xl' fontFamily='fantasy'>
                         ${product.price}
@@ -95,38 +130,12 @@ const ProductCard = ({ product }) => {
                         handleClick()
                         addToCart(product, 1)
                     }}
+                    isLoading={isAddedToCart}
+                    isDisabled={outOfStock}
                 >
                     Add to cart
                 </Button>
             </CardFooter>
-            {isAddedToCart &&
-                <Box
-                    as={motion.div}
-                    position='absolute'
-                    top={0}
-                    bottom={0}
-                    left={0}
-                    right={0}
-                    bg='whiteAlpha.700'
-                    borderRadius='md'
-                    display='flex'
-                    alignItems='center'
-                    justifyContent='center'
-                    fontWeight='bold'
-                    fontSize='xl'
-
-                >
-                    <Box
-                        bg='black'
-                        borderRadius='md'
-                        p={2}
-                        fontWeight='bold'
-                        color='ShopYellow'
-                    >
-                        Added to Cart
-                    </Box>
-                </Box>
-            }
         </Card>
     )
 }

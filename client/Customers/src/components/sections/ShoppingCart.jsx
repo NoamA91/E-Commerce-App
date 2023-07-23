@@ -54,7 +54,8 @@ const ShoppingCart = () => {
                             left='5'
                             fontSize='0.9em'
                             colorScheme='yellow'
-                        >{totalItems}
+                        >
+                            {totalItems}
                         </Badge>
                     </Stack>
                 </Button>
