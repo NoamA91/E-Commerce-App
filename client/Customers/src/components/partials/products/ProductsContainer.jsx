@@ -9,14 +9,14 @@ import {
 import ProductCard from './ProductCard';
 import PropTypes from 'prop-types';
 import LoadingSpinner from '../../LoadingSpinner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Pagination from './Pagination';
 
 const ProductsContainer = ({ products, loading }) => {
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 8;
+    const productsPerPage = 10;
 
     const handleSearch = (e) => setSearch(e.target.value);
 
@@ -32,6 +32,13 @@ const ProductsContainer = ({ products, loading }) => {
         setCurrentPage(pageNumber);
     };
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage]);
+
     if (loading) return <LoadingSpinner />;
 
     return (
@@ -44,7 +51,6 @@ const ProductsContainer = ({ products, loading }) => {
             p={5}
             bg='whiteAlpha.700'
             minH={currentProducts < 5 ? '100vh' : 'auto'}
-        // justifyContent='space-between' // Adjust this to set the space between your products container and pagination
         >
             <Flex
                 w='100%'
@@ -65,12 +71,12 @@ const ProductsContainer = ({ products, loading }) => {
                 >
                     {currentProducts.length > 0 ? (
                         <Flex flexWrap='wrap'>
-                            {currentProducts.map((product, index) => (
+                            {currentProducts.map((product) => (
                                 <Box
                                     as={motion.div}
                                     w={{ base: '100%', sm: '245px' }}
                                     m={2}
-                                    key={index}
+                                    key={product._id}
                                     initial={{
                                         scale: 0.7,
                                     }}
@@ -81,7 +87,7 @@ const ProductsContainer = ({ products, loading }) => {
                                         duration: 0.2,
                                     }}
                                 >
-                                    <ProductCard product={product} key={index} />
+                                    <ProductCard product={product} key={product._id} />
                                 </Box>
                             ))}
                         </Flex>

@@ -77,7 +77,14 @@ const ShoppingCart = () => {
 
                         <DrawerBody>
                             {cart.length === 0 ?
-                                <Center h="100%"><Text fontSize="1.2em" fontWeight="bold">Your cart is empty</Text></Center>
+                                <Center h="100%">
+                                    <Text
+                                        fontSize="1.2em"
+                                        fontWeight="bold"
+                                    >
+                                        Your cart is empty
+                                    </Text>
+                                </Center>
                                 :
                                 <AnimatePresence>
                                     {cart.map(item => (

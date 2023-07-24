@@ -12,7 +12,6 @@ const Root = lazy(() => import('./pages/Root'));
 const Home = lazy(() => import('./pages/public/Home'));
 import About from './pages/public/About';
 import Contact from './pages/public/Contact';
-import Blog from './pages/public/Blog';
 import NotFound from './pages/public/NotFound';
 import LoadingSpinner from './components/LoadingSpinner';
 const Products = lazy(() => import('./pages/public/products/Products'));
@@ -43,7 +42,6 @@ function App() {
 
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="blog" element={<Blog />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     )

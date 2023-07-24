@@ -28,12 +28,26 @@ const CartItem = ({ item }) => {
     }
 
     return (
-        <Box borderRadius="md" borderWidth="1px" p="4" my="2">
+        <Box
+            borderRadius="md"
+            borderWidth="1px"
+            p="4"
+            my="2"
+        >
             <Flex align="center">
-                <Image src={item.image} alt={item.title} boxSize="100px" mr="4" />
+                <Image
+                    src={item.image}
+                    alt={item.title}
+                    boxSize="100px"
+                    mr="4"
+                />
                 <Flex flex="1" flexDirection="column">
-                    <Text fontSize="xl" mb="2">{item.title}</Text>
-                    <Text fontSize="md" mb="2">Total: ${item.price * item.quantity}</Text>
+                    <Text fontSize="xl" mb="2">
+                        {item.title}
+                    </Text>
+                    <Text fontSize="md" mb="2">
+                        Total: ${(item.price * item.quantity).toFixed(2)}
+                    </Text>
                     <Flex>
                         <Button
                             colorScheme='teal'

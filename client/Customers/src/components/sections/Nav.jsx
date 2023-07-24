@@ -127,24 +127,6 @@ const Nav = () => {
                                 </Button>
                             </motion.div>
                         </Link>
-
-                        <Link to='/blog'>
-                            <motion.div
-                                whileHover={{ scale: 1.050 }}
-                                whileTap={{ scale: 0.980 }}
-                            >
-                                <Button
-                                    size={{ md: 'md', lg: 'lg' }}
-                                    color='ShopTeal.200'
-                                    _hover={{
-                                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
-                                        color: 'blackAlpha.900',
-                                    }}
-                                >
-                                    Blog
-                                </Button>
-                            </motion.div>
-                        </Link>
                     </ButtonGroup>
 
 

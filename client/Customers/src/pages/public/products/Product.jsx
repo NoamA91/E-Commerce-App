@@ -12,7 +12,6 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-    Alert,
 } from '@chakra-ui/react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { CartContext } from '../../../context/CartContext'
@@ -20,6 +19,9 @@ import { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import ErrorAlert from '../../../components/ErrorAlert';
+import InfoAlert from '../../../components/InfoAlert';
+
 
 const Product = () => {
     const { id } = useParams();
@@ -27,9 +29,18 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
-    const { addToCart } = useContext(CartContext);
+    const { addToCart, cart } = useContext(CartContext);
     const toast = useToast();
     const outOfStock = product?.count_in_stock === 0;
+    const outOfStockMessage = "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
+    const itemAvailableInCartMessage = "This product is in your cart"
+    const [itemAvailableInCart, setItemAvailableInCart] = useState(false);
+    const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
+
+    useEffect(() => {
+        setItemAvailableInCart(cart.map((item) => item._id).includes(product?._id));
+    }, [cart, product]);
+
 
     useEffect(() => {
         const getProduct = async () => {
@@ -56,6 +67,7 @@ const Product = () => {
     const handleAddToCart = () => {
         addToCart(product, quantity);
         setIsAddedToCart(true);
+        setIsAddToCartClicked(true);
 
         toast({
             title: "Product added.",
@@ -163,17 +175,24 @@ const Product = () => {
                         >
                             Add to Cart
                         </Button>
+                        {itemAvailableInCart && !isAddToCartClicked && (
+                            <Box
+                                color="blue.500"
+                                py="1"
+                                fontSize="sm"
+                                fontWeight="bold"
+                            >
+                                <InfoAlert message={itemAvailableInCartMessage} />
+                            </Box>
+                        )}
                         {outOfStock && (
                             <Box
                                 color="red.500"
-                                px="2"
                                 py="1"
-                                borderRadius="md"
                                 fontSize="sm"
                                 fontWeight="bold"
-                                zIndex="1"
                             >
-                                <Alert status='error'>&apos;Aw Snap!&apos; Just sold out. Don&apos;t worry, we&apos;ll restock soon.</Alert>
+                                <ErrorAlert error={outOfStockMessage} />
                             </Box>
                         )}
                     </Stack>
