@@ -9,13 +9,16 @@ import {
 import ProductCard from './ProductCard';
 import PropTypes from 'prop-types';
 import LoadingSpinner from '../../LoadingSpinner';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Pagination from './Pagination';
+import { useContext } from 'react';
+import { CurrentPageContext } from '../../../context/CurrentPageContext';
+
 
 const ProductsContainer = ({ products, loading }) => {
     const [search, setSearch] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
+    const { currentPage, setCurrentPage } = useContext(CurrentPageContext);
     const productsPerPage = 10;
 
     const handleSearch = (e) => setSearch(e.target.value);
@@ -32,12 +35,6 @@ const ProductsContainer = ({ products, loading }) => {
         setCurrentPage(pageNumber);
     };
 
-    useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }, [currentPage]);
 
     if (loading) return <LoadingSpinner />;
 
@@ -87,7 +84,11 @@ const ProductsContainer = ({ products, loading }) => {
                                         duration: 0.2,
                                     }}
                                 >
-                                    <ProductCard product={product} key={product._id} />
+                                    <ProductCard
+                                        product={product}
+                                        currentPage={currentPage}
+                                        key={product._id}
+                                    />
                                 </Box>
                             ))}
                         </Flex>

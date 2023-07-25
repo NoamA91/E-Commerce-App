@@ -17,11 +17,11 @@ import LoadingSpinner from '../../../components/LoadingSpinner';
 import { CartContext } from '../../../context/CartContext'
 import { useState, useEffect, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ErrorAlert from '../../../components/ErrorAlert';
 import InfoAlert from '../../../components/InfoAlert';
-
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const Product = () => {
     const { id } = useParams();
@@ -29,13 +29,16 @@ const Product = () => {
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const [itemAvailableInCart, setItemAvailableInCart] = useState(false);
+    const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
+    const outOfStockMessage = "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
+    const itemAvailableInCartMessage = "This product is available in your cart"
     const { addToCart, cart } = useContext(CartContext);
     const toast = useToast();
     const outOfStock = product?.count_in_stock === 0;
-    const outOfStockMessage = "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
-    const itemAvailableInCartMessage = "This product is in your cart"
-    const [itemAvailableInCart, setItemAvailableInCart] = useState(false);
-    const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const currentPage = location.state?.pageNumber || 1;
 
     useEffect(() => {
         setItemAvailableInCart(cart.map((item) => item._id).includes(product?._id));
@@ -91,7 +94,7 @@ const Product = () => {
         <Box
             p={5}
             minH='80vh'
-            w='100%'
+            maxW='100%'
             bg='gray.200'
             as={motion.div}
             initial={{ opacity: 0 }}
@@ -105,9 +108,13 @@ const Product = () => {
             }}
             exit={{ opacity: 0 }}
         >
-            <Link to='/shop'>
-                <Button>Back</Button>
-            </Link>
+            <Button
+                onClick={() =>
+                    navigate('/shop', { state: { pageNumber: currentPage } })}
+                leftIcon={<ArrowBackIcon />}
+            >
+                Back
+            </Button>
             <Flex
                 direction={['column', 'column', 'row']}
                 align={{ md: 'center' }}
@@ -124,7 +131,7 @@ const Product = () => {
                     <Image
                         src={product.image}
                         alt={product.title}
-                        boxSize='400px'
+                        boxSize={{ base: 'full', md: '400px' }}
                         objectFit='contain'
                     />
                 </Box>
@@ -132,12 +139,17 @@ const Product = () => {
                     spacing={3}
                     minW={200}
                     w={500}
-                    maxW={{ base: '280px', md: '100%' }}
+                    maxW={{ base: 'full', md: 'full' }}
                 >
-                    <Heading mt={{ base: 2, md: 0 }}>{product.title}</Heading>
+                    <Heading
+                        mt={{ base: 2, md: 0 }}
+                        fontSize={{ base: 'lg' }}
+                    >
+                        {product.title}
+                    </Heading>
                     <Text>{product.description}</Text>
                     <Text
-                        fontSize='2xl'
+                        fontSize={{ base: 'lg', md: '2xl' }}
                         fontFamily='fantasy'
                         color='red.600'
                     >

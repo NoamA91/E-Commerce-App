@@ -47,10 +47,14 @@ const Products = () => {
         setSelectedAnimalTypeSidebar(animalType);
     }
 
-    const filteredProducts = products.filter(product =>
-        (selectedAnimalTypeSidebar === "" || product.category.animal_type === selectedAnimalTypeSidebar) &&
-        (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
-    );
+
+    let filteredProducts = [];
+    if (products) {
+        filteredProducts = products.filter(product =>
+            (selectedAnimalTypeSidebar === "" || product.category.animal_type === selectedAnimalTypeSidebar) &&
+            (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
+        );
+    }
 
     if (error) return (
         <Box
@@ -58,7 +62,7 @@ const Products = () => {
             h='100vh'
             bg='gray.200'
         >
-            <ErrorAlert error={error.message} />
+            <ErrorAlert error={error} />
         </Box>
     )
 

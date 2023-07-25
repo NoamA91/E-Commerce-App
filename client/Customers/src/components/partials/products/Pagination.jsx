@@ -7,6 +7,12 @@ const Pagination = ({ currentPage, productsPerPage, totalProducts, onPageChange 
 
     const handleClick = (page) => {
         onPageChange(page);
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 0);
     };
 
     return (

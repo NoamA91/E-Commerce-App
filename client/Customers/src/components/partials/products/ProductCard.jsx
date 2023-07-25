@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, currentPage }) => {
     const navigate = useNavigate();
     const { cart, addToCart, removeFromCart } = useContext(CartContext);
     const isAddedToCart = cart.find(item => item._id === product._id);
@@ -93,7 +93,7 @@ const ProductCard = ({ product }) => {
                     objectFit='cover'
                     cursor='pointer'
                     onClick={() => {
-                        navigate(`/product/${product._id}`);
+                        navigate(`/product/${product._id}`, { state: { pageNumber: currentPage } });
                     }}
                 />
                 <Stack
