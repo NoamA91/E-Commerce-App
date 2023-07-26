@@ -41,7 +41,10 @@ const About = () => (
                 bottom={{ base: 0, lg: 5 }}
                 boxShadow={{ md: '0px 0px 50px rgba(0, 0, 0, 0.3)' }}
             >
-                <Heading color='ShopYellow'>
+                <Heading
+                    as='h1'
+                    color='ShopYellow'
+                >
                     With Us, no one pet-parents alone
                 </Heading>
                 <Text
@@ -73,20 +76,29 @@ const About = () => (
                     flex={{ base: 0, md: 0.5 }}
                     justifyContent='center'
                 >
-                    <Heading>Our customers always come first</Heading>
+                    <Heading
+                        as='h2'
+                        fontSize={{ base: '2xl', md: '4xl' }}
+                    >
+                        Our customers always come first
+                    </Heading>
                     <Box
                         id="divider"
                         h='2px'
                         borderRadius={5}
                         bg='gray.200'
                         w={250}
-                        my={3}
+                        my={5}
                     />
-                    <Text>
+                    <Text
+                        fontSize={{ base: 'sm', md: 'lg' }}
+                    >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod repellendus qui obcaecati ut placeat aperiam optio error corrupti quisquam minima!
                     </Text>
                     <br />
-                    <Text>
+                    <Text
+                        fontSize={{ base: 'sm', md: 'lg' }}
+                    >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius enim consectetur nihil ducimus, corrupti possimus!
                     </Text>
                 </Box>
@@ -102,29 +114,40 @@ const About = () => (
                     alt="Image 2"
                     width={["100%", "50%"]}
                     boxShadow={{ md: '0px 40px 60px rgba(0, 0, 0, 0.3)' }}
+                    ml={5}
                 />
                 <Box
                     display='flex'
                     flexDir='column'
                     p={5}
+                    pr={{ base: 0, md: 5 }}
                     w={{ base: '100%', md: '40%' }}
                     flex={{ base: 0, md: 0.5 }}
                     justifyContent='center'
                 >
-                    <Heading>Pets are what get us out of bed every day</Heading>
+                    <Heading
+                        as='h2'
+                        fontSize={{ base: '2xl', md: '4xl' }}
+                    >
+                        Pets are what get us out of bed every day
+                    </Heading>
                     <Box
                         id="divider"
                         h='2px'
                         borderRadius={5}
                         bg='gray.200'
                         w={250}
-                        my={3}
+                        my={5}
                     />
-                    <Text>
+                    <Text
+                        fontSize={{ base: 'sm', md: 'lg' }}
+                    >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod repellendus qui obcaecati ut placeat aperiam optio error corrupti quisquam minima!
                     </Text>
                     <br />
-                    <Text>
+                    <Text
+                        fontSize={{ base: 'sm', md: 'lg' }}
+                    >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius enim consectetur nihil ducimus, corrupti possimus!
                     </Text>
                 </Box>
