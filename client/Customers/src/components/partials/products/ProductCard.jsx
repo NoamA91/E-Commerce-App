@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext'
 
+
 const ProductCard = ({ product, currentPage }) => {
     const navigate = useNavigate();
     const { cart, addToCart, removeFromCart } = useContext(CartContext);
@@ -54,9 +55,9 @@ const ProductCard = ({ product, currentPage }) => {
             maxW='sm'
             h={420}
             whileHover={{
-                scale: 1.010,
-                transition: { duration: 0.2 },
-                boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+                scale: 1.03,
+                transition: { duration: 0.1 },
+                boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.3)',
             }}
             position='relative'
         >
@@ -146,6 +147,7 @@ const ProductCard = ({ product, currentPage }) => {
 
 ProductCard.propTypes = {
     product: PropTypes.object.isRequired,
+    currentPage: PropTypes.number.isRequired
 };
 
 export default ProductCard

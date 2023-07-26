@@ -48,7 +48,9 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getById/${id}`);
+                const { data } = await axios.get(
+                    `${import.meta.env.VITE_SERVER_URL}/products/getById/${id}`
+                );
                 setProduct(data.product);
                 setLoading(false);
             } catch (error) {

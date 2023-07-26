@@ -42,7 +42,7 @@ const CartItem = ({ item }) => {
                     mr="4"
                 />
                 <Flex flex="1" flexDirection="column">
-                    <Text fontSize="xl" mb="2">
+                    <Text fontSize={{ base: 'md', md: 'xl' }} mb="2">
                         {item.title}
                     </Text>
                     <Text fontSize="md" mb="2">
@@ -71,7 +71,7 @@ const CartItem = ({ item }) => {
                     colorScheme="red"
                     variant="ghost"
                 >
-                    <DeleteIcon />
+                    <DeleteIcon boxSize={{ base: 4, md: 5 }} />
                 </Button>
             </Flex>
         </Box>
