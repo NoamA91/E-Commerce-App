@@ -145,13 +145,13 @@ const Product = () => {
                 >
                     <Heading
                         mt={{ base: 2, md: 0 }}
-                        fontSize={{ base: 'lg' }}
+                        fontSize={{ base: 'xl', md: '2xl' }}
                     >
                         {product.title}
                     </Heading>
                     <Text>{product.description}</Text>
                     <Text
-                        fontSize={{ base: 'lg', md: '2xl' }}
+                        fontSize={{ base: 'xl', md: '2xl' }}
                         fontFamily='fantasy'
                         color='red.600'
                     >
@@ -183,7 +183,6 @@ const Product = () => {
                             colorScheme='teal'
                             variant='outline'
                             onClick={handleAddToCart}
-                            maxW={{ base: '280px', md: '100%' }}
                             isLoading={isAddedToCart}
                             isDisabled={outOfStock}
                         >

@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 
+// Context to store the current page number
 export const CurrentPageContext = createContext();
 
 export const CurrentPageProvider = ({ children }) => {
@@ -11,3 +12,4 @@ export const CurrentPageProvider = ({ children }) => {
         </CurrentPageContext.Provider>
     );
 };
+

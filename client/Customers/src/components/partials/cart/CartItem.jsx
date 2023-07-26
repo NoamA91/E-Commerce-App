@@ -74,7 +74,7 @@ const CartItem = ({ item }) => {
                     <DeleteIcon boxSize={{ base: 4, md: 5 }} />
                 </Button>
             </Flex>
-        </Box>
+        </Box >
     )
 }
 

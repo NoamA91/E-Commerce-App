@@ -42,7 +42,7 @@ const ProductsContainer = ({ products, loading }) => {
         <Stack
             mt={{ base: 0, md: 5 }}
             mx={{ base: 1.5 }}
-            mr={{ md: '15%' }}
+            mr={{ md: 0, lg: '15%' }}
             border='1px solid #ccc'
             borderRadius={5}
             p={5}
