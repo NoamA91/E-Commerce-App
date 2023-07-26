@@ -11,10 +11,13 @@ import { CgProfile } from "react-icons/cg"
 import SidebarDrawer from './SidebarDrawer'
 import { motion } from 'framer-motion';
 import ShoppingCart from "./ShoppingCart"
+import { CurrentPageContext } from "../../context/CurrentPageContext"
+import { useContext } from "react"
 
 
 const Nav = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { setCurrentPage } = useContext(CurrentPageContext)
 
     return (
 
@@ -86,6 +89,7 @@ const Nav = () => {
                                         bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                                         color: 'blackAlpha.900',
                                     }}
+                                    onClick={() => setCurrentPage(1)}
                                 >
                                     All Products
                                 </Button>

@@ -149,7 +149,11 @@ const Product = () => {
                     >
                         {product.title}
                     </Heading>
-                    <Text>{product.description}</Text>
+                    <Text
+                        fontSize={{ base: 'md', md: 'lg' }}
+                    >
+                        {product.description}
+                    </Text>
                     <Text
                         fontSize={{ base: 'xl', md: '2xl' }}
                         fontFamily='fantasy'

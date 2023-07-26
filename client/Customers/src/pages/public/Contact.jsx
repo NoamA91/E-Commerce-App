@@ -6,7 +6,6 @@ const Contact = () => {
             style={{
                 minHeight: '100vh',
                 width: '100%',
-                backgroundColor: 'red'
             }}
             initial={{ opacity: 0 }}
             animate={{
