@@ -77,7 +77,7 @@ const Nav = () => {
                             </motion.div>
                         </Link>
 
-                        <Link to='/shop'>
+                        <Link to='/products'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
                                 whileTap={{ scale: 0.980 }}
@@ -154,7 +154,7 @@ const Nav = () => {
                         variant='ghost'
                         gap={{ lg: 2 }}
                     >
-                        <Link to=''>
+                        <Link to='/login'>
                             <motion.div
                                 whileHover={{ scale: 1.050 }}
                                 whileTap={{ scale: 0.980 }}

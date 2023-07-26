@@ -10,12 +10,13 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 // pages
 const Root = lazy(() => import('./pages/Root'));
 const Home = lazy(() => import('./pages/public/Home'));
-import About from './pages/public/About';
+const About = lazy(() => import('./pages/public/About'));
 import Contact from './pages/public/Contact';
 import NotFound from './pages/public/NotFound';
 import LoadingSpinner from './components/LoadingSpinner';
 const Products = lazy(() => import('./pages/public/products/Products'));
 const Product = lazy(() => import('./pages/public/products/Product'));
+const Login = lazy(() => import('./pages/public/Login'));
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
         </Suspense>
         } />
 
-        <Route path="shop" element={
+        <Route path="products" element={
           <Suspense fallback={<LoadingSpinner />}>
             <Products />
           </Suspense>
@@ -40,8 +41,24 @@ function App() {
           </Suspense>
         } />
 
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
+        <Route path="about" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <About />
+          </Suspense>
+        } />
+
+        <Route path="contact" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <Contact />
+          </Suspense>
+        } />
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="login" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <Login />
+          </Suspense>
+        } />
         <Route path="*" element={<NotFound />} />
       </Route>
     )

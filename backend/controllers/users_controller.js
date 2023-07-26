@@ -116,7 +116,7 @@ module.exports = {
       if (oldTokens.length) {
         oldTokens = oldTokens.filter((t) => {
           const timeDiff = currentTime - t.signedAt;
-          return timeDiff <= 10800000;  // 3 hours in milliseconds
+          return timeDiff <= 10800000;
         });
       }
 
@@ -502,12 +502,12 @@ module.exports = {
     }
   },
 
-  authToken: async (req, res) => {
+  authUser: async (req, res) => {
     console.log("API POST request : auth token".new_request);
     try {
-      const token = req.headers.authorization;
+      const customer_token = req.headers.authorization;
 
-      if (!token) {
+      if (!customer_token) {
         return res.status(401).json({
           message: "Token not provided"
         })
@@ -515,11 +515,14 @@ module.exports = {
 
       console.log("token provided".step_done);
 
-      const bearer = token.split(" ")[1];
+      const bearer = customer_token.split(" ")[1];
 
       const decode = jwt.verify(bearer, process.env.JWT_SECRET);
 
-      const user = await User.findById(decode.id).exec();
+      const user = await User.findById(
+        decode.id,
+        "-password -tokens"
+      ).exec();
 
       if (!user) {
         throw new Error("User not exists");
@@ -530,7 +533,7 @@ module.exports = {
       return res.status(201).json({
         success: true,
         message: "User authoraized",
-        token,
+        customer_token,
         user: {
           _id: user._id,
           username: user.username,

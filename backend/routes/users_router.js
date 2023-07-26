@@ -9,7 +9,7 @@ const {
   registerUser,
   loginUser,
   logoutUser,
-  authToken,
+  authUser,
   updateById,
   getById,
   getAll,
@@ -27,7 +27,6 @@ const {
   loginManager,
   logoutManager,
   authManager,
-  getAllManagers,
   getManagerById,
   updateManagerById,
   deleteManagerById,
@@ -60,7 +59,7 @@ const {
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout/", userAuth, logoutUser);
-router.get("/auth", authToken);
+router.get("/auth", authUser);
 router.put("/updateByid/:id" /* , userAuth */, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);

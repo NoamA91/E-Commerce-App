@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
 
 const Footer = () => {
     return (
@@ -16,7 +16,15 @@ const Footer = () => {
                 align={{ base: 'center', md: 'start' }}
                 justify="space-between"
             >
-                <Text fontSize={{ base: 'xs', md: 'sm' }} color='gray'>© 2023 ThePetShop, Inc. All rights reserved to Noam Ashkenazi.</Text>
+                <Flex>
+                    <Text
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                        color='gray'
+                    >
+                        © 2023 ThePetShop, Inc. All rights reserved to Noam Ashkenazi.
+                    </Text>
+                    <Image src='/Small_Logo.png' w={10} />
+                </Flex>
 
                 <Flex
                     direction={{ base: 'column-reverse', md: 'row' }}
@@ -32,9 +40,7 @@ const Footer = () => {
                     <Link py={{ base: '1', md: '0' }}
                         href="/contact" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>Contact Us</Link>
                     <Link py={{ base: '1', md: '0' }}
-                        href="/shop" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>All Products</Link>
-                    <Link py={{ base: '1', md: '0' }}
-                        href="/blog" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>Blog</Link>
+                        href="/products" px="3" color="gray" fontSize="sm" _hover={{ color: 'white' }}>All Products</Link>
                 </Flex>
             </Flex>
         </Box >

@@ -112,7 +112,7 @@ const Product = () => {
         >
             <Button
                 onClick={() =>
-                    navigate('/shop', { state: { pageNumber: currentPage } })}
+                    navigate('/products', { state: { pageNumber: currentPage } })}
                 leftIcon={<ArrowBackIcon />}
             >
                 Back

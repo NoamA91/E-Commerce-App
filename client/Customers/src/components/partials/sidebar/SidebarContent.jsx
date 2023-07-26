@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types'
 import { Button, Flex } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
@@ -23,7 +24,7 @@ const SidebarContent = ({ onClose }) => {
                 </Button>
             </Link>
 
-            <Link to='/shop'
+            <Link to='/products'
                 onClick={onClose}
             >
                 <Button
@@ -67,23 +68,12 @@ const SidebarContent = ({ onClose }) => {
                     Contact
                 </Button>
             </Link>
-
-            <Link to='/blog'
-                onClick={onClose}
-            >
-                <Button
-                    w='100%'
-                    bg='ShopTeal.200'
-                    mt={1}
-                    _hover={{
-                        bg: 'ShopTeal.100',
-                    }}
-                >
-                    Blog
-                </Button>
-            </Link>
         </Flex>
     )
+}
+
+SidebarContent.propTypes = {
+    onClose: PropTypes.bool.isRequired,
 }
 
 export default SidebarContent

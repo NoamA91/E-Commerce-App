@@ -80,7 +80,7 @@ const Home = () => {
 
 
 
-                                    <Link to='/shop'>
+                                    <Link to='/products'>
                                         <motion.div
                                             whileHover={{ scale: 1.030 }}
                                             style={{
@@ -89,7 +89,7 @@ const Home = () => {
                                         >
                                             <Button
                                                 mt={10}
-                                                size='lg'
+                                                size={{ base: 'md', md: 'lg' }}
                                                 bg='ShopYellow'
                                                 color='black'
                                                 _hover={{

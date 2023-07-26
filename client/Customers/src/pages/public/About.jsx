@@ -30,15 +30,22 @@ const About = () => (
                 muted
                 loop
             />
-
+            <Heading
+                as='h1'
+                color='whiteAlpha.300'
+                size={{ base: 'xl', md: '3xl' }}
+                pos='absolute'
+                top={{ base: 20, md: '15%' }}
+            >
+                About Us</Heading>
             <Box
                 bg='ShopTeal.300'
                 px={{ base: 6, md: 20 }}
-                py={[5, 10]}
+                py={[5, 50]}
                 borderRadius={{ base: 0, md: 10 }}
                 maxW={{ base: '100%', md: '80%', lg: '60%' }}
                 pos='relative'
-                bottom={{ base: 0, lg: 5 }}
+                bottom={{ base: 0, lg: 10 }}
                 boxShadow={{ md: '0px 0px 50px rgba(0, 0, 0, 0.3)' }}
             >
                 <Heading
@@ -51,7 +58,7 @@ const About = () => (
                     color='white'
                     fontWeight='semibold'
                     mt={3}
-                    fontSize={{ base: 'sm', md: 'lg' }}
+                    fontSize={{ base: 'sm', md: 'xl' }}
                 >
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nam sint adipisci quam voluptate fugit impedit vel deserunt, accusamus necessitatibus Aut aperiam voluptatum quas mollitia error dignissimos, voluptatibus adipisci alias.
                 </Text>
@@ -91,13 +98,15 @@ const About = () => (
                         my={5}
                     />
                     <Text
-                        fontSize={{ base: 'sm', md: 'lg' }}
+                        fontSize={{ base: 'sm', md: 'xl' }}
+
                     >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod repellendus qui obcaecati ut placeat aperiam optio error corrupti quisquam minima!
                     </Text>
                     <br />
                     <Text
-                        fontSize={{ base: 'sm', md: 'lg' }}
+                        fontSize={{ base: 'sm', md: 'xl' }}
+
                     >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius enim consectetur nihil ducimus, corrupti possimus!
                     </Text>
@@ -140,13 +149,13 @@ const About = () => (
                         my={5}
                     />
                     <Text
-                        fontSize={{ base: 'sm', md: 'lg' }}
+                        fontSize={{ base: 'sm', md: 'xl' }}
                     >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod repellendus qui obcaecati ut placeat aperiam optio error corrupti quisquam minima!
                     </Text>
                     <br />
                     <Text
-                        fontSize={{ base: 'sm', md: 'lg' }}
+                        fontSize={{ base: 'sm', md: 'xl' }}
                     >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius enim consectetur nihil ducimus, corrupti possimus!
                     </Text>
