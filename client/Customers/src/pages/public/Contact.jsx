@@ -50,6 +50,7 @@ const Contact = () => {
                 <VStack spacing={5}>
                     <FormControl id='name' isRequired>
                         <Input
+                            variant='flushed'
                             placeholder='Full Name'
                             focusBorderColor='teal'
                             type='text'
@@ -58,6 +59,7 @@ const Contact = () => {
                     </FormControl>
                     <FormControl id='email' isRequired>
                         <Input
+                            variant='flushed'
                             placeholder='Email'
                             focusBorderColor='teal'
                             type='email'
@@ -67,6 +69,7 @@ const Contact = () => {
 
                     <FormControl id='phone' isRequired>
                         <Input
+                            variant='flushed'
                             placeholder='Phone Number'
                             focusBorderColor='teal'
                             type='tel'
@@ -83,7 +86,13 @@ const Contact = () => {
                         />
                     </FormControl>
 
-                    <Button colorScheme='teal' type='submit'>Submit</Button>
+                    <Button
+                        size={{ base: 'md', md: 'lg' }}
+                        colorScheme='teal'
+                        type='submit'
+                    >
+                        Submit
+                    </Button>
                 </VStack>
             </Box>
         </ Flex>

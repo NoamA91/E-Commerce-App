@@ -11,13 +11,13 @@ import {
     Text,
     chakra,
     InputRightElement,
-    Divider,
     AbsoluteCenter
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion'
 import { BiSolidUser, BiSolidLockAlt } from 'react-icons/bi'
 import { useState } from 'react';
+import SVG from '../../components/SVG.JSX';
 
 const Login = () => {
     const [show, setShow] = useState(false)
@@ -26,135 +26,149 @@ const Login = () => {
     const CBiSolidLockAlt = chakra(BiSolidLockAlt);
 
     return (
-        <Flex
-            as={motion.div}
-            flexDir={['column', 'row']}
-            justifyContent={{ md: 'center' }}
-            bg='gray.600'
-            minH='90vh'
-            w='100%'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
-            <VStack
-                spacing={5}
-                w={{ base: '100%', md: '500px' }}
-                h='100%'
-                mt={{ base: 5, md: 120 }}
-                boxShadow={{ md: 'md' }}
-                borderRadius={10}
-                p={5}
-            >
-                <Heading
-                    as='h2'
-                    size='xl'
-                >
-                    Login
-                </Heading>
-                <FormControl id='email'>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents='none'
-                            children={
-                                <CBiSolidUser
-                                    color='ShopTeal.200'
-                                    fontSize='1.5em'
-                                />}
-                        >
-                        </InputLeftElement>
-                        <Input
-                            type='email'
-                            placeholder='Email'
-                        />
-                    </InputGroup>
-                </FormControl>
-
-                <FormControl id='password'>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents='none'
-                            children={
-                                <CBiSolidLockAlt
-                                    color='ShopTeal.200'
-                                    fontSize='1.5em'
-                                />}
-                        >
-                        </InputLeftElement>
-                        <Input
-                            type={show ? 'text' : 'password'}
-                            placeholder='Password'
-                        />
-                        <InputRightElement width='4.5rem'>
-                            <Button
-                                h='1.75rem'
-                                size='sm'
-                                onClick={handleShowPass}
-                            >
-                                {show ? 'Hide' : 'Show'}
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
-                </FormControl>
-                <Text>Forgot Your Password?</Text>
-                <Button
-                    colorScheme='teal'
-                    size='md'
-                    w='100%'
-                >
-                    Login
-                </Button>
-            </VStack>
-
+        <>
             <Box
-                display={{ base: 'block', md: 'none' }}
-                position='relative'
-                py={5}
-            >
-                <Divider />
-                <AbsoluteCenter
-                    px='4'
-                    fontWeight='bold'
-                    bg='gray.600'
-                >
-                    OR
-                </AbsoluteCenter>
-            </Box>
-
-            <Flex
-                mt={{ base: 5, md: 120 }}
+                as={motion.div}
+                bg='gray.100'
+                w='100%'
                 h='100%'
-                w={{ base: '100%', md: '400px' }}
-                flexDir='column'
-                pt={{ base: 0, md: 5 }}
-                pl={{ md: 20 }}
-                px={{ base: 5 }}
-                gap={5}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
             >
-                <Box
-                    display={{ base: 'none', md: 'block' }}
+                <Flex
+                    flexDir={{ base: 'column', md: 'row' }}
+                    justifyContent={{ md: 'center' }}
+                    minH={{ base: '80vh', md: '55vh', lg: '50vh' }}
                 >
-                    <Heading
-                        as='h2'
-                        size='xl'
+                    <VStack
+                        bg='whiteAlpha.700'
+                        spacing={5}
+                        w={{ base: '100%', md: '500px' }}
+                        h='100%'
+                        mt={{ base: 5, md: 120 }}
+                        boxShadow={{ md: 'md' }}
+                        borderRadius={10}
+                        p={5}
                     >
-                        I'm new here
-                    </Heading>
-                    <Text>
-                        Creating an account is easy and only takes a few seconds.
-                        You'll be able to track your orders and view your personal information.
-                    </Text>
+                        <Heading
+                            as='h2'
+                            size='xl'
+                        >
+                            Login
+                        </Heading>
+                        <FormControl id='email'>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <CBiSolidUser
+                                        color='ShopTeal.300'
+                                        fontSize='1.5em'
+                                    />
+                                </InputLeftElement>
+                                <Input
+                                    type='email'
+                                    placeholder='Email Address'
+                                    focusBorderColor='teal'
+                                />
+                            </InputGroup>
+                        </FormControl>
+
+                        <FormControl id='password'>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <CBiSolidLockAlt
+                                        color='ShopTeal.300'
+                                        fontSize='1.5em'
+                                    />
+                                </InputLeftElement>
+                                <Input
+                                    type={show ? 'text' : 'password'}
+                                    placeholder='Password'
+                                    focusBorderColor='teal'
+                                />
+                                <InputRightElement width='4.5rem'>
+                                    <Button
+                                        h='1.75rem'
+                                        size='sm'
+                                        onClick={handleShowPass}
+                                    >
+                                        {show ? 'Hide' : 'Show'}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                        </FormControl>
+                        <Text>Forgot Your Password?</Text>
+                        <Button
+                            colorScheme='teal'
+                            size={{ base: 'md', md: 'lg' }}
+                            w='100%'
+                        >
+                            Login
+                        </Button>
+                    </VStack>
+
+                    <Box
+                        display={{ base: 'block', md: 'none' }}
+                        position='relative'
+                        top={3}
+                        py={5}
+                    >
+                        <Box width='100%' bg='gray.300' h='1px'></Box>
+                        <AbsoluteCenter
+                            px='4'
+                            fontWeight='bold'
+                            bg='gray.100'
+                        >
+                            OR
+                        </AbsoluteCenter>
+                    </Box>
+
+                    <Flex
+                        mt={{ base: 5, md: 120 }}
+                        h='100%'
+                        w={{ base: '100%', md: '400px' }}
+                        flexDir='column'
+                        pt={{ base: 0, md: 5 }}
+                        pl={{ md: 20 }}
+                        px={{ base: 5 }}
+                        gap={5}
+                    >
+                        <Box
+                            display={{ base: 'none', md: 'block' }}
+                        >
+                            <Heading
+                                as='h2'
+                                size='xl'
+                            >
+                                I&apos;m new here
+                            </Heading>
+                            <Text>
+                                Creating an account is easy and only takes a few seconds.
+                                You&apos;ll be able to track your orders and view your personal information.
+                            </Text>
+                        </Box>
+                        <Link to='/register'>
+                            <Button
+                                colorScheme='teal'
+                                variant='outline'
+                                mt={{ base: 1, md: 0 }}
+                                size={{ base: 'md', md: 'lg' }}
+                                w='100%'
+                            >
+                                Register
+                            </Button>
+                        </Link>
+                    </Flex>
+                </Flex>
+                <Box
+                    bg='gray.100'
+                    w="100%"
+                >
+                    <SVG />
                 </Box>
-                <Link to='/register'>
-                    <Button
-                        colorScheme='teal'
-                        variant='outline'
-                        size='md'
-                        w='100%'
-                    >
-                        Register
-                    </Button>
-                </Link>
-            </Flex>
-        </Flex >
+            </Box >
+
+        </>
     )
 }
 

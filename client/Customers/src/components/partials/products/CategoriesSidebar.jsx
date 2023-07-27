@@ -62,7 +62,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
             {layout === 'base' && (
                 <>
                     <Box
-                        bg='gray.200'
+                        bg='gray.100'
                     >
                         <Box
                             bg='blackAlpha.900'
@@ -130,7 +130,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                 </>
             )}
             {layout === 'sidebar' && (
-                <Box minW='15%' bg='gray.200'>
+                <Box minW='15%' bg='gray.100'>
                     <Box
                         mt={5}
                         ml={2}

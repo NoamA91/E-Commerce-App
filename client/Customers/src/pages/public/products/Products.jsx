@@ -60,7 +60,7 @@ const Products = () => {
         <Box
             w='100%'
             h='100vh'
-            bg='gray.200'
+            bg='gray.100'
         >
             <ErrorAlert error={error} />
         </Box>
@@ -92,7 +92,7 @@ const Products = () => {
             />
 
             <Box w='100%'
-                bg='gray.200'
+                bg='gray.100'
             >
                 {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
             </Box>

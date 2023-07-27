@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/modal'
 import { Box, Divider } from '@chakra-ui/react'
 import SidebarContent from '../partials/sidebar/SidebarContent'
+import { PropTypes } from 'prop-types'
 
 const SidebarDrawer = ({ isOpen, onClose }) => {
 
@@ -52,5 +53,11 @@ const SidebarDrawer = ({ isOpen, onClose }) => {
         </>
     )
 }
+
+SidebarDrawer.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
+}
+
 
 export default SidebarDrawer

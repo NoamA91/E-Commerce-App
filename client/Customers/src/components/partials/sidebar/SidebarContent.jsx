@@ -73,7 +73,7 @@ const SidebarContent = ({ onClose }) => {
 }
 
 SidebarContent.propTypes = {
-    onClose: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
 }
 
 export default SidebarContent

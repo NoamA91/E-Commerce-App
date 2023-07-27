@@ -92,7 +92,7 @@ const Nav = () => {
                                     }}
                                     onClick={() => setCurrentPage(1)}
                                 >
-                                    All Products
+                                    Products
                                 </Button>
                             </motion.div>
                         </Link>
