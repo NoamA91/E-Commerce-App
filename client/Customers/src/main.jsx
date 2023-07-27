@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { ChakraProvider } from '@chakra-ui/react'
 import { CartProvider } from './context/CartContext.jsx'
 import { CurrentPageProvider } from './context/CurrentPageContext';
+import { AuthProvider } from './context/AuthContext.jsx'
 
 const colors = {
   ShopYellow: '#fefed5',
@@ -18,10 +19,12 @@ const theme = extendTheme({ colors })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ChakraProvider theme={theme}>
-    <CurrentPageProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </CurrentPageProvider>
+    <AuthProvider>
+      <CurrentPageProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </CurrentPageProvider>
+    </AuthProvider>
   </ChakraProvider>
 )

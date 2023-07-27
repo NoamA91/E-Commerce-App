@@ -17,13 +17,15 @@ export function AuthProvider({ children }) {
                 { email, password }
             );
 
-            // console.log(data);
+            console.log(data);
             setUser(data.user);
             setCookie("customer_token", data.customer_token, { path: "/", maxAge: 10800 });
+
             return {
                 success: true,
                 message: data.message
             };
+
         } catch (error) {
             throw new Error(error.response.data.error);
         }
@@ -102,9 +104,7 @@ export function AuthProvider({ children }) {
                         }
                     });
 
-
                     setUser(data.user);
-
 
                 } catch (error) {
                     removeCookie("customer_token");

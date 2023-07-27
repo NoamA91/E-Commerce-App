@@ -172,7 +172,7 @@ const Nav = () => {
                                     <Text
                                         display={{ base: 'none', md: 'flex' }}
                                     >
-                                        Login
+                                        Sign In
                                     </Text>
                                 </Button>
                             </motion.div>
