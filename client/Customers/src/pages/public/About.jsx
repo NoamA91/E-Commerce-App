@@ -4,28 +4,28 @@ import {
     Flex,
     Text,
     Heading
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import image1 from '/pexels-helena-lopes-1378849.jpg';
-import image2 from "/pexels-snapwire-46024.jpg";
+import image2 from '/pexels-snapwire-46024.jpg';
 
 
 const About = () => (
     <Box
         as={motion.div}
-        style={{ minHeight: "100vh", width: "100%" }}
+        style={{ minHeight: '100vh', width: '100%' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
     >
-        <Flex direction="column" align="center" justify="center">
+        <Flex direction='column' align='center' justify='center'>
             <Box
-                as="video"
-                src="/video.mp4"
-                alt="about video"
+                as='video'
+                src='/video.mp4'
+                alt='about video'
                 objectFit='cover'
-                width="100%"
-                maxH="450px"
+                width='100%'
+                maxH='450px'
                 autoPlay
                 muted
                 loop
@@ -65,14 +65,14 @@ const About = () => (
             </Box>
 
             <Flex
-                direction={["column", "row"]}
+                direction={['column', 'row']}
                 my={{ base: 0, md: 20 }}
                 justify='center'
             >
                 <Image
                     src={image1}
-                    alt="Image 1"
-                    width={["100%", "40%"]}
+                    alt='Image 1'
+                    width={['100%', '40%']}
                     boxShadow={{ md: '0px 40px 60px rgba(0, 0, 0, 0.3)' }}
                 />
                 <Box
@@ -90,7 +90,7 @@ const About = () => (
                         Our customers always come first
                     </Heading>
                     <Box
-                        id="divider"
+                        id='divider'
                         h='2px'
                         borderRadius={5}
                         bg='gray.200'
@@ -114,14 +114,14 @@ const About = () => (
             </Flex>
 
             <Flex
-                direction={["column-reverse", "row-reverse"]}
+                direction={['column-reverse', 'row-reverse']}
                 my={{ base: 5, md: 20 }}
                 justify='center'
             >
                 <Image
                     src={image2}
-                    alt="Image 2"
-                    width={["100%", "50%"]}
+                    alt='Image 2'
+                    width={['100%', '50%']}
                     boxShadow={{ md: '0px 40px 60px rgba(0, 0, 0, 0.3)' }}
                     ml={5}
                 />
@@ -141,7 +141,7 @@ const About = () => (
                         Pets are what get us out of bed every day
                     </Heading>
                     <Box
-                        id="divider"
+                        id='divider'
                         h='2px'
                         borderRadius={5}
                         bg='gray.200'

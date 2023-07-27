@@ -47,7 +47,12 @@ const ShoppingCart = () => {
                     onClick={onOpen}
                     ref={btnRef}
                 >
-                    <Text mr={3}>Cart</Text>
+                    <Text
+                        display={{ base: 'none', md: 'block' }}
+                        mr={3}
+                    >
+                        Cart
+                    </Text>
                     <Stack position='relative'>
                         <PiBasketFill size={30} />
                         <Badge

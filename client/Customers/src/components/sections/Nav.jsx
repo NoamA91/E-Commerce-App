@@ -3,6 +3,7 @@ import {
     Button,
     ButtonGroup,
     Flex,
+    Text,
     useDisclosure,
 } from "@chakra-ui/react"
 import { HamburgerIcon } from '@chakra-ui/icons'
@@ -168,7 +169,11 @@ const Nav = () => {
                                     }}
                                     rightIcon={<CgProfile size={30} />}
                                 >
-                                    Sign in
+                                    <Text
+                                        display={{ base: 'none', md: 'flex' }}
+                                    >
+                                        Login
+                                    </Text>
                                 </Button>
                             </motion.div>
                         </Link>

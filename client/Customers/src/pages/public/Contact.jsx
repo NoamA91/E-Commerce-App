@@ -22,14 +22,7 @@ const Contact = () => {
             flexDir='column'
             alignItems='center'
             initial={{ opacity: 0 }}
-            animate={{
-                opacity: 1,
-                transition: {
-                    duration: 0.4,
-                    delayChildren: 0.3,
-                    staggerChildren: 0.2
-                }
-            }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
             <Box
@@ -57,14 +50,16 @@ const Contact = () => {
                 <VStack spacing={5}>
                     <FormControl id='name' isRequired>
                         <Input
-                            placeholder="Full Name"
+                            placeholder='Full Name'
+                            focusBorderColor='teal'
                             type='text'
                             size={{ base: 'md', md: 'lg' }}
                         />
                     </FormControl>
                     <FormControl id='email' isRequired>
                         <Input
-                            placeholder="Email"
+                            placeholder='Email'
+                            focusBorderColor='teal'
                             type='email'
                             size={{ base: 'md', md: 'lg' }}
                         />
@@ -72,7 +67,8 @@ const Contact = () => {
 
                     <FormControl id='phone' isRequired>
                         <Input
-                            placeholder="Phone Number"
+                            placeholder='Phone Number'
+                            focusBorderColor='teal'
                             type='tel'
                             size={{ base: 'md', md: 'lg' }}
                         />
@@ -80,7 +76,8 @@ const Contact = () => {
 
                     <FormControl id='message' isRequired>
                         <Textarea
-                            placeholder="Your Message"
+                            placeholder='Your Message'
+                            focusBorderColor='teal'
                             size={{ base: 'md', md: 'lg' }}
                             maxH='300px'
                         />

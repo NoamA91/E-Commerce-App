@@ -11,12 +11,13 @@ import { ParallaxProvider } from 'react-scroll-parallax';
 const Root = lazy(() => import('./pages/Root'));
 const Home = lazy(() => import('./pages/public/Home'));
 const About = lazy(() => import('./pages/public/About'));
-import Contact from './pages/public/Contact';
-import NotFound from './pages/public/NotFound';
-import LoadingSpinner from './components/LoadingSpinner';
+const Contact = lazy(() => import('./pages/public/Contact'));
+const NotFound = lazy(() => import('./pages/public/NotFound'));
 const Products = lazy(() => import('./pages/public/products/Products'));
 const Product = lazy(() => import('./pages/public/products/Product'));
 const Login = lazy(() => import('./pages/public/Login'));
+const Register = lazy(() => import('./pages/public/Register'));
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
 
@@ -52,13 +53,19 @@ function App() {
             <Contact />
           </Suspense>
         } />
-        <Route path="*" element={<NotFound />} />
 
         <Route path="login" element={
           <Suspense fallback={<LoadingSpinner />}>
             <Login />
           </Suspense>
         } />
+
+        <Route path="register" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <Register />
+          </Suspense>
+        } />
+
         <Route path="*" element={<NotFound />} />
       </Route>
     )
