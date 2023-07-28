@@ -18,14 +18,14 @@ const Login = () => {
         return <Navigate to="/" />
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (values) => {
         try {
             setLoading(true);
             await login(values.email, values.password);
 
             toast({
                 title: "Login Successful",
+                position: 'bottom',
                 description: "You have successfully logged in",
                 status: "success",
                 duration: 3000,
