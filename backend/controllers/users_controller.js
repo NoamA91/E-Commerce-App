@@ -93,7 +93,7 @@ module.exports = {
       if (!user) {
         console.log("User not found".failed_request);
         return res.status(404).json({
-          message: "User not found",
+          message: "Incorrect Email or password",
         });
       }
 
@@ -102,7 +102,7 @@ module.exports = {
       if (!isMatch) {
         console.log("Invalid password".failed_request);
         return res.status(401).json({
-          message: "Invalid password",
+          message: "Incorrect Email or password",
         });
       }
 
@@ -115,13 +115,15 @@ module.exports = {
       // Filter out expired tokens
       if (oldTokens.length) {
         oldTokens = oldTokens.filter((t) => {
-          const timeDiff = currentTime - t.signedAt;
-          return timeDiff <= 10800000;
+          const timeDiff = (currentTime - parseInt(t.signedAt)) / 1000;
+          if (timeDiff <= 10800000) {
+            return t;
+          }
         });
       }
 
       // Add new token to the list
-      oldTokens.push({ token, signedAt: currentTime });
+      oldTokens.push({ token, signedAt: currentTime.toString() });
 
       // Update the user with the new tokens array
       await User.findByIdAndUpdate(user._id, {
@@ -505,19 +507,25 @@ module.exports = {
   authUser: async (req, res) => {
     console.log("API POST request : auth token".new_request);
     try {
-      const customer_token = req.headers.authorization;
+      const authorization = req.headers.authorization;
 
-      if (!customer_token) {
+      if (!authorization) {
+        return res.status(401).json({
+          message: "Authorization header not provided"
+        })
+      }
+
+      console.log("Authorization header provided".step_done);
+
+      const customer_token = authorization.split(" ")[1];
+
+      if (!customer_token ) {
         return res.status(401).json({
           message: "Token not provided"
         })
       }
 
-      console.log("token provided".step_done);
-
-      const bearer = customer_token.split(" ")[1];
-
-      const decode = jwt.verify(bearer, process.env.JWT_SECRET);
+      const decode = jwt.verify(customer_token, process.env.JWT_SECRET);
 
       const user = await User.findById(
         decode.id,
@@ -525,7 +533,9 @@ module.exports = {
       ).exec();
 
       if (!user) {
-        throw new Error("User not exists");
+        return res.status(401).json({
+          message: "User not found"
+        })
       }
 
       console.log("User Authorized".success_request);

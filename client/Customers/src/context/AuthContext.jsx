@@ -17,7 +17,6 @@ export function AuthProvider({ children }) {
                 { email, password }
             );
 
-            console.log(data);
             setUser(data.user);
             setCookie("customer_token", data.customer_token, { path: "/", maxAge: 10800 });
 
@@ -27,7 +26,7 @@ export function AuthProvider({ children }) {
             };
 
         } catch (error) {
-            throw new Error(error.response.data.error);
+            throw new Error(error.response.data.message);
         }
     };
 

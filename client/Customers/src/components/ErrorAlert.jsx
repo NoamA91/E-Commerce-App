@@ -5,8 +5,7 @@ const ErrorAlert = ({ error }) => {
     return (
         <Alert status='error'>
             <AlertIcon />
-            {error.message && error.message}
-            {error && error}
+            {error.message}
         </Alert>
     )
 }
