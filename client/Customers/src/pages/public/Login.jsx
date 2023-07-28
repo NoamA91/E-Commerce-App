@@ -18,8 +18,7 @@ const Login = () => {
         return <Navigate to="/" />
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (values) => {
         try {
             setLoading(true);
             await login(values.email, values.password);

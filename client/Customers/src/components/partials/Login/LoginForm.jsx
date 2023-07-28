@@ -18,7 +18,7 @@ import { BiSolidUser, BiSolidLockAlt } from 'react-icons/bi'
 import { useState } from 'react';
 import SVG from './SVG';
 
-const LoginForm = (handleSubmit, loading, error) => {
+const LoginForm = ({ handleSubmit, loading, error }) => {
     const [show, setShow] = useState(false)
     const handleShowPass = () => setShow(!show)
     const CBiSolidUser = chakra(BiSolidUser);
@@ -36,6 +36,11 @@ const LoginForm = (handleSubmit, loading, error) => {
         });
     };
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        handleSubmit(values);
+    };
+
     return (
         <>
             <Flex
@@ -44,6 +49,7 @@ const LoginForm = (handleSubmit, loading, error) => {
                 minH={{ base: '80vh', md: '55vh', lg: '50vh' }}
             >
                 <VStack
+                    as='form'
                     bg='whiteAlpha.700'
                     spacing={5}
                     w={{ base: '100%', md: '500px' }}
@@ -52,6 +58,7 @@ const LoginForm = (handleSubmit, loading, error) => {
                     boxShadow={{ md: 'md' }}
                     borderRadius={10}
                     p={5}
+                    onSubmit={onSubmit}
                 >
                     <Heading
                         as='h2'
@@ -59,7 +66,7 @@ const LoginForm = (handleSubmit, loading, error) => {
                     >
                         Login
                     </Heading>
-                    <FormControl id='email'>
+                    <FormControl>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <CBiSolidUser
@@ -71,13 +78,14 @@ const LoginForm = (handleSubmit, loading, error) => {
                                 type='email'
                                 placeholder='Email Address'
                                 focusBorderColor='teal'
+                                name='email'
                                 value={values.email}
                                 onChange={handleChange}
                             />
                         </InputGroup>
                     </FormControl>
 
-                    <FormControl id='password'>
+                    <FormControl>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <CBiSolidLockAlt
@@ -89,6 +97,7 @@ const LoginForm = (handleSubmit, loading, error) => {
                                 type={show ? 'text' : 'password'}
                                 placeholder='Password'
                                 focusBorderColor='teal'
+                                name='password'
                                 value={values.password}
                                 onChange={handleChange}
                             />
@@ -109,6 +118,7 @@ const LoginForm = (handleSubmit, loading, error) => {
                         size={{ base: 'md', md: 'lg' }}
                         w='100%'
                         loading={loading}
+                        type='submit'
                     >
                         Sign In
                     </Button>
