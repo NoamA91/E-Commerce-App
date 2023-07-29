@@ -16,13 +16,10 @@ const AuthProvider = ({ children }) => {
             const authUser = async () => {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/users/managers/auth`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${cookies.token}`
-                            }
-                        });
-                    const data = await response.data;
+                    const { data } = await axios.get(
+                        `${import.meta.env.VITE_SERVER_URL}/users/managers/auth`,
+                        { headers: { Authorization: `Bearer ${cookies.token}` } }
+                    );
 
                     setCookies("token", data.token, { path: "/", maxAge: 10800 });
                     setUser(data.user);

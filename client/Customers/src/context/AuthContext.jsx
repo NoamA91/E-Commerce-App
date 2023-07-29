@@ -52,25 +52,27 @@ export function AuthProvider({ children }) {
 
     const register = async (values) => {
         try {
-            const { user_name, email, password, user_phone } = values;
+            const { username, email, password, phone_number } = values;
 
-            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/customers/register`, {
-                user_name,
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/register`, {
+                username,
                 email,
                 password,
-                user_phone: user_phone || ""
+                phone_number: phone_number || "",
+                address: {
+                    city: "",
+                    street: "",
+                    building: "",
+                    appartment: ""
+                }
             });
-
-            if (!response.data.success) {
-                throw new Error(response.data.message);
-            }
 
             return {
                 success: true,
                 message: response.data.message
             };
         } catch (error) {
-            throw new Error(error.response.data.error || "Error in registering user");
+            throw new Error(error.response.data.error);
         }
     };
 
@@ -94,14 +96,17 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         const authUser = async () => {
-            if (cookies.customer_token) {
+            if (!cookies.customer_token) {
+                localStorage.removeItem("user");
+                setUser(null);
+                setError(null);
+            } else {
                 setLoading(true);
                 try {
-                    const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/users/auth`, {
-                        headers: {
-                            Authorization: `Bearer ${cookies.customer_token}`
-                        }
-                    });
+                    const { data } = await axios.get(
+                        `${import.meta.env.VITE_SERVER_URL}/users/auth`,
+                        { headers: { Authorization: `Bearer ${cookies.customer_token}` } }
+                    );
 
                     setUser(data.user);
 

@@ -16,9 +16,10 @@ import {
 import { Link } from 'react-router-dom';
 import { BiSolidUser, BiSolidLockAlt } from 'react-icons/bi'
 import { useState } from 'react';
-import SVG from './SVG';
 import ErrorAlert from '../../ErrorAlert';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
+import SVG from './SVG';
 
 const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
     const [show, setShow] = useState(false)
@@ -56,7 +57,7 @@ const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
                     >
                         Login
                     </Heading>
-                    <FormControl id='email'>
+                    <FormControl>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <CBiSolidUser
@@ -76,7 +77,7 @@ const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
                         </InputGroup>
                     </FormControl>
 
-                    <FormControl id='password'>
+                    <FormControl>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>
                                 <CBiSolidLockAlt
@@ -189,6 +190,20 @@ const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
         </>
     )
 }
+
+LoginForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    values: PropTypes.shape({
+        email: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired
+    }).isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ])
+};
 
 export default LoginForm
 

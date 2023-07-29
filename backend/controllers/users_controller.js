@@ -15,29 +15,35 @@ module.exports = {
 
   registerUser: async (req, res) => {
     console.log("API POST request : register User".new_request);
+    console.log(req);
 
     try {
-      const { username, email, password, password_confirm, role, phone_number } = req.body;
+      const {
+        username,
+        email,
+        password,
+        phone_number,
+        address
+      } = req.body;
 
       // Check if all fields are provided
-      if (!username || !email || !password || !password_confirm) {
-        throw new Error("All fields are required");
+      if (!username || !email || !password) {
+        console.log("Missing fields in the request".failed_request);
+        return res.status(400).json({
+          message: "All fields are required",
+        });
       }
 
       console.log("all fields are available".step_done);
-
-      // Check if passwords match
-      if (password !== password_confirm) {
-        throw new Error("Passwords are not match");
-      }
-
-      console.log("passwords are match".step_done);
 
       // Check if a user with the same email already exists
       const user = await User.findOne({ email });
 
       if (user) {
-        throw new Error("User already exists");
+        console.log("user already exists".failed_request);
+        return res.status(400).json({
+          message: "User already exists",
+        });
       }
 
       // Create and save the new user
@@ -45,18 +51,11 @@ module.exports = {
         username,
         email,
         password,
-        role,
-        phone_number
+        phone_number: phone_number || "",
+        address
       });
 
       await new_user.save();
-
-      // Generate a token for the new user
-      const token = generateToken(new_user);
-      res.cookie("token", token, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      });
 
       console.log("user registered successfully".success_request);
 
@@ -106,7 +105,7 @@ module.exports = {
         });
       }
 
-      const token = generateToken(user);
+      const customer_token = generateToken(user);
 
       // Retrieve old tokens, if any
       let oldTokens = user.tokens || [];
@@ -123,7 +122,7 @@ module.exports = {
       }
 
       // Add new token to the list
-      oldTokens.push({ token, signedAt: currentTime.toString() });
+      oldTokens.push({ customer_token, signedAt: currentTime.toString() });
 
       // Update the user with the new tokens array
       await User.findByIdAndUpdate(user._id, {
@@ -135,7 +134,7 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User logged in successfully",
-        token,
+        customer_token,
         user: {
           _id: user._id,
           username: user.username,
@@ -519,7 +518,7 @@ module.exports = {
 
       const customer_token = authorization.split(" ")[1];
 
-      if (!customer_token ) {
+      if (!customer_token) {
         return res.status(401).json({
           message: "Token not provided"
         })

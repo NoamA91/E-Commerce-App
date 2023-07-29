@@ -69,6 +69,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                                 w='100%'
                             >
                                 <Th>Username</Th>
+                                <Th>role</Th>
                                 <Th>Email</Th>
                                 <Th display={{ base: 'none', md: 'table-cell' }}>Phone Number</Th>
                                 <Th display={{ base: 'none', md: 'table-cell' }}>City</Th>
@@ -79,6 +80,7 @@ const UsersTable = ({ users, handleUserAdded, deleteUser }) => {
                             {users.map((user) => (
                                 <Tr key={user._id}>
                                     <Td isTruncated maxW="200px">{user.username}</Td>
+                                    <Td maxW="200px" textTransform='capitalize'>{user.role}</Td>
                                     <Td isTruncated maxW="200px">{user.email}</Td>
                                     <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.phone_number}</Td>
                                     <Td isTruncated maxW="200px" display={{ base: 'none', md: 'table-cell' }}>{user.address.city}</Td>

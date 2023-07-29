@@ -1,8 +1,8 @@
 
 import { Box, useToast } from '@chakra-ui/react';
 import { motion } from 'framer-motion'
-import LoginForm from '../../components/partials/Login/LoginForm';
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import LoginForm from '../../components/partials/login/LoginForm';
+import { Navigate, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -58,26 +58,23 @@ const Login = () => {
     };
 
     return (
-        <>
-            <Box
-                as={motion.div}
-                bg='gray.100'
-                w='100%'
-                h='100%'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
-                <LoginForm
-                    handleSubmit={handleSubmit}
-                    handleChange={handleChange}
-                    values={values}
-                    loading={loading}
-                    error={error}
-                />
-            </Box >
-
-        </>
+        <Box
+            as={motion.div}
+            bg='gray.100'
+            w='100%'
+            h='100%'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
+            <LoginForm
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                values={values}
+                loading={loading}
+                error={error}
+            />
+        </Box >
     )
 }
 
