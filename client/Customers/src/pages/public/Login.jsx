@@ -3,7 +3,7 @@ import { Box, useToast } from '@chakra-ui/react';
 import { motion } from 'framer-motion'
 import LoginForm from '../../components/partials/Login/LoginForm';
 import { Navigate, useNavigate, Link } from "react-router-dom";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
@@ -12,19 +12,36 @@ const Login = () => {
     const { user, login } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
+
+    const [values, setValues] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    useEffect(() => {
+        setError(null);
+    }, [values]);
 
     if (user) {
         return <Navigate to="/" />
     }
 
     const handleSubmit = async (values) => {
+        setLoading(true);
         try {
-            setLoading(true);
             await login(values.email, values.password);
 
             toast({
                 title: "Login Successful",
+                position: 'bottom',
                 description: "You have successfully logged in",
                 status: "success",
                 duration: 3000,
@@ -34,7 +51,7 @@ const Login = () => {
             navigate("/");
 
         } catch (error) {
-            setError(error.message)
+            setError(error)
         } finally {
             setLoading(false);
         }
@@ -53,6 +70,8 @@ const Login = () => {
             >
                 <LoginForm
                     handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                    values={values}
                     loading={loading}
                     error={error}
                 />
