@@ -30,25 +30,23 @@ export function AuthProvider({ children }) {
         }
     };
 
-    // const logout = async () => {
-    //     try {
-    //         await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/customers/logout`, {}, {
-    //             headers: {
-    //                 Authorization: `Bearer ${cookies.customer_token}`
-    //             }
-    //         });
+    const logout = async () => {
+        try {
+            await axios.post(`${import.meta.env.VITE_SERVER_URL}/users/logout`, {},
+                { headers: { Authorization: `Bearer ${cookies.customer_token}` } }
+            );
 
-    //         removeCookie("customer_token");
-    //         localStorage.removeItem("user")
-    //         setUser(null);
-    //         return {
-    //             success: true,
-    //             message: "Logout successful"
-    //         };
-    //     } catch (error) {
-    //         throw new Error(error.response.data.error);
-    //     }
-    // };
+            removeCookie("customer_token");
+            localStorage.removeItem("user")
+            setUser(null);
+            return {
+                success: true,
+                message: "Logout successful"
+            };
+        } catch (error) {
+            throw new Error(error.response.data.error);
+        }
+    };
 
     const register = async (values) => {
         try {
@@ -135,7 +133,7 @@ export function AuthProvider({ children }) {
         user,
         setUser,
         login,
-        // logout,
+        logout,
         register,
         // forgot,
         loading,

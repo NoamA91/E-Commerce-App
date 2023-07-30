@@ -20,7 +20,7 @@ import { CartContext } from '../../../context/CartContext';
 import { motion } from 'framer-motion'
 import { PiBasketFill } from 'react-icons/pi';
 import CartItem from './CartItem';
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from 'framer-motion';
 
 const ShoppingCart = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,41 +32,40 @@ const ShoppingCart = () => {
     const subtotal = cart.reduce((acc, cur) => acc + (cur.price * cur.quantity), 0);
 
     return (
-        <Box>
-            <motion.div
-                whileHover={{ scale: 1.050 }}
-                whileTap={{ scale: 0.980 }}
+        <Box
+            as={motion.div}
+            whileHover={{ scale: 1.050 }}
+            whileTap={{ scale: 0.980 }}
+        >
+            <Button
+                size={{ base: 'sm', md: 'md', lg: 'lg' }}
+                color='ShopTeal.200'
+                _hover={{
+                    bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
+                    color: 'blackAlpha.900',
+                }}
+                onClick={onOpen}
+                ref={btnRef}
             >
-                <Button
-                    size={{ base: 'sm', md: 'md', lg: 'lg' }}
-                    color='ShopTeal.200'
-                    _hover={{
-                        bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
-                        color: 'blackAlpha.900',
-                    }}
-                    onClick={onOpen}
-                    ref={btnRef}
+                <Text
+                    display={{ base: 'none', md: 'block' }}
+                    mr={3}
                 >
-                    <Text
-                        display={{ base: 'none', md: 'block' }}
-                        mr={3}
+                    Cart
+                </Text>
+                <Stack position='relative'>
+                    <PiBasketFill size={30} />
+                    <Badge
+                        position='absolute'
+                        bottom='3'
+                        left='5'
+                        fontSize='0.9em'
+                        colorScheme='yellow'
                     >
-                        Cart
-                    </Text>
-                    <Stack position='relative'>
-                        <PiBasketFill size={30} />
-                        <Badge
-                            position='absolute'
-                            bottom='3'
-                            left='5'
-                            fontSize='0.9em'
-                            colorScheme='yellow'
-                        >
-                            {totalItems}
-                        </Badge>
-                    </Stack>
-                </Button>
-            </motion.div>
+                        {totalItems}
+                    </Badge>
+                </Stack>
+            </Button>
 
             <Drawer
                 isOpen={isOpen}
@@ -82,10 +81,10 @@ const ShoppingCart = () => {
 
                         <DrawerBody>
                             {cart.length === 0 ?
-                                <Center h="100%">
+                                <Center h='100%'>
                                     <Text
-                                        fontSize="1.2em"
-                                        fontWeight="bold"
+                                        fontSize='1.2em'
+                                        fontWeight='bold'
                                     >
                                         Your cart is empty
                                     </Text>

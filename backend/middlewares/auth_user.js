@@ -3,9 +3,9 @@ const User = require("../models/User"); // import the User model
 
 const userAuth = async (req, res, next) => {
     const authHeader = req.header("Authorization");
-    const token = authHeader && authHeader.split(" ")[1];
+    const customer_token = authHeader && authHeader.split(" ")[1];
 
-    if (!token) {
+    if (!customer_token) {
         return res.status(401).json({
             message: "Access denied. No token provided.",
         });
@@ -18,7 +18,7 @@ const userAuth = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(customer_token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.id); // find user by id
 
         if (!user) {
@@ -27,13 +27,14 @@ const userAuth = async (req, res, next) => {
             });
         }
 
-        if (!user.tokens.some(t => t.token === token)) { // check if token exists in tokens array
+        if (!user.tokens.some(t => t.customer_token === customer_token)) { // check if token exists in tokens array
             return res.status(401).json({
                 message: "Access denied. Invalid token.",
             });
         }
 
         req.user = user;
+        req.customer_token = customer_token;
         next();
     } catch (error) {
         res.status(401).json({

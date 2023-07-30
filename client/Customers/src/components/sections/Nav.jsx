@@ -210,7 +210,7 @@ import ShoppingCart from "../partials/cart/ShoppingCart"
 import { CurrentPageContext } from "../../context/CurrentPageContext"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import ProfileMenu from "../partials/profileMenu/ProfileMenu"
+import AccountMenu from "../account/AccountMenu"
 
 
 const Nav = () => {
@@ -379,7 +379,7 @@ const Nav = () => {
                                 </Box>
                             </Link>
                         ) : (
-                            <ProfileMenu />
+                            <AccountMenu />
                         )}
                         <ShoppingCart />
                     </ButtonGroup>
