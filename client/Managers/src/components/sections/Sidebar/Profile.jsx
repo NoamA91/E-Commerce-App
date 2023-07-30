@@ -13,6 +13,7 @@ import {
     PopoverCloseButton,
     PopoverBody,
     useToast,
+    AvatarBadge,
 } from "@chakra-ui/react";
 import { useContext } from 'react';
 import AuthContext from '../../../contexts/AuthContext';
@@ -67,7 +68,13 @@ const Profile = () => {
                 <Popover >
                     <PopoverTrigger>
                         <Button p={0} bg='transparent' _hover={{ bg: 'transparent' }} _active={{ bg: 'transparent' }}>
-                            <Avatar size='sm' bg='teal.500' cursor='pointer' />
+                            <Avatar size='sm' bg='teal.500' cursor='pointer' >
+                                <AvatarBadge
+                                    boxSize='1.2em'
+                                    bg='green.500'
+                                    borderColor='white'
+                                />
+                            </Avatar>
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent

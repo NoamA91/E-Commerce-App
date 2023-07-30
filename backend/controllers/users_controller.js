@@ -15,7 +15,6 @@ module.exports = {
 
   registerUser: async (req, res) => {
     console.log("API POST request : register User".new_request);
-    console.log(req);
 
     try {
       const {
@@ -562,7 +561,7 @@ module.exports = {
     console.log("API GET request : get all users - For managers".new_request);
 
     try {
-      const users = await User.find({ role: "user" });
+      const users = await User.find();
 
       if (!users.length) {
         console.log("No users found".step_done);

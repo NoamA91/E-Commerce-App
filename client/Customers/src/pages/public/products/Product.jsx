@@ -31,7 +31,9 @@ const Product = () => {
     const [isAddedToCart, setIsAddedToCart] = useState(false);
     const [itemAvailableInCart, setItemAvailableInCart] = useState(false);
     const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
-    const outOfStockMessage = "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
+    const error = {
+        message: "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
+    }
     const itemAvailableInCartMessage = "This product is available in your cart"
     const { addToCart, cart } = useContext(CartContext);
     const toast = useToast();
@@ -54,7 +56,6 @@ const Product = () => {
                 setProduct(data.product);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
                 setLoading(false);
             }
         };
@@ -209,7 +210,7 @@ const Product = () => {
                                 fontSize="sm"
                                 fontWeight="bold"
                             >
-                                <ErrorAlert error={outOfStockMessage} />
+                                <ErrorAlert error={error} />
                             </Box>
                         )}
                     </Stack>

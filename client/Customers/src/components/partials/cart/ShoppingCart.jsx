@@ -16,10 +16,10 @@ import {
     Center
 } from '@chakra-ui/react';
 import { useContext, useRef } from 'react';
-import { CartContext } from '../../context/CartContext';
+import { CartContext } from '../../../context/CartContext';
 import { motion } from 'framer-motion'
 import { PiBasketFill } from 'react-icons/pi';
-import CartItem from '../partials/cart/CartItem';
+import CartItem from './CartItem';
 import { AnimatePresence } from "framer-motion";
 
 const ShoppingCart = () => {

@@ -18,6 +18,7 @@ const Register = () => {
         email: "",
         password: "",
         password_confirm: "",
+        phone_number: ""
     });
 
     const handleChange = (e) => {
@@ -61,6 +62,7 @@ const Register = () => {
     if (user) {
         return <Navigate to="/" />;
     }
+
 
     return (
         <Box

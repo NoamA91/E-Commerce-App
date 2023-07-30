@@ -21,6 +21,7 @@ import SVG from '../partials/login/SVG';
 import ErrorAlert from '../ErrorAlert';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 
 const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) => {
     const [show, setShow] = useState(false)
@@ -30,11 +31,18 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
     const CIoMail = chakra(IoMail);
     const CbPhone = chakra(BiSolidPhone);
     const CTbLockCheck = chakra(TbLockCheck);
+    // const [passwordsMatch, setPasswordsMatch] = useState(true)
 
     const onSubmit = (e) => {
         e.preventDefault();
         handleSubmit(values);
     };
+
+
+    const passwordsMatch = () => {
+        return values.password === values.password_confirm;
+    }
+
     return (
         <>
             <Flex
@@ -66,7 +74,9 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
                     <Text
                         fontWeight='bold'
                         textAlign='center'
-                    >Please enter your information</Text>
+                    >
+                        Please enter your information
+                    </Text>
 
                     <FormControl>
                         <InputGroup>
@@ -83,6 +93,7 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
                                 name='username'
                                 value={values.username}
                                 onChange={handleChange}
+                                min={2}
                                 isRequired
                             />
                         </InputGroup>
@@ -123,7 +134,6 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
                                 name='phone_number'
                                 value={values.phone_number}
                                 onChange={handleChange}
-
                             />
                         </InputGroup>
                     </FormControl>
@@ -168,12 +178,16 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
                             <Input
                                 type='password'
                                 placeholder='Confirm Password'
-                                focusBorderColor='teal'
+                                focusBorderColor={passwordsMatch() ? 'teal' : 'orange'}
+                                borderColor={passwordsMatch() ? null : 'orange'}
                                 name='password_confirm'
                                 value={values.password_confirm}
                                 onChange={handleChange}
                                 isRequired
                             />
+                            <InputRightElement width='4.5rem'>
+                                {values.password_confirm && (passwordsMatch() ? <AiOutlineCheck color='green' /> : <AiOutlineClose color='red' />)}
+                            </InputRightElement>
                         </InputGroup>
                     </FormControl>
 
@@ -194,6 +208,7 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
                         size={{ base: 'md', md: 'lg' }}
                         w='100%'
                         loading={loading.toString()}
+                        isLoading={loading}
                         type='submit'
                     >
                         Create Account
@@ -231,3 +246,4 @@ RegisterForm.propTypes = {
 };
 
 export default RegisterForm
+

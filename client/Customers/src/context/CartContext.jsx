@@ -10,7 +10,6 @@ export const CartProvider = ({ children }) => {
             const item = window.localStorage.getItem('cart');
             return item ? JSON.parse(item) : [];
         } catch (error) {
-            console.log(error);
             return [];
         }
     });
