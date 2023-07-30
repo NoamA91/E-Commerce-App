@@ -12,10 +12,15 @@ import {
     Text,
     Badge,
     Avatar,
-    AvatarGroup
+    AvatarGroup,
+    AvatarBadge,
+    Stack,
+    HStack,
+    chakra,
+    Divider
 
 } from '@chakra-ui/react'
-import { CgProfile } from "react-icons/cg"
+import { FaUser } from "react-icons/fa"
 import { AuthContext } from '../../../context/AuthContext'
 import { useContext } from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
@@ -23,6 +28,7 @@ import { AiOutlineUser } from 'react-icons/ai'
 
 const ProfileMenu = () => {
     const { user } = useContext(AuthContext)
+    const CFaUser = chakra(FaUser)
 
     return (
         <Menu>
@@ -34,31 +40,51 @@ const ProfileMenu = () => {
                     bgGradient: 'linear(to-b, ShopTeal.300, ShopTeal.100)',
                     color: 'blackAlpha.900',
                 }}
-            // rightIcon={
-
-            //     <CgProfile size={30} />
-
-            // }
             >
 
+                <HStack>
+                    <Text
+                        fontSize={{ md: 'sm', lg: 'lg' }}
+                        fontWeight='bold'
+                    >
+                        {user.username}
+                    </Text>
+                    <Stack position='relative'>
+                        <CFaUser boxSize={{ base: 5, md: 6 }} />
+                        <Badge
+                            position='absolute'
+                            borderRadius="full"
+                            bottom='-1'
+                            left={{ base: '3', md: '4' }}
+                            colorScheme='yellow'
+                            boxSize={{ base: '1.2em', md: '1em' }}
+                            border="3px solid"
+                            borderColor='blackAlpha.900'
+                        />
+                    </Stack>
+                </HStack>
 
-                <Text
-                    fontSize={{ md: 'sm', lg: 'lg' }}
-                    fontWeight='bold'
-                >
-                    {user.username}
-                    <Avatar
-                        bg='teal.500'
-                        size={{ base: 'xs', md: 'sm' }}
-                    />
-                </Text>
             </MenuButton>
-            <MenuList>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
+            <MenuList
+                borderColor='blackAlpha.600'
+            >
+                <MenuItem
+                >
+                    Profile
+                </MenuItem>
+
+                <MenuItem
+                >
+                    Orders
+                </MenuItem>
+
+                <Divider />
+
+                <MenuItem
+                    color='red.500'
+                >
+                    Logout
+                </MenuItem>
             </MenuList>
         </Menu >
     )
