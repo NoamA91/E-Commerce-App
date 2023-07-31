@@ -67,9 +67,7 @@ const Profile = ({ user, setUser }) => {
         >
             <ProfileDetails
                 user={user}
-                setUser={setUser}
                 values={values}
-                setValues={setValues}
                 handleChange={handleChange}
                 handleNestedChange={handleNestedChange}
                 handleSave={handleSave}
