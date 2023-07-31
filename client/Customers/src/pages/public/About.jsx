@@ -15,7 +15,7 @@ const About = () => (
         as={motion.div}
         style={{ minHeight: '100vh', width: '100%' }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1, delayChildren: 0.3 }}
         exit={{ opacity: 0 }}
     >
         <Flex direction='column' align='center' justify='center'>

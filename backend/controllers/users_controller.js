@@ -238,7 +238,12 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User retrieved successfully",
-        user,
+        user: {
+          username: user.username,
+          email: user.email,
+          phone_number: user.phone_number,
+          address: user.address
+        },
       });
     } catch (error) {
       console.log(("error in get user by ID request : " + error).failed_request);
@@ -254,7 +259,7 @@ module.exports = {
 
     try {
       const userId = req.params.id;
-      const { username, email } = req.body;
+      const { username, email, phone_number, address } = req.body;
 
       console.log("Updating fields are available".step_done);
 
@@ -266,6 +271,14 @@ module.exports = {
 
       if (email) {
         updatedFields.email = email;
+      }
+
+      if (phone_number) {
+        updatedFields.phone_number = phone_number;
+      }
+
+      if (address) {
+        updatedFields.address = address;
       }
 
       const user = await User.findOneAndUpdate({ _id: userId }, updatedFields, {
@@ -285,6 +298,13 @@ module.exports = {
       return res.status(200).json({
         success: true,
         message: "User updated successfully",
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          phone_number: user.phone_number,
+          address: user.address,
+        },
       });
     } catch (error) {
       console.log(("Error in update request: " + error).failed_request);
@@ -546,6 +566,8 @@ module.exports = {
           _id: user._id,
           username: user.username,
           email: user.email,
+          phone_number: user.phone_number,
+          address: user.address,
         },
       });
     } catch (error) {

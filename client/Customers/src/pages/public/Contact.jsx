@@ -22,7 +22,7 @@ const Contact = () => {
             flexDir='column'
             alignItems='center'
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1, delayChildren: 0.3 }}
             exit={{ opacity: 0 }}
         >
             <Box

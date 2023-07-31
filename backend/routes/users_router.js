@@ -60,7 +60,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", userAuth, logoutUser);
 router.get("/auth", authUser);
-router.put("/updateByid/:id" /* , userAuth */, updateById);
+router.put("/updateByid/:id", userAuth, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
 router.delete("/deleteById/:id" /* , userAuth */, deleteById);

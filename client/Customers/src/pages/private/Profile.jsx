@@ -9,31 +9,36 @@ const Profile = ({ user, setUser }) => {
     const toast = useToast();
     const [error, setError] = useState(null);
     const [values, setValues] = useState({
-        user_name: user.username,
-        user_phone: user?.phone_number || "",
-        address: {
+        username: user?.username,
+        phone_number: user?.phone_number || "",
+        address: user?.address ? {
             city: user.address?.city || "",
             street: user.address?.street || "",
             building: user.address?.building || "",
             apartment: user.address?.apartment || "",
-        },
+        } : {}
     });
 
     const handleEdit = () => {
         setIsEditing(true);
     };
 
+    const cancelEdit = () => {
+        setIsEditing(false);
+    };
+
     const handleSave = async () => {
         try {
+
             const { data } = await axios.put(
-                `${import.meta.env.VITE_SERVER_URL}/users/update/${user._id}`,
+                `${import.meta.env.VITE_SERVER_URL}/users/updateByid/${user._id}`,
                 values
             );
 
             setUser(data.user);
             setIsEditing(false);
             toast({
-                title: "Profile updated successfully",
+                title: "Profile Updated Successfully",
                 status: "success",
                 duration: 3000,
                 isClosable: true,
@@ -44,15 +49,26 @@ const Profile = ({ user, setUser }) => {
         }
     };
 
-    const handleChange = (value) => {
-        setValues({ ...values, [value.target.name]: value.target.value });
-    };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-    const handleNestedChange = (value) => {
-        setValues({
-            ...values,
-            user_address: { ...values.user_address, [value.target.name]: value.target.value },
-        });
+        if (name.startsWith("address.")) {
+            // Update nested address values
+            const addressField = name.split(".")[1];
+            setValues((prevValues) => ({
+                ...prevValues,
+                address: {
+                    ...prevValues.address,
+                    [addressField]: value,
+                },
+            }));
+        } else {
+            // Update other values
+            setValues((prevValues) => ({
+                ...prevValues,
+                [name]: value,
+            }));
+        }
     };
 
     return (
@@ -61,7 +77,7 @@ const Profile = ({ user, setUser }) => {
             bg='gray.100'
             w='100%'
             h='100%'
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0, delayChildren: 0.3 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
         >
@@ -69,9 +85,9 @@ const Profile = ({ user, setUser }) => {
                 user={user}
                 values={values}
                 handleChange={handleChange}
-                handleNestedChange={handleNestedChange}
                 handleSave={handleSave}
                 handleEdit={handleEdit}
+                cancelEdit={cancelEdit}
                 isEditing={isEditing}
                 error={error}
             />
