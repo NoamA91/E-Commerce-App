@@ -283,13 +283,14 @@ const OrdersTable = ({ orders, changeStatus }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
+                            {console.log(dataOrders)}
                             {dataOrders
                                 .filter(order => filteredStatus === 'all' || order.status === filteredStatus)
                                 .filter(order => {
                                     const lowerCaseSearchTerm = searchTerm.toLowerCase();
                                     return (
                                         order.order_number.toString().toLowerCase().includes(lowerCaseSearchTerm) ||
-                                        order.userId.username.toLowerCase().includes(lowerCaseSearchTerm) ||
+                                        order.userId?.username.toLowerCase().includes(lowerCaseSearchTerm) ||
                                         order.phone_number.includes(searchTerm) ||
                                         (`${order.address.street} ${order.address.building} ${order.address.city}`).toLowerCase().includes(lowerCaseSearchTerm)
                                     );
@@ -310,9 +311,9 @@ const OrdersTable = ({ orders, changeStatus }) => {
                                             </Link>
                                         </Td>
                                         <Td display={{ base: 'none', sm: 'table-cell' }}>{new Date(order.order_date).toLocaleString("en-UK")}</Td>
-                                        <Td>{order.userId.username}</Td>
+                                        <Td>{order.userId?.username}</Td>
                                         <Td display={{ base: 'none', md: 'table-cell' }}>{order.phone_number}</Td>
-                                        <Td display={{ base: 'none', md: 'table-cell' }}>{order.address.street} {order.address.building} {order.address.city}</Td>
+                                        <Td display={{ base: 'none', md: 'table-cell' }}>{order.address.street} {order.address?.building} {order.address.city}</Td>
                                         <Td display={{ base: 'none', md: 'table-cell' }}>{order.order_total}$</Td>
                                         <Td>
                                             <Select

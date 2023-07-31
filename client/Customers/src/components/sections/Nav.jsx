@@ -210,14 +210,13 @@ import ShoppingCart from "../partials/cart/ShoppingCart"
 import { CurrentPageContext } from "../../context/CurrentPageContext"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import AccountMenu from "../account/AccountMenu"
+import AccountMenu from "../partials/account/AccountMenu"
 
 
 const Nav = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { setCurrentPage } = useContext(CurrentPageContext)
     const { user } = useContext(AuthContext)
-
 
     return (
 

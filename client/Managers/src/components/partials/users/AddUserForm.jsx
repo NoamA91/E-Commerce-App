@@ -30,7 +30,7 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
             city: "",
             street: "",
             building: "",
-            appartment: ""
+            apartment: ""
         }
     });
 
@@ -93,15 +93,15 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
                     city: "",
                     street: "",
                     building: "",
-                    appartment: ""
+                    apartment: ""
                 }
             })
 
             onClose();
         } catch (error) {
             toast({
-                title: error.response.data.message ? error.response.data.message : 'Error',
-                description: error.response.data.error,
+                title: 'Error',
+                description: error.message ? error.message : 'Something went wrong',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -213,12 +213,12 @@ const AddUserForm = ({ isOpen, onClose, handleUserAdded }) => {
                                     />
                                 </FormControl>
 
-                                <FormControl id="appartment" pb={4}>
-                                    <FormLabel htmlFor="appartment">Appartment</FormLabel>
+                                <FormControl id="apartment" pb={4}>
+                                    <FormLabel htmlFor="apartment">Apartment</FormLabel>
                                     <Input
-                                        placeholder='Enter user appartment'
-                                        value={values.address.appartment}
-                                        name="address.appartment"
+                                        placeholder='Enter user apartment'
+                                        value={values.address.apartment}
+                                        name="address.apartment"
                                         onChange={handleChange}
                                         type="text"
                                     />

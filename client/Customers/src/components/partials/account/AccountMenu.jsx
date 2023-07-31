@@ -3,35 +3,27 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
     MenuDivider,
     Button,
     Text,
     Badge,
-    Avatar,
-    AvatarGroup,
-    AvatarBadge,
     Stack,
     HStack,
     chakra,
-    Divider,
     Box,
     useToast,
     Modal,
     ModalOverlay,
     ModalContent,
     Spinner,
-    Flex,
     VStack
 } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
 import { FaUser } from "react-icons/fa"
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../../context/AuthContext'
 import { useContext, useState } from 'react'
 import { IoLogOutOutline } from 'react-icons/io5'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 
 const AccountMenu = () => {
@@ -138,17 +130,22 @@ const AccountMenu = () => {
                 <MenuList
                     borderColor='blackAlpha.600'
                 >
-                    <MenuItem
-                        fontWeight='semibold'
-                    >
-                        Profile
-                    </MenuItem>
+                    <Link to='/profile'>
+                        <MenuItem
+                            fontWeight='semibold'
 
-                    <MenuItem
-                        fontWeight='semibold'
-                    >
-                        Orders
-                    </MenuItem>
+                        >
+                            Profile
+                        </MenuItem>
+                    </Link>
+
+                    <Link to='/orders'>
+                        <MenuItem
+                            fontWeight='semibold'
+                        >
+                            My Orders
+                        </MenuItem>
+                    </Link>
 
                     <MenuDivider />
 
@@ -156,7 +153,7 @@ const AccountMenu = () => {
                         color='red.500'
                         onClick={handleLogout}
                         icon={<IoLogOutOutline size={25} />}
-                        fontWeight='bold'
+                        fontWeight='semibold'
                     >
                         Logout
                     </MenuItem>

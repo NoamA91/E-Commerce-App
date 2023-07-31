@@ -56,16 +56,16 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                                     customer details
                                 </Heading>
                                 <Text mt={2} fontSize='md'>
-                                    <Text textDecoration='underline' as='span'>Username:</Text> {order.userId.username}
+                                    <Text textDecoration='underline' as='span'>Username:</Text> {order?.userId.username}
                                 </Text>
                                 <Text mt={2} fontSize='md'>
-                                    <Text textDecoration='underline' as='span'>Email:</Text> {order.userId.email}
+                                    <Text textDecoration='underline' as='span'>Email:</Text> {order?.userId.email}
                                 </Text>
                                 <Text mt={2} fontSize='md'>
-                                    <Text textDecoration='underline' as='span'>Phone Number:</Text> {order.phone_number}
+                                    <Text textDecoration='underline' as='span'>Phone Number:</Text> {order?.phone_number}
                                 </Text>
                                 <Text mt={2} fontSize='md'>
-                                    <Text textDecoration='underline' as='span'>Address:</Text> {order.address.street} {order.address.building} {order.address.city}
+                                    <Text textDecoration='underline' as='span'>Address:</Text> {order?.address.street} {order?.address.building} {order?.address.city}
                                 </Text>
                             </Box>
 
@@ -88,7 +88,7 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {order.order_items.map((item) => {
+                                        {order?.order_items.map((item) => {
                                             return (
                                                 <Tr key={item.productId._id}>
                                                     <Td>{item.productId.title}</Td>

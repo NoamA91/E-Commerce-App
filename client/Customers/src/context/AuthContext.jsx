@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
                     city: "",
                     street: "",
                     building: "",
-                    appartment: ""
+                    apartment: ""
                 }
             });
 

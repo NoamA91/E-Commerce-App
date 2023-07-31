@@ -19,7 +19,7 @@ import { useState } from 'react';
 import ErrorAlert from '../../ErrorAlert';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import SVG from './SVG';
+import SVG from '../../SVG';
 
 const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
     const [show, setShow] = useState(false)

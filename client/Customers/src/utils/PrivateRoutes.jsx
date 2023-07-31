@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-function PrivateRoutes({ user }) {
 
+
+function PrivateRoutes({ user }) {
 
     const [cookies] = useCookies(["customer_token"]);
 

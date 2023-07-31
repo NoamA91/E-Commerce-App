@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -6,24 +6,35 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import LoadingSpinner from './components/LoadingSpinner';
+import { AuthContext } from './context/AuthContext';
+
 
 // pages
 const Root = lazy(() => import('./pages/Root'));
 const Home = lazy(() => import('./pages/public/Home'));
 const About = lazy(() => import('./pages/public/About'));
 const Contact = lazy(() => import('./pages/public/Contact'));
-const NotFound = lazy(() => import('./pages/public/NotFound'));
 const Products = lazy(() => import('./pages/public/products/Products'));
 const Product = lazy(() => import('./pages/public/products/Product'));
 const Login = lazy(() => import('./pages/public/Login'));
 const Register = lazy(() => import('./pages/public/Register'));
-import LoadingSpinner from './components/LoadingSpinner';
+
+import PrivateRoutes from "./utils/PrivateRoutes";
+const Profile = lazy(() => import('./pages/private/Profile'));
+const Orders = lazy(() => import('./pages/private/Orders'));
+
+const NotFound = lazy(() => import('./pages/public/NotFound'));
+
 
 function App() {
+  const { user, setUser } = useContext(AuthContext);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} >
+
+        {/*public routes*/}
         <Route index element={<Suspense fallback={
           <LoadingSpinner />}>
           <Home />
@@ -65,6 +76,24 @@ function App() {
             <Register />
           </Suspense>
         } />
+
+        {/*private routes*/}
+        <Route element={<PrivateRoutes />} user={user}>
+          <Route path="profile" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <Profile
+                user={user}
+                setUser={setUser}
+              />
+            </Suspense>
+          } />
+
+          <Route path="orders" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <Orders user={user} />
+            </Suspense>
+          } />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Route>

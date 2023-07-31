@@ -17,8 +17,8 @@ import PropTypes from 'prop-types';
 import { BiSolidUser, BiSolidLockAlt, BiSolidPhone } from 'react-icons/bi'
 import { IoMail } from 'react-icons/io5';
 import { TbLockCheck } from 'react-icons/tb';
-import SVG from '../partials/login/SVG';
-import ErrorAlert from '../ErrorAlert';
+import SVG from '../../SVG';
+import ErrorAlert from '../../ErrorAlert';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
@@ -31,13 +31,11 @@ const RegisterForm = ({ handleSubmit, handleChange, values, loading, error }) =>
     const CIoMail = chakra(IoMail);
     const CbPhone = chakra(BiSolidPhone);
     const CTbLockCheck = chakra(TbLockCheck);
-    // const [passwordsMatch, setPasswordsMatch] = useState(true)
 
     const onSubmit = (e) => {
         e.preventDefault();
         handleSubmit(values);
     };
-
 
     const passwordsMatch = () => {
         return values.password === values.password_confirm;

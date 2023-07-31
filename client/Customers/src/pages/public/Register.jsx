@@ -1,6 +1,6 @@
 import { Box, useToast } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import RegisterForm from '../../components/register/RegisterForm'
+import RegisterForm from '../../components/partials/register/RegisterForm'
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, useNavigate } from 'react-router-dom';

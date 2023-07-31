@@ -43,7 +43,7 @@ const order_schema = new Schema(
         type: String,
         trim: true
       },
-      appartment: {
+      apartment: {
         type: String,
         trim: true
       }

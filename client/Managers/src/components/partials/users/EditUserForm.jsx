@@ -25,7 +25,7 @@ const EditUserForm = ({ user }) => {
             city,
             street,
             building,
-            appartment
+            apartment
         }
 
     } = user;
@@ -38,7 +38,7 @@ const EditUserForm = ({ user }) => {
             city: city || "",
             street: street || "",
             building: building || "",
-            appartment: appartment || ""
+            apartment: apartment || ""
         }
     });
 
@@ -179,12 +179,12 @@ const EditUserForm = ({ user }) => {
                                     />
                                 </FormControl>
 
-                                <FormControl id="appartment" pb={4}>
-                                    <FormLabel htmlFor="appartment">Appartment</FormLabel>
+                                <FormControl id="apartment" pb={4}>
+                                    <FormLabel htmlFor="apartment">Apartment</FormLabel>
                                     <Input
-                                        placeholder='Enter user appartment'
-                                        value={values.address.appartment}
-                                        name="address.appartment"
+                                        placeholder='Enter user apartment'
+                                        value={values.address.apartment}
+                                        name="address.apartment"
                                         onChange={handleChange}
                                         type="text"
                                     />

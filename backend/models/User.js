@@ -58,13 +58,13 @@ const user_schema = new Schema(
           message: 'Building should be a number.'
         }
       },
-      appartment: {
+      apartment: {
         type: Number,
         trim: true,
         validate: function (value) {
           return value == null || Number.isInteger(value);
         },
-        message: 'Appartment should be a number.'
+        message: 'Apartment should be a number.'
       }
     },
     role: {
