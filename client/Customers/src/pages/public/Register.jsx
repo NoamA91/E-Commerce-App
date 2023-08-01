@@ -33,8 +33,8 @@ const Register = () => {
     }, [values]);
 
     const handleSubmit = async (values) => {
+        setLoading(true);
         try {
-            setLoading(true);
 
             if (values.password !== values.password_confirm) {
                 throw new Error("Passwords must match.");

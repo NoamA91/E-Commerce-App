@@ -23,7 +23,7 @@ const Register = lazy(() => import('./pages/public/Register'));
 import PrivateRoutes from "./utils/PrivateRoutes";
 const Profile = lazy(() => import('./pages/private/Profile'));
 const Orders = lazy(() => import('./pages/private/Orders'));
-
+const ChangePassword = lazy(() => import('./pages/private/ChangePassword'));
 const NotFound = lazy(() => import('./pages/public/NotFound'));
 
 
@@ -93,8 +93,13 @@ function App() {
               <Orders user={user} />
             </Suspense>
           } />
-        </Route>
 
+          <Route path="/change-password" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ChangePassword user={user} />
+            </Suspense>
+          } />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     )

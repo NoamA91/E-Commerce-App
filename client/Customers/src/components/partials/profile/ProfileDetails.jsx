@@ -7,26 +7,30 @@ import {
     Input,
     Flex,
     ButtonGroup,
-    VStack
+    VStack,
+    Divider
 } from "@chakra-ui/react";
 import ErrorAlert from "../../ErrorAlert";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { EditIcon } from "@chakra-ui/icons";
 
 const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, isEditing, error, cancelEdit }) => {
 
     return (
         <>
             <Flex
-                minH={{ base: '100vh', md: '85vh' }}
+                minH={{ base: '90vh', md: '85vh' }}
                 justifyContent='center'
+                bg='gray.100'
             >
                 <Box
-                    w={{ base: "90%", md: "50%" }}
+                    w={{ base: "90%", md: "35%" }}
                     h='100%'
                     pb={5}
                 >
                     <VStack
-                        mb={10}
+                        mb={6}
                     >
                         <Heading
                             as="h1"
@@ -35,30 +39,39 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                         >
                             My Profile
                         </Heading>
-                        <Text fontSize="md">
+                        <Text
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            fontWeight='semibold'
+                        >
                             {user?.email}
                         </Text>
                     </VStack>
 
-                    <Stack spacing={isEditing ? 2 : 5}>
-                        <Text fontSize="md">
+                    <Stack
+                        spacing={isEditing ? 2 : 5}
+                        border='1px black solid'
+                        borderRadius={10}
+                        p={5}
+                    >
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 Name:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         name="username"
                                         value={values.username || ""}
                                         onChange={handleChange}
                                         placeholder="Enter Username"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -66,20 +79,23 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.username
+                                <Text>{user?.username}</Text>
                             )}
-                        </Text>
-                        <Text fontSize="md">
+                        </Flex>
+
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 Phone:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         type='number'
@@ -87,7 +103,6 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                         value={values.phone_number || ""}
                                         onChange={handleChange}
                                         placeholder="Enter your phone number"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -95,27 +110,29 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.phone_number
+                                <Text>{user?.phone_number}</Text>
                             )}
-                        </Text>
-                        <Text fontSize="md">
+                        </Flex>
+
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 City:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         name="address.city"
                                         value={values.address?.city || ""}
                                         onChange={handleChange}
                                         placeholder="Enter your city"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -123,27 +140,29 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.address?.city
+                                <Text>{user?.address?.city}</Text>
                             )}
-                        </Text>
-                        <Text fontSize="md">
+                        </Flex>
+
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 Street:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         name="address.street"
                                         value={values.address?.street || ""}
                                         onChange={handleChange}
                                         placeholder="Enter your street"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -151,20 +170,23 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.address?.street
+                                <Text>{user?.address?.street}</Text>
                             )}
-                        </Text>
-                        <Text fontSize="md">
+                        </Flex>
+
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 Building:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         type='number'
@@ -172,7 +194,6 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                         value={values.address?.building || ""}
                                         onChange={handleChange}
                                         placeholder="Enter your building"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -180,20 +201,23 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.address?.building
+                                <Text>{user?.address?.building}</Text>
                             )}
-                        </Text>
-                        <Text fontSize="md">
+                        </Flex>
+
+                        <Flex
+                            fontSize={{ base: 'md', md: 'lg' }}
+                            flexDir='column'
+                            p={2}
+                        >
                             <Text as="span" fontWeight="bold">
                                 Apartment:
-                            </Text>{" "}
+                            </Text>
                             {isEditing ? (
                                 <Box
                                     as={motion.div}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.9 }}
                                 >
                                     <Input
                                         type='number'
@@ -201,7 +225,6 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                         value={values.address?.apartment || ""}
                                         onChange={handleChange}
                                         placeholder="Enter your apartment"
-                                        mb={3}
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -209,27 +232,59 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     />
                                 </Box>
                             ) : (
-                                user?.address?.apartment
+                                <Text>{user?.address?.apartment}</Text>
                             )}
-                        </Text>
+                        </Flex>
+                        <Divider />
+                        {isEditing ? (
+                            <ButtonGroup>
+                                <Button mt={4} colorScheme='teal' onClick={handleSave}>
+                                    Save
+                                </Button>
+                                <Button mt={4} colorScheme='gray' onClick={cancelEdit}>
+                                    Cancel
+                                </Button>
+                            </ButtonGroup>
+                        ) : (
+                            <ButtonGroup
+                                size={{ md: 'md', base: 'sm' }}
+                            >
+                                <Button
+                                    colorScheme='teal'
+                                    onClick={handleEdit}
+                                    m={0}
+                                    leftIcon={<EditIcon />}
+                                >
+                                    Edit
+                                </Button>
+
+                                <Link
+                                    to='/orders'
+                                >
+                                    <Button
+                                        colorScheme='blue'
+                                        w='100%'
+                                    >
+                                        My Orders
+                                    </Button>
+                                </Link>
+
+                                <Link
+                                    to='/change-password'
+                                >
+                                    <Button
+                                        colorScheme='red'
+                                        w='100%'
+                                    >
+                                        Change Password
+                                    </Button>
+                                </Link>
+                            </ButtonGroup>
+                        )}
                     </Stack>
-                    {isEditing ? (
-                        <ButtonGroup>
-                            <Button mt={4} colorScheme='teal' onClick={handleSave}>
-                                Save
-                            </Button>
-                            <Button mt={4} colorScheme='gray' onClick={cancelEdit}>
-                                Cancel
-                            </Button>
-                        </ButtonGroup>
-                    ) : (
-                        <Button mt={4} colorScheme='teal' onClick={handleEdit}>
-                            Edit
-                        </Button>
-                    )}
                     {error && (<ErrorAlert error={error} clearError />)}
                 </Box>
-            </Flex>
+            </Flex >
         </>
     )
 }

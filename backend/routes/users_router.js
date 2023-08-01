@@ -13,7 +13,6 @@ const {
   updateById,
   getById,
   getAll,
-  deleteById,
   changePassword,
   getAllUsersForManager,
   getUserByIdForManager,
@@ -63,8 +62,7 @@ router.get("/auth", authUser);
 router.put("/updateByid/:id", userAuth, updateById);
 router.get("/getById/:id", getById);
 router.get("/getAll", getAll);
-router.delete("/deleteById/:id" /* , userAuth */, deleteById);
-router.post("/change_password/:id" /* ,userAuth */, changePassword);
+router.post("/change-password/:id", userAuth, changePassword);
 
 // managers requests
 router.post("/managers/login", loginManager);

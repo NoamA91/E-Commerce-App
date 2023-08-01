@@ -463,7 +463,7 @@ module.exports = {
     console.log("API POST request : change password".new_request);
 
     try {
-      const { oldPassword, newPassword } = req.body;
+      const { old_password, new_password } = req.body;
       const userId = req.params.id;
 
       if (!userId) {
@@ -472,14 +472,20 @@ module.exports = {
 
       console.log("user id provided".step_done);
 
-      if (!newPassword || !oldPassword) {
-        throw new Error("New and old password are required");
+      if (!new_password || !old_password) {
+        console.log("new and old password are required".failed_request);
+        return res.status(400).json({
+          message: "New and old password are required",
+        })
       }
 
       console.log("new and old password provided".step_done);
 
-      if (oldPassword === newPassword) {
-        throw new Error("New password cannot be the same as the old password");
+      if (old_password === new_password) {
+        console.log("New password cannot be the same as the old password".failed_request);
+        return res.status(400).json({
+          message: "New password cannot be the same as the old password",
+        })
       }
 
       console.log("New password is different from old password".step_done);
@@ -496,16 +502,17 @@ module.exports = {
       console.log("user found".step_done);
 
       // Check if the old password is correct
-      const isMatch = await user.comparePasswords(oldPassword, user.password);
+      const isMatch = await user.comparePasswords(old_password, user.password);
 
       if (!isMatch) {
-        throw new Error("Incorrect old password");
+        console.log("Incorrect old password".failed_request);
+        return res.status(400).json({
+          message: "Incorrect current password"
+        })
       }
 
-      console.log("old password is correct".step_done);
-
       // Set the new password and save the user
-      user.password = newPassword;
+      user.password = new_password;
       await user.save();
 
       console.log("New password set and saved".success_request);

@@ -55,6 +55,7 @@ const Contact = () => {
                             focusBorderColor='teal'
                             type='text'
                             size={{ base: 'md', md: 'lg' }}
+                            bg='whiteAlpha.500'
                         />
                     </FormControl>
                     <FormControl id='email' isRequired>
@@ -64,6 +65,7 @@ const Contact = () => {
                             focusBorderColor='teal'
                             type='email'
                             size={{ base: 'md', md: 'lg' }}
+                            bg='whiteAlpha.500'
                         />
                     </FormControl>
 
@@ -74,6 +76,7 @@ const Contact = () => {
                             focusBorderColor='teal'
                             type='tel'
                             size={{ base: 'md', md: 'lg' }}
+                            bg='whiteAlpha.500'
                         />
                     </FormControl>
 
@@ -83,6 +86,7 @@ const Contact = () => {
                             focusBorderColor='teal'
                             size={{ base: 'md', md: 'lg' }}
                             maxH='300px'
+                            bg='whiteAlpha.500'
                         />
                     </FormControl>
 
