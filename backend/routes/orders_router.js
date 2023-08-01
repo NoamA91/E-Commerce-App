@@ -7,7 +7,8 @@ const adminAuth = require("../middlewares/auth_admin");
 
 // users functions
 const {
-  addOrder
+  addOrder,
+  getAllOrdersByCustomerId
 } = require("../controllers/orders_controller");
 
 
@@ -28,6 +29,7 @@ router.put('/managers/update-status/:id', managerAuth, updateStatusForManagers);
 router.delete('/managers/delete-order/:id', managerAuth, deleteOrderByIdForManagers);
 
 // users requests from orders controller
+router.get('/all/:id', userAuth, getAllOrdersByCustomerId);
 router.post('/add-order', addOrder);
 
 module.exports = router;

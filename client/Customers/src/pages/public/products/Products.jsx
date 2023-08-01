@@ -12,8 +12,8 @@ const Products = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const [selectedCategorySidebar, setSelectedCategorySidebar] = useState("");
-    const [selectedAnimalTypeSidebar, setSelectedAnimalTypeSidebar] = useState("");
+    const [selectedCategorySidebar, setSelectedCategorySidebar] = useState('');
+    const [selectedAnimalTypeSidebar, setSelectedAnimalTypeSidebar] = useState('');
 
     const getAllProducts = async () => {
         const source = axios.CancelToken.source();
@@ -51,8 +51,8 @@ const Products = () => {
     let filteredProducts = [];
     if (products) {
         filteredProducts = products.filter(product =>
-            (selectedAnimalTypeSidebar === "" || product.category.animal_type === selectedAnimalTypeSidebar) &&
-            (selectedCategorySidebar === "" || product.category.name === selectedCategorySidebar)
+            (selectedAnimalTypeSidebar === '' || product.category.animal_type === selectedAnimalTypeSidebar) &&
+            (selectedCategorySidebar === '' || product.category.name === selectedCategorySidebar)
         );
     }
 

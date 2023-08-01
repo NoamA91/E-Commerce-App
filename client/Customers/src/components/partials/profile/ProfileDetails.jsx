@@ -25,7 +25,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                 bg='gray.100'
             >
                 <Box
-                    w={{ base: "90%", md: "35%" }}
+                    minW={{ base: "90%", md: "35%" }}
                     h='100%'
                     pb={5}
                 >

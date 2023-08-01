@@ -1,8 +1,9 @@
-import { Box, useToast } from "@chakra-ui/react"
-import { motion } from "framer-motion"
-import ProfileDetails from "../../components/partials/profile/ProfileDetails"
-import axios from "axios";
-import { useState } from "react";
+import { Box, useToast } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
+import ProfileDetails from '../../components/partials/profile/ProfileDetails'
+import axios from 'axios';
+import { useState } from 'react';
+import ErrorAlert from '../../components/ErrorAlert';
 
 const Profile = ({ user, setUser }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -10,12 +11,12 @@ const Profile = ({ user, setUser }) => {
     const [error, setError] = useState(null);
     const [values, setValues] = useState({
         username: user?.username,
-        phone_number: user?.phone_number || "",
+        phone_number: user?.phone_number || '',
         address: user?.address ? {
-            city: user.address?.city || "",
-            street: user.address?.street || "",
-            building: user.address?.building || "",
-            apartment: user.address?.apartment || "",
+            city: user.address?.city || '',
+            street: user.address?.street || '',
+            building: user.address?.building || '',
+            apartment: user.address?.apartment || '',
         } : {}
     });
 
@@ -38,11 +39,11 @@ const Profile = ({ user, setUser }) => {
             setUser(data.user);
             setIsEditing(false);
             toast({
-                title: "Profile Updated Successfully",
-                status: "success",
+                title: 'Profile Updated Successfully',
+                status: 'success',
                 duration: 3000,
                 isClosable: true,
-                position: "top",
+                position: 'top',
             })
         } catch (error) {
             setError(error)
@@ -52,9 +53,9 @@ const Profile = ({ user, setUser }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        if (name.startsWith("address.")) {
+        if (name.startsWith('address.')) {
             // Update nested address values
-            const addressField = name.split(".")[1];
+            const addressField = name.split('.')[1];
             setValues((prevValues) => ({
                 ...prevValues,
                 address: {

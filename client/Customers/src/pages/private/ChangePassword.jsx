@@ -196,6 +196,7 @@ const ChangePassword = ({ user }) => {
                             variant='solid'
                             mt={5}
                             onClick={handleSubmit}
+                            isLoading={loading}
                         >
                             Change Password
                         </Button>

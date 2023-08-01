@@ -198,6 +198,37 @@ module.exports = {
       });
     }
   },
+  // customers functions
+  getAllOrdersByCustomerId: async (req, res) => {
+    console.log('Api GET request : get all orders for customer');
+    try {
+      const userId = req.params.id;
+      const orders = await Order.find({ userId })
+        .populate('order_items.productId').exec();
+
+      if (!orders.length) {
+        console.log("Orders array is empty".failed_request);
+        return res.status(200).json({
+          success: true,
+          message: "No orders found",
+          orders,
+        });
+      }
+
+      console.log("Success to get all orders for customer".success_request);
+      return res.status(200).json({
+        success: true,
+        message: "Orders retrieved successfully for customer",
+        orders,
+      });
+    } catch (error) {
+      console.log(`Error to get all orders for customer - ${error}`.failed_request);
+      return res.status(500).json({
+        message: "Error in get all orders for customer",
+        error: error.message,
+      })
+    }
+  },
 
   // managers functions
   getAllOrdersForManagers: async (req, res) => {

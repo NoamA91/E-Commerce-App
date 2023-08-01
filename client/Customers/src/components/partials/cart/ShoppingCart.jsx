@@ -97,7 +97,7 @@ const ShoppingCart = () => {
                                             initial={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
                                         >
-                                            <CartItem item={item} />
+                                            <CartItem item={item} onClose={onClose} />
                                         </motion.div>
                                     ))}
                                 </AnimatePresence>

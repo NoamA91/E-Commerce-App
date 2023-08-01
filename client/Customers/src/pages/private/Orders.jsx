@@ -1,8 +1,41 @@
-import React from 'react'
+import { Box } from '@chakra-ui/react';
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import ErrorAlert from '../../components/ErrorAlert';
+import OrdersDetails from '../../components/partials/orders/OrdersDetails';
 
-const Orders = () => {
+const Orders = ({ user }) => {
+    const [error, setError] = useState(null);
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        const getOrdersForUser = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${import.meta.env.VITE_SERVER_URL}/orders/all/${user._id}`
+                );
+                setOrders(data.orders);
+
+            } catch (error) {
+                setError(error);
+            }
+        };
+        getOrdersForUser();
+    }, []);
+
+    if (error) return (
+        <Box
+            w='100%'
+            h='100vh'
+            bg='gray.100'
+        >
+            <ErrorAlert error={error} />
+        </Box>
+    )
     return (
-        <div>Orders</div>
+        <OrdersDetails
+            orders={orders}
+        />
     )
 }
 

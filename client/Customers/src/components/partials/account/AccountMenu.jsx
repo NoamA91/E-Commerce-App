@@ -128,7 +128,7 @@ const AccountMenu = () => {
                 </Box>
 
                 <MenuList
-                    borderColor='blackAlpha.600'
+                    borderColor='blackAlpha.200'
                 >
                     <Link to='/profile'>
                         <MenuItem

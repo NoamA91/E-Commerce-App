@@ -283,7 +283,6 @@ const OrdersTable = ({ orders, changeStatus }) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {console.log(dataOrders)}
                             {dataOrders
                                 .filter(order => filteredStatus === 'all' || order.status === filteredStatus)
                                 .filter(order => {

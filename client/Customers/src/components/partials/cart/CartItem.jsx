@@ -9,8 +9,11 @@ import { DeleteIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-const CartItem = ({ item }) => {
+
+const CartItem = ({ item, onClose }) => {
+    const navigate = useNavigate();
     const { adjustQuantity, removeFromCart } = useContext(CartContext);
 
     const handleIncreaseQuantity = () => {
@@ -40,6 +43,11 @@ const CartItem = ({ item }) => {
                     alt={item.title}
                     boxSize="100px"
                     mr="4"
+                    cursor='pointer'
+                    onClick={() => {
+                        navigate(`/product/${item._id}`);
+                        onClose();
+                    }}
                 />
                 <Flex flex="1" flexDirection="column">
                     <Text fontSize={{ base: 'md', md: 'xl' }} mb="2">
