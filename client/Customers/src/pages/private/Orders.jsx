@@ -3,13 +3,16 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import ErrorAlert from '../../components/ErrorAlert';
 import OrdersDetails from '../../components/partials/orders/OrdersDetails';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Orders = ({ user }) => {
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         const getOrdersForUser = async () => {
+            setLoading(true);
             try {
                 const { data } = await axios.get(
                     `${import.meta.env.VITE_SERVER_URL}/orders/all/${user._id}`
@@ -18,10 +21,14 @@ const Orders = ({ user }) => {
 
             } catch (error) {
                 setError(error);
+            } finally {
+                setLoading(false);
             }
         };
         getOrdersForUser();
     }, []);
+
+    if (loading) return <LoadingSpinner />;
 
     if (error) return (
         <Box
@@ -32,11 +39,8 @@ const Orders = ({ user }) => {
             <ErrorAlert error={error} />
         </Box>
     )
-    return (
-        <OrdersDetails
-            orders={orders}
-        />
-    )
+
+    return <OrdersDetails orders={orders} />
 }
 
 export default Orders

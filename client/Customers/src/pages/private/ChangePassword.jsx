@@ -30,6 +30,13 @@ const ChangePassword = ({ user }) => {
         new_password: '',
     });
 
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
+
     const handleChange = (e) => {
         setValues({
             ...values,
@@ -99,19 +106,10 @@ const ChangePassword = ({ user }) => {
                     <Heading
                         textAlign='center'
                         size='lg'
+                        mb={7}
                     >
                         Change Password
                     </Heading>
-                    <Link
-                        to='/profile'
-                    >
-                        <Button
-                            leftIcon={<ArrowBackIcon />}
-                        >
-                            Back
-                        </Button>
-                    </Link>
-
 
                     <Box
                         as={motion.div}
@@ -201,6 +199,15 @@ const ChangePassword = ({ user }) => {
                             Change Password
                         </Button>
                     </Box>
+
+                    <Link to='/profile'>
+                        <Button
+                            leftIcon={<ArrowBackIcon />}
+                            mt={1}
+                        >
+                            Back
+                        </Button>
+                    </Link>
                 </Flex>
             </Flex >
         </>

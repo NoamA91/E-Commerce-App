@@ -74,13 +74,9 @@ const Profile = ({ user, setUser }) => {
 
     return (
         <Box
-            as={motion.div}
             bg='gray.100'
             w='100%'
             h='100%'
-            initial={{ opacity: 0, delayChildren: 0.3 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
         >
             <ProfileDetails
                 user={user}

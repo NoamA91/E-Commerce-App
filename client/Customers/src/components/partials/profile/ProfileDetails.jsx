@@ -14,8 +14,16 @@ import ErrorAlert from "../../ErrorAlert";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { EditIcon } from "@chakra-ui/icons";
+import { useEffect } from "react";
 
 const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, isEditing, error, cancelEdit }) => {
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
 
     return (
         <>
@@ -25,6 +33,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                 bg='gray.100'
             >
                 <Box
+                    as={motion.div}
+                    initial={{ opacity: 0, delayChildren: 0.3 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     minW={{ base: "90%", md: "35%" }}
                     h='100%'
                     pb={5}

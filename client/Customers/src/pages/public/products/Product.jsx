@@ -27,13 +27,11 @@ const Product = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const [isAddedToCart, setIsAddedToCart] = useState(false);
     const [itemAvailableInCart, setItemAvailableInCart] = useState(false);
     const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
-    const error = {
-        message: "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
-    }
     const itemAvailableInCartMessage = "This product is available in your cart"
     const { addToCart, cart } = useContext(CartContext);
     const toast = useToast();
@@ -41,6 +39,9 @@ const Product = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const currentPage = location.state?.pageNumber || 1;
+    const outOfStockMessage = {
+        message: "'Aw Snap!' Just sold out. But don't worry, we'll restock soon."
+    }
 
     useEffect(() => {
         setItemAvailableInCart(cart.map((item) => item._id).includes(product?._id));
@@ -49,22 +50,32 @@ const Product = () => {
 
     useEffect(() => {
         const getProduct = async () => {
+            setLoading(true);
             try {
                 const { data } = await axios.get(
                     `${import.meta.env.VITE_SERVER_URL}/products/getById/${id}`
                 );
                 setProduct(data.product);
-                setLoading(false);
             } catch (error) {
+                setError(error);
+            } finally {
                 setLoading(false);
             }
         };
         getProduct();
     }, [id]);
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
+    if (loading) return <LoadingSpinner />;
+
+    if (error) return (
+        <Box
+            w='100%'
+            h='100vh'
+            bg='gray.100'
+        >
+            <ErrorAlert error={error} />
+        </Box>
+    )
 
     const handleBuyNow = () => {
         // handle buy now functionality
@@ -132,8 +143,8 @@ const Product = () => {
             >
                 <Box flexShrink={0}>
                     <Image
-                        src={product.image}
-                        alt={product.title}
+                        src={product?.image}
+                        alt={product?.title}
                         boxSize={{ base: 'full', md: '400px' }}
                         objectFit='contain'
                     />
@@ -148,24 +159,24 @@ const Product = () => {
                         mt={{ base: 2, md: 0 }}
                         fontSize={{ base: 'xl', md: '2xl' }}
                     >
-                        {product.title}
+                        {product?.title}
                     </Heading>
                     <Text
                         fontSize={{ base: 'md', md: 'lg' }}
                     >
-                        {product.description}
+                        {product?.description}
                     </Text>
                     <Text
                         fontSize={{ base: 'xl', md: '2xl' }}
                         fontFamily='fantasy'
                         color='red.600'
                     >
-                        Price: ${product.price}
+                        Price: ${product?.price}
                     </Text>
                     <NumberInput
                         w='30%'
                         min={1}
-                        max={product.count_in_stock}
+                        max={product?.count_in_stock}
                         value={quantity}
                         onChange={handleChangeQuantity}
                         isDisabled={outOfStock}
@@ -210,7 +221,7 @@ const Product = () => {
                                 fontSize="sm"
                                 fontWeight="bold"
                             >
-                                <ErrorAlert error={error} />
+                                <ErrorAlert error={outOfStockMessage} />
                             </Box>
                         )}
                     </Stack>

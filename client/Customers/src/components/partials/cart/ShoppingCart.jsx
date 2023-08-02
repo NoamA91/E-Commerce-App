@@ -21,11 +21,12 @@ import { motion } from 'framer-motion'
 import { PiBasketFill } from 'react-icons/pi';
 import CartItem from './CartItem';
 import { AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const ShoppingCart = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = useRef();
-
+    const navigate = useNavigate();
     const { cart, clearCart } = useContext(CartContext);
 
     const totalItems = cart.reduce((acc, cur) => acc + cur.quantity, 0);
@@ -115,7 +116,10 @@ const ShoppingCart = () => {
                                         variant='solid'
                                         colorScheme='teal'
                                         mr={{ base: 0, md: 3 }}
-                                        onClick={onClose}
+                                        onClick={() => {
+                                            navigate('/checkout');
+                                            onClose();
+                                        }}
                                         size='md'
                                     >
                                         Checkout

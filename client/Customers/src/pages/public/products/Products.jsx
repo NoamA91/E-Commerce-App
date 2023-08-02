@@ -5,6 +5,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import CatgoriesSidebar from '../../../components/partials/products/CategoriesSidebar';
 import ProductsContainer from '../../../components/partials/products/ProductsContainer';
 import ErrorAlert from '../../../components/ErrorAlert';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -18,8 +19,8 @@ const Products = () => {
     const getAllProducts = async () => {
         const source = axios.CancelToken.source();
 
+        setLoading(true);
         try {
-            setLoading(true);
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getAll`,
                 { cancelToken: source.token }
             );
@@ -55,6 +56,8 @@ const Products = () => {
             (selectedCategorySidebar === '' || product.category.name === selectedCategorySidebar)
         );
     }
+
+    if (loading) return <LoadingSpinner />;
 
     if (error) return (
         <Box
