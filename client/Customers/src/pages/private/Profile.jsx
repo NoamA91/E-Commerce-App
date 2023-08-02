@@ -1,9 +1,7 @@
 import { Box, useToast } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import ProfileDetails from '../../components/partials/profile/ProfileDetails'
 import axios from 'axios';
 import { useState } from 'react';
-import ErrorAlert from '../../components/ErrorAlert';
 
 const Profile = ({ user, setUser }) => {
     const [isEditing, setIsEditing] = useState(false);

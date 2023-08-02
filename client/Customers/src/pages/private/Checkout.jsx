@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import CheckoutStepper from "../../components/partials/checkout/CheckoutStepper"
 import axios from "axios";
 import { CartContext } from "../../context/CartContext";
+import { useToast } from "@chakra-ui/react";
+
 
 const Checkout = ({ user }) => {
+    const toast = useToast();
     const [error, setError] = useState(null);
     const { cartItems, setCartItems } = useContext(CartContext);
     const [payment, setPayment] = useState(null);
@@ -64,7 +67,7 @@ const Checkout = ({ user }) => {
 
     const placeOrder = async () => {
         try {
-            const { data: order_status } = await axios.post(
+            const { data } = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/orders/add-order`,
                 {
                     user: user?._id,
@@ -89,11 +92,9 @@ const Checkout = ({ user }) => {
             );
 
             setCartItems([]);
-            console.log(order_status.data);
-            alert(`Your order is placed, order number: ${order_status.order_number}`);
-            navigate("/");
+
         } catch (error) {
-            toast.error(error.response.data.error);
+
         }
     };
 
@@ -101,7 +102,13 @@ const Checkout = ({ user }) => {
 
     return (
         <CheckoutStepper
-
+            values={values}
+            paymentsValues={paymentsValues}
+            HandlePayment={HandlePayment}
+            setPaymentValues={setPaymentValues}
+            payment={payment}
+            error={error}
+            handleChange={handleChange}
         />
     )
 }
