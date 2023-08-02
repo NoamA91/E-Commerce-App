@@ -4,6 +4,7 @@ import axios from "axios";
 import { CartContext } from "../../context/CartContext";
 
 const Checkout = ({ user }) => {
+    const [error, setError] = useState(null);
     const { cartItems, setCartItems } = useContext(CartContext);
     const [payment, setPayment] = useState(null);
     const [paymentsValues, setPaymentValues] = useState({
@@ -46,18 +47,18 @@ const Checkout = ({ user }) => {
         }
     };
 
-    const HandlePayment = async (e) => {
-        e.preventDefault();
+    const HandlePayment = async () => {
         try {
-            const { data: payment_status } = await axios.post(
+            const { data } = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/payments/pay`,
                 { credit_number: paymentsValues.credit }
             );
 
-            setPayment(payment_status);
+            setPayment(data);
             placeOrder();
+
         } catch (error) {
-            // toast.error(error.response.data.error);
+            setError(error);
         }
     };
 
@@ -67,15 +68,10 @@ const Checkout = ({ user }) => {
                 `${import.meta.env.VITE_SERVER_URL}/orders/add-order`,
                 {
                     user: user?._id,
-                    customer_details: {
-                        customer_name: values.name,
-                        customer_email: values.email,
-                        customer_phone: values.phone,
-                        customer_address: {
-                            city: values.city,
-                            street: values.street,
-                            building: values.building,
-                        },
+                    address: {
+                        city: values.city,
+                        street: values.street,
+                        building: values.building,
                     },
                     payment_details: {
                         terminal_number: payment.terminal_number,
