@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useEffect } from 'react';
 
-const CheckoutStepper = () => {
+const CheckoutStepper = ({values, handleChange}) => {
     const steps = [
         { title: 'First', description: 'Your Cart' },
         { title: 'Second', description: 'Checkout Details' },
