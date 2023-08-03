@@ -1,13 +1,16 @@
 import { useContext, useState } from "react";
-import CheckoutStepper from "../../components/partials/checkout/CheckoutStepper"
-import axios from "axios";
+import CheckoutForm from "../../components/partials/checkout/CheckoutForm"
+import axios, { CancelToken, isCancel } from "axios";
 import { CartContext } from "../../context/CartContext";
-import { useToast } from "@chakra-ui/react";
+import { Modal, ModalContent, ModalOverlay, Spinner, Text, VStack, useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 
 const Checkout = ({ user }) => {
+    const cancelSource = CancelToken.source();
     const toast = useToast();
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { cartItems, setCartItems } = useContext(CartContext);
     const [payment, setPayment] = useState(null);
     const [paymentsValues, setPaymentValues] = useState({
@@ -15,6 +18,13 @@ const Checkout = ({ user }) => {
         exp: "",
         cvv: "",
     });
+
+    useEffect(() => {
+        return () => {
+            // Cancel any ongoing requests when the component unmounts
+            cancelSource.cancel();
+        };
+    }, []);
 
     const [values, setValues] = useState({
         username: user?.username,
@@ -51,21 +61,31 @@ const Checkout = ({ user }) => {
     };
 
     const HandlePayment = async () => {
+        setLoading(true);
+        setError(null);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/payments/pay`,
-                { credit_number: paymentsValues.credit }
+                { credit_number: paymentsValues.credit },
+                { cancelToken: cancelSource.token }
             );
 
             setPayment(data);
-            placeOrder();
+            await placeOrder();
 
         } catch (error) {
-            setError(error);
+            if (isCancel(error)) {
+                console.log('Request cancelled');
+            } else {
+                setError(error);
+            }
+            setLoading(false);
         }
     };
 
     const placeOrder = async () => {
+        setLoading(true);
+        setError(null);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/orders/add-order`,
@@ -88,20 +108,56 @@ const Checkout = ({ user }) => {
                             quantity: pr.quantity,
                         };
                     }),
-                }
+                },
+                { cancelToken: cancelSource.token }
             );
 
             setCartItems([]);
 
         } catch (error) {
-
+            if (isCancel(error)) {
+                console.log('Request cancelled');
+            } else {
+                toast({
+                    title: "Error",
+                    description: error.response.data.message,
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                });
+            }
         }
+        setLoading(false);
     };
 
-
+    if (loading) {
+        return (
+            <Modal isOpen={loading} isCentered>
+                <ModalOverlay />
+                <ModalContent
+                    w='100px'
+                    h='100px'
+                >
+                    <VStack
+                        justifyContent='center'
+                        alignContent='center'
+                    >
+                        <Text>Placing your order..</Text>
+                        <Spinner
+                            thickness="4px"
+                            speed="0.65s"
+                            emptyColor="gray.200"
+                            color="ShopTeal.300"
+                            size="xl"
+                        />
+                    </VStack>
+                </ModalContent>
+            </Modal>
+        )
+    }
 
     return (
-        <CheckoutStepper
+        <CheckoutForm
             values={values}
             paymentsValues={paymentsValues}
             HandlePayment={HandlePayment}
