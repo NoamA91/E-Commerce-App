@@ -36,6 +36,6 @@ app.use("/products", productsRouter);
 app.use("/orders", ordersRouter);
 app.use("/carts", cartsRouter);
 app.use("/categories", categoriesRouter);
-app.use("/pay", paymentsRouter)
+app.use("/payments", paymentsRouter)
 
 module.exports = app;

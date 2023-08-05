@@ -2,19 +2,18 @@ import { useContext, useState } from "react";
 import CheckoutForm from "../../components/partials/checkout/CheckoutForm"
 import axios, { CancelToken, isCancel } from "axios";
 import { CartContext } from "../../context/CartContext";
-import { Modal, ModalContent, ModalOverlay, Spinner, Text, VStack, useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Checkout = ({ user }) => {
+    const navigate = useNavigate();
     const cancelSource = CancelToken.source();
-    const toast = useToast();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { cartItems, setCartItems } = useContext(CartContext);
-    const [payment, setPayment] = useState(null);
+    const { cart, setCart } = useContext(CartContext);
     const [paymentsValues, setPaymentValues] = useState({
-        credit: "",
+        credit_number: "",
         exp: "",
         cvv: "",
     });
@@ -60,18 +59,64 @@ const Checkout = ({ user }) => {
         }
     };
 
+
     const HandlePayment = async () => {
         setLoading(true);
         setError(null);
+
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_SERVER_URL}/payments/pay`,
-                { credit_number: paymentsValues.credit },
+                { credit_number: paymentsValues.credit_number },
                 { cancelToken: cancelSource.token }
             );
 
-            setPayment(data);
-            await placeOrder();
+            placeOrder(data);
+
+        } catch (error) {
+            if (isCancel(error)) {
+                console.log('Request cancelled');
+            } else {
+                setError(error.response.data);
+            }
+            setLoading(false);
+        }
+    };
+
+    const placeOrder = async (paymentData) => {
+        setLoading(true)
+        setError(null);
+
+        try {
+            const data = await axios.post(
+                `${import.meta.env.VITE_SERVER_URL}/orders/add-order`,
+                {
+                    userId: user?._id,
+                    phone_number: values.phone_number,
+                    address: {
+                        city: values.address.city,
+                        street: values.address.street,
+                        building: values.address.building,
+                        apartment: values.address.apartment,
+                    },
+                    payment_details: {
+                        terminal_number: paymentData.terminal_number,
+                        transaction_number: paymentData.transaction_number,
+                        last_digits: paymentData.last_digits,
+                    },
+                    order_items: cart.map((item) => {
+                        return {
+                            productId: item._id,
+                            price: item.price,
+                            quantity: item.quantity,
+                        };
+                    }),
+                    shipping_fee: 0.00
+                },
+                { cancelToken: cancelSource.token }
+            );
+            setCart([]);
+            navigate('/order-completed');
 
         } catch (error) {
             if (isCancel(error)) {
@@ -79,92 +124,19 @@ const Checkout = ({ user }) => {
             } else {
                 setError(error);
             }
-            setLoading(false);
-        }
-    };
-
-    const placeOrder = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_SERVER_URL}/orders/add-order`,
-                {
-                    user: user?._id,
-                    address: {
-                        city: values.city,
-                        street: values.street,
-                        building: values.building,
-                    },
-                    payment_details: {
-                        terminal_number: payment.terminal_number,
-                        transaction_number: payment.transaction_number,
-                        last_digits: payment.last_digits,
-                    },
-                    products: cartItems.map((pr) => {
-                        return {
-                            product: pr._id,
-                            RTP: pr.product_price,
-                            quantity: pr.quantity,
-                        };
-                    }),
-                },
-                { cancelToken: cancelSource.token }
-            );
-
-            setCartItems([]);
-
-        } catch (error) {
-            if (isCancel(error)) {
-                console.log('Request cancelled');
-            } else {
-                toast({
-                    title: "Error",
-                    description: error.response.data.message,
-                    status: "error",
-                    duration: 9000,
-                    isClosable: true,
-                });
-            }
         }
         setLoading(false);
     };
-
-    if (loading) {
-        return (
-            <Modal isOpen={loading} isCentered>
-                <ModalOverlay />
-                <ModalContent
-                    w='100px'
-                    h='100px'
-                >
-                    <VStack
-                        justifyContent='center'
-                        alignContent='center'
-                    >
-                        <Text>Placing your order..</Text>
-                        <Spinner
-                            thickness="4px"
-                            speed="0.65s"
-                            emptyColor="gray.200"
-                            color="ShopTeal.300"
-                            size="xl"
-                        />
-                    </VStack>
-                </ModalContent>
-            </Modal>
-        )
-    }
 
     return (
         <CheckoutForm
             values={values}
             paymentsValues={paymentsValues}
-            HandlePayment={HandlePayment}
             setPaymentValues={setPaymentValues}
-            payment={payment}
+            HandlePayment={HandlePayment}
             error={error}
             handleChange={handleChange}
+            loading={loading}
         />
     )
 }

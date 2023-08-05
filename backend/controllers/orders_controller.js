@@ -79,26 +79,71 @@ module.exports = {
         shipping_fee
       } = req.body;
 
-      if (
-        !userId ||
-        !order_items ||
-        !address ||
-        !phone_number ||
-        !payment_details ||
-        !shipping_fee
-      ) {
-        console.log("Missing order fields in request".failed_request);
+      if (!userId) {
+        console.log("Missing userId in request".failed_request);
         return res.status(400).json({
-          message: "Missing fields",
+          message: "Missing userId",
         });
       }
-
-      // validation of payment details
-      const { terminal_number, transaction_number, last_digits } = payment_details;
-      if (!terminal_number || !transaction_number || !last_digits) {
-        console.log("Missing payment details fields in request".failed_request);
+      if (!order_items || order_items.length === 0) {
+        console.log("Missing order_items in request".failed_request);
         return res.status(400).json({
-          message: "Missing payment details fields",
+          message: "Missing items in the cart",
+        })
+      }
+
+      if (!address) {
+        console.log("Missing address in request".failed_request);
+        return res.status(400).json({
+          message: "Missing address",
+        })
+      }
+
+      if (!address.city) {
+        console.log("Missing city in request".failed_request);
+        return res.status(400).json({
+          message: "Missing city",
+        })
+      }
+
+      if (!address.street) {
+        console.log("Missing street in request".failed_request);
+        return res.status(400).json({
+          message: "Missing street",
+        })
+      }
+
+      if (!address.building) {
+        console.log("Missing building in request".failed_request);
+        return res.status(400).json({
+          message: "Missing building",
+        })
+      }
+      if (!address.apartment) {
+        console.log("Missing apartment in request".failed_request);
+        return res.status(400).json({
+          message: "Missing apartment",
+        })
+      }
+
+      if (!phone_number) {
+        console.log("Missing phone_number in request".failed_request);
+        return res.status(400).json({
+          message: "Missing phone number",
+        })
+      }
+
+      if (!payment_details) {
+        console.log("Missing payment_details in request".failed_request);
+        return res.status(400).json({
+          message: "Missing payment details",
+        })
+      }
+
+      if (shipping_fee === undefined || shipping_fee === null) {
+        console.log("Missing shipping_fee in request".failed_request);
+        return res.status(400).json({
+          message: "Missing fields",
         });
       }
 

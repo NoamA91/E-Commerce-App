@@ -26,6 +26,7 @@ const Orders = lazy(() => import('./pages/private/Orders'));
 const ChangePassword = lazy(() => import('./pages/private/ChangePassword'));
 const NotFound = lazy(() => import('./pages/public/NotFound'));
 const Checkout = lazy(() => import('./pages/private/Checkout'));
+const OrderCompleted = lazy(() => import('./components/partials/checkout/OrderCompleted'));
 
 function App() {
   const { user, setUser } = useContext(AuthContext);
@@ -103,6 +104,12 @@ function App() {
           <Route path="/checkout" element={
             <Suspense fallback={<LoadingSpinner />}>
               <Checkout user={user} />
+            </Suspense>
+          } />
+
+          <Route path="/order-completed" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <OrderCompleted user={user} />
             </Suspense>
           } />
         </Route>

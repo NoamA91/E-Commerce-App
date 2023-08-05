@@ -9,12 +9,12 @@ import {
     ButtonGroup,
     VStack,
     Divider
-} from "@chakra-ui/react";
-import ErrorAlert from "../../ErrorAlert";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { EditIcon } from "@chakra-ui/icons";
-import { useEffect } from "react";
+} from '@chakra-ui/react';
+import ErrorAlert from '../../ErrorAlert';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { EditIcon } from '@chakra-ui/icons';
+import { useEffect } from 'react';
 
 const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, isEditing, error, cancelEdit }) => {
 
@@ -37,7 +37,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                     initial={{ opacity: 0, delayChildren: 0.3 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    minW={{ base: "90%", md: "35%" }}
+                    minW={{ base: '90%', md: '35%' }}
                     h='100%'
                     pb={5}
                 >
@@ -45,8 +45,8 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                         mb={6}
                     >
                         <Heading
-                            as="h1"
-                            size="xl"
+                            as='h1'
+                            size='xl'
                             mt={6}
                         >
                             My Profile
@@ -70,7 +70,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 Name:
                             </Text>
                             {isEditing ? (
@@ -80,10 +80,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     animate={{ opacity: 1 }}
                                 >
                                     <Input
-                                        name="username"
-                                        value={values.username || ""}
+                                        name='username'
+                                        value={values.username || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter Username"
+                                        placeholder='Enter Username'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -100,7 +100,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 Phone:
                             </Text>
                             {isEditing ? (
@@ -111,10 +111,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                 >
                                     <Input
                                         type='number'
-                                        name="phone_number"
-                                        value={values.phone_number || ""}
+                                        name='phone_number'
+                                        value={values.phone_number || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter your phone number"
+                                        placeholder='Enter your phone number'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -131,7 +131,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 City:
                             </Text>
                             {isEditing ? (
@@ -141,10 +141,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     animate={{ opacity: 1 }}
                                 >
                                     <Input
-                                        name="address.city"
-                                        value={values.address?.city || ""}
+                                        name='address.city'
+                                        value={values.address?.city || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter your city"
+                                        placeholder='Enter your city'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -161,7 +161,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 Street:
                             </Text>
                             {isEditing ? (
@@ -171,10 +171,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     animate={{ opacity: 1 }}
                                 >
                                     <Input
-                                        name="address.street"
-                                        value={values.address?.street || ""}
+                                        name='address.street'
+                                        value={values.address?.street || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter your street"
+                                        placeholder='Enter your street'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -191,7 +191,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 Building:
                             </Text>
                             {isEditing ? (
@@ -202,10 +202,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                 >
                                     <Input
                                         type='number'
-                                        name="address.building"
-                                        value={values.address?.building || ""}
+                                        name='address.building'
+                                        value={values.address?.building || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter your building"
+                                        placeholder='Enter your building'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
@@ -222,7 +222,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             flexDir='column'
                             p={2}
                         >
-                            <Text as="span" fontWeight="bold">
+                            <Text as='span' fontWeight='bold'>
                                 Apartment:
                             </Text>
                             {isEditing ? (
@@ -233,10 +233,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                 >
                                     <Input
                                         type='number'
-                                        name="address.apartment"
-                                        value={values.address?.apartment || ""}
+                                        name='address.apartment'
+                                        value={values.address?.apartment || ''}
                                         onChange={handleChange}
-                                        placeholder="Enter your apartment"
+                                        placeholder='Enter your apartment'
                                         variant='flushed'
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}

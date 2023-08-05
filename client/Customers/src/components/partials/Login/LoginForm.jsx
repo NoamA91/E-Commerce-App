@@ -110,7 +110,7 @@ const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
                         colorScheme='teal'
                         size={{ base: 'md', md: 'lg' }}
                         w='100%'
-                        loading={loading.toString()}
+                        isLoading={loading}
                         type='submit'
                     >
                         Sign In

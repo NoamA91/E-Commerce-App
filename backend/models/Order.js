@@ -58,12 +58,12 @@ const order_schema = new Schema(
     },
     payment_details: {
       terminal_number: {
-        type: String,
+        type: Number,
         required: true,
         match: /^[0-9]+$/,
       },
       transaction_number: {
-        type: String,
+        type: Number,
         required: true,
         match: /^[0-9]+$/,
         unique: true,
