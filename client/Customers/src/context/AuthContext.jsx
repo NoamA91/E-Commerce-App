@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect } from "react";
-import { useCookies } from "react-cookie";
-import axios from "axios";
+import { createContext, useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
-    const [cookies, setCookie, removeCookie] = useCookies(["customer_token"]);
+    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')) || null);
+    const [cookies, setCookie, removeCookie] = useCookies(['customer_token']);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
             );
 
             setUser(data.user);
-            setCookie("customer_token", data.customer_token, { path: "/", maxAge: 10800 });
+            setCookie('customer_token', data.customer_token, { path: '/', maxAge: 10800 });
 
             return {
                 success: true,
@@ -36,12 +36,12 @@ export function AuthProvider({ children }) {
                 { headers: { Authorization: `Bearer ${cookies.customer_token}` } }
             );
 
-            removeCookie("customer_token");
-            localStorage.removeItem("user")
+            removeCookie('customer_token');
+            localStorage.removeItem('user')
             setUser(null);
             return {
                 success: true,
-                message: "Logout successful"
+                message: 'Logout successful'
             };
         } catch (error) {
             throw new Error(error.response.data.error);
@@ -56,12 +56,12 @@ export function AuthProvider({ children }) {
                 username,
                 email,
                 password,
-                phone_number: phone_number || "",
+                phone_number: phone_number || '',
                 address: {
-                    city: "",
-                    street: "",
-                    building: "",
-                    apartment: ""
+                    city: '',
+                    street: '',
+                    building: '',
+                    apartment: ''
                 }
             });
 
@@ -75,27 +75,28 @@ export function AuthProvider({ children }) {
     };
 
 
-    // const forgot = async (email) => {
-    //     try {
+    const forgotPassword = async (email) => {
+        try {
 
-    //         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/emails/send-password-link`, {
-    //             email
-    //         });
+            const response = await axios.post(
+                `${import.meta.env.VITE_SERVER_URL}/emails/send-password-link`,
+                { email }
+            );
 
-    //         return {
-    //             success: true,
-    //             message: response.data.message
-    //         };
-    //     } catch (error) {
-    //         throw new Error(error.response.data.error || "Error in registering user");
-    //     }
-    // };
+            return {
+                success: true,
+                message: response.data.message
+            };
+        } catch (error) {
+            throw new Error(error.response.data.error || 'Unexpected error with reset password request');
+        }
+    };
 
 
     useEffect(() => {
         const authUser = async () => {
             if (!cookies.customer_token) {
-                localStorage.removeItem("user");
+                localStorage.removeItem('user');
                 setUser(null);
                 setError(null);
             } else {
@@ -109,7 +110,7 @@ export function AuthProvider({ children }) {
                     setUser(data.user);
 
                 } catch (error) {
-                    removeCookie("customer_token");
+                    removeCookie('customer_token');
                     setUser(null);
                     setError(error.response.data.error);
                 } finally {
@@ -123,9 +124,9 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         if (user) {
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user));
         } else {
-            localStorage.removeItem("user");
+            localStorage.removeItem('user');
         }
     }, [user]);
 
@@ -135,7 +136,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         register,
-        // forgot,
+        forgotPassword,
         loading,
         error
     };

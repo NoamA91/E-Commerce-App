@@ -1,7 +1,7 @@
 import { Box, useToast } from '@chakra-ui/react'
 import ProfileDetails from '../../components/partials/profile/ProfileDetails'
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Profile = ({ user, setUser }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +27,23 @@ const Profile = ({ user, setUser }) => {
     };
 
     const handleSave = async () => {
+        setError(null);
         try {
+            if (values.username === user.username) {
+                delete values.username
+            }
+
+            if (values.username === "") {
+                throw new Error("Username is required");
+            }
+
+            if (values.address.building < 1) {
+                throw new Error("Invalid building number");
+            }
+
+            if (values.address.apartment < 1) {
+                throw new Error("Invalid apartment number");
+            }
 
             const { data } = await axios.put(
                 `${import.meta.env.VITE_SERVER_URL}/users/updateByid/${user._id}`,
@@ -69,6 +85,10 @@ const Profile = ({ user, setUser }) => {
             }));
         }
     };
+
+    useEffect(() => {
+        setError(null);
+    }, [values]);
 
     return (
         <Box

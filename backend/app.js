@@ -12,6 +12,7 @@ const ordersRouter = require("./routes/orders_router");
 const cartsRouter = require("./routes/carts_router");
 const categoriesRouter = require("./routes/categories_router");
 const paymentsRouter = require("./routes/payments_router");
+const emails_router = require("./routes/emails_router.js");
 
 const app = express();
 
@@ -37,5 +38,6 @@ app.use("/orders", ordersRouter);
 app.use("/carts", cartsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/payments", paymentsRouter)
+app.use('/emails', emails_router);
 
 module.exports = app;

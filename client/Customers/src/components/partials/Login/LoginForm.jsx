@@ -105,7 +105,14 @@ const LoginForm = ({ handleSubmit, handleChange, values, loading, error }) => {
                             </InputRightElement>
                         </InputGroup>
                     </FormControl>
-                    <Text>Forgot Your Password?</Text>
+                    <Link to='/reset-password'>
+                        <Text
+                            color='blue.500'
+                            _hover={{ textDecoration: 'underline' }}
+                        >
+                            Forgot Your Password?
+                        </Text>
+                    </Link>
                     <Button
                         colorScheme='teal'
                         size={{ base: 'md', md: 'lg' }}

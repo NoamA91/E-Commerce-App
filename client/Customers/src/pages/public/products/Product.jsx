@@ -78,7 +78,8 @@ const Product = () => {
     )
 
     const handleBuyNow = () => {
-        // handle buy now functionality
+        addToCart(product, quantity);
+        navigate('/checkout');
     }
 
     const handleAddToCart = () => {

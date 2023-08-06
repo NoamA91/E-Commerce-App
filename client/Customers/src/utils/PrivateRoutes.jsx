@@ -8,7 +8,7 @@ function PrivateRoutes({ user }) {
     const [cookies] = useCookies(["customer_token"]);
 
     if (!user && !cookies.customer_token) {
-        return <Navigate to="/" />
+        return <Navigate to="/login" />
     }
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${cookies.customer_token}`;
@@ -17,4 +17,3 @@ function PrivateRoutes({ user }) {
 }
 
 export default PrivateRoutes;
-

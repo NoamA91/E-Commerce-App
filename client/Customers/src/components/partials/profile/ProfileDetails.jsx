@@ -69,9 +69,10 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             fontSize={{ base: 'md', md: 'lg' }}
                             flexDir='column'
                             p={2}
+
                         >
                             <Text as='span' fontWeight='bold'>
-                                Name:
+                                Username:
                             </Text>
                             {isEditing ? (
                                 <Box
@@ -110,7 +111,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                     animate={{ opacity: 1 }}
                                 >
                                     <Input
-                                        type='number'
+                                        type='text'
                                         name='phone_number'
                                         value={values.phone_number || ''}
                                         onChange={handleChange}
@@ -210,6 +211,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
                                         bg='gray.200'
+                                        min={1}
                                     />
                                 </Box>
                             ) : (
@@ -241,6 +243,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                                         focusBorderColor='teal'
                                         size={{ base: 'md', md: 'lg' }}
                                         bg='gray.200'
+                                        min={1}
                                     />
                                 </Box>
                             ) : (
@@ -294,7 +297,7 @@ const ProfileDetails = ({ user, values, handleChange, handleSave, handleEdit, is
                             </ButtonGroup>
                         )}
                     </Stack>
-                    {error && (<ErrorAlert error={error} clearError />)}
+                    {error && isEditing && (<ErrorAlert error={error} clearError />)}
                 </Box>
             </Flex >
         </>

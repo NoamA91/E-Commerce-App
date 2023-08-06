@@ -19,6 +19,7 @@ const Products = lazy(() => import('./pages/public/products/Products'));
 const Product = lazy(() => import('./pages/public/products/Product'));
 const Login = lazy(() => import('./pages/public/Login'));
 const Register = lazy(() => import('./pages/public/Register'));
+const ResetPassword = lazy(() => import('./pages/public/ResetPassword'));
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 const Profile = lazy(() => import('./pages/private/Profile'));
@@ -78,6 +79,12 @@ function App() {
           </Suspense>
         } />
 
+        <Route path="reset-password" element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <ResetPassword />
+          </Suspense>
+        } />
+
         {/*private routes*/}
         <Route element={<PrivateRoutes />} user={user}>
           <Route path="profile" element={
@@ -109,7 +116,7 @@ function App() {
 
           <Route path="/order-completed" element={
             <Suspense fallback={<LoadingSpinner />}>
-              <OrderCompleted user={user} />
+              <OrderCompleted />
             </Suspense>
           } />
         </Route>
