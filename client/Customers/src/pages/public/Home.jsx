@@ -219,7 +219,11 @@ const Home = () => {
                             minHeight: '100vh',
                         }}
                     >
-                        <ProductsSlider />
+                        <ParallaxBannerLayer>
+                            <Box bg='gray.500' h='100%'>
+                                <ProductsSlider />
+                            </Box>
+                        </ParallaxBannerLayer>
                     </ParallaxBanner>
 
                 </Parallax>
