@@ -6,10 +6,11 @@ import {
     Checkbox,
     VStack
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import PropTypes from 'prop-types';
+import { CurrentPageContext } from '../../../context/CurrentPageContext';
 
 const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) => {
 
@@ -19,11 +20,10 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
     const [selectedCategoryName, setSelectedCategoryName] = useState("All");
     const [selectedAnimalTypeSidebar, setSelectedAnimalTypeSidebar] = useState(null);
     const [selectedCategorySidebar, setSelectedCategorySidebar] = useState(null);
-
+    const { setCurrentPage } = useContext(CurrentPageContext);
 
     const animalTypes = [...new Set(products.map(product => product.category.animal_type))];
     const categories = [...new Set(products.map(product => product.category.name))];
-
 
 
     const handleAnimalTypeCheckboxChange = (e, layoutType) => {
@@ -36,6 +36,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
             setSelectedAnimalType(value);
         }
         onAnimalTypeChange(value ? value : "");
+        setCurrentPage(1);
     }
 
     const handleCategoryCheckboxChange = (e, layoutType) => {
@@ -48,6 +49,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
             setSelectedCategoryName(value);
         }
         onCategoryChange(value ? value : "");
+        setCurrentPage(1);
     }
 
     const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +119,9 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                                             value={category}
                                             colorScheme='teal'
                                             isChecked={selectedCategoryName === category}
-                                            onChange={(e) => handleCategoryCheckboxChange(e, 'select')}>
+                                            onChange={(e) => {
+                                                handleCategoryCheckboxChange(e, 'select')
+                                            }}>
                                             {category}
                                         </Checkbox>
                                     ))}

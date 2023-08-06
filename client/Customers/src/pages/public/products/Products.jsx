@@ -7,8 +7,11 @@ import ProductsContainer from '../../../components/partials/products/ProductsCon
 import ErrorAlert from '../../../components/ErrorAlert';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import { Helmet } from 'react-helmet';
+import { useContext } from 'react';
+import { CurrentPageContext } from '../../../context/CurrentPageContext';
 
 const Products = () => {
+    const { setCurrentPage } = useContext(CurrentPageContext);
     const [products, setProducts] = useState([]);
 
     const [loading, setLoading] = useState(false);
@@ -98,6 +101,7 @@ const Products = () => {
                     products={products}
                     onCategoryChange={handleCategoryChange}
                     onAnimalTypeChange={handleAnimalTypeChange}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <Box w='100%'

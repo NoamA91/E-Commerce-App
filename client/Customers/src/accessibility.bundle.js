@@ -5,7 +5,8 @@
 const options = {
     icon: {
         position: {
-            left: { size: 5, units: 'px' },
+            bottom: { size: 120, units: 'px' },
+            left: { size: 10, units: 'px' },
             type: 'fixed'
         }
     }

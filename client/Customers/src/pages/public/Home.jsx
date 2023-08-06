@@ -11,6 +11,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Parallax, ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax';
 import { Helmet } from 'react-helmet';
+import ProductsSlider from '../../components/partials/home/ProductsSlider';
+
 
 const Home = () => {
     return (
@@ -212,15 +214,13 @@ const Home = () => {
                         </ParallaxBannerLayer>
                     </ParallaxBanner>
 
-                    {/* <ParallaxBanner
-                    style={{
-                        aspectRatio: '2 / 1',
-                        minHeight: '100vh',
-
-                    }}
-                >
-
-                </ParallaxBanner> */}
+                    <ParallaxBanner
+                        style={{
+                            minHeight: '100vh',
+                        }}
+                    >
+                        <ProductsSlider />
+                    </ParallaxBanner>
 
                 </Parallax>
             </motion.div >

@@ -81,20 +81,19 @@ const ProductCard = ({ product, currentPage }) => {
             <CardBody
                 display='flex'
                 flexDirection='column'
-                justifyContent='space-between'
                 h={250}
                 pb={0}
             >
                 <Image
-                    src={product.image}
-                    alt={product.title}
+                    src={product?.image}
+                    alt={product?.title}
                     borderRadius='lg'
                     w='100%'
                     h={200}
-                    objectFit='cover'
+                    objectFit='contain'
                     cursor='pointer'
                     onClick={() => {
-                        navigate(`/product/${product._id}`, { state: { pageNumber: currentPage } });
+                        navigate(`/product/${product?._id}`, { state: { pageNumber: currentPage } });
                     }}
                 />
                 <Stack
@@ -104,30 +103,29 @@ const ProductCard = ({ product, currentPage }) => {
                 >
                     <Link
                         onClick={() => {
-                            navigate(`/product/${product._id}`);
+                            navigate(`/product/${product?._id}`);
                         }}
                     >
                         <Heading
                             size='sm'
                             noOfLines={2}
                         >
-                            {product.title}
+                            {product?.title}
                         </Heading>
                         <Text
                             fontSize='sm'
                             _hover={{ textDecoration: 'underline' }}
                             noOfLines={2}
                         >
-                            {product.description}
+                            {product?.description}
                         </Text>
                     </Link>
 
                     <Text color='red.600' fontSize='xl' fontFamily='fantasy'>
-                        ${product.price}
+                        ${product?.price}
                     </Text>
                 </Stack>
             </CardBody>
-            <Divider color='gray.200' />
             <CardFooter>
                 <Button
                     variant={isAddedToCart ? 'solid' : 'outline'}
