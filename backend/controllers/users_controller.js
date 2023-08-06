@@ -114,9 +114,7 @@ module.exports = {
       if (oldTokens.length) {
         oldTokens = oldTokens.filter((t) => {
           const timeDiff = (currentTime - parseInt(t.signedAt)) / 1000;
-          if (timeDiff <= 10800000) {
-            return t;
-          }
+          return timeDiff <= 10800;
         });
       }
 
