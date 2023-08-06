@@ -15,7 +15,12 @@ const Profile = ({ user, setUser }) => {
             street: user.address?.street || '',
             building: user.address?.building || '',
             apartment: user.address?.apartment || '',
-        } : {}
+        } : {
+            city: '',
+            street: '',
+            building: '',
+            apartment: '',
+        }
     });
 
     const handleEdit = () => {

@@ -153,16 +153,11 @@ module.exports = {
     if (req.headers && req.headers.authorization) {
 
       try {
-        const token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-          return res
-            .status(401)
-            .json({ success: false, message: 'Authorization fail!' });
-        }
+        const token = req.customer_token
 
         const tokens = req.user.tokens;
 
-        const newTokens = tokens.filter(t => t.token !== token);
+        const newTokens = tokens.filter(t => t.customer_token !== token);
 
         await User.findByIdAndUpdate(req.user._id, { tokens: newTokens });
 

@@ -20,25 +20,23 @@ const EditUserForm = ({ user }) => {
     const {
         username,
         email,
-        phone_number,
-        address: {
-            city,
-            street,
-            building,
-            apartment
-        }
-
+        phone_number
     } = user;
 
     const [values, setValues] = useState({
         username,
         email,
-        phone_number: phone_number || "",
-        address: {
-            city: city || "",
-            street: street || "",
-            building: building || "",
-            apartment: apartment || ""
+        phone_number: phone_number || '',
+        address: user?.address ? {
+            city: user.address?.city || '',
+            street: user.address?.street || '',
+            building: user.address?.building || '',
+            apartment: user.address?.apartment || ''
+        } : {
+            city: '',
+            street: '',
+            building: '',
+            apartment: ''
         }
     });
 
@@ -76,9 +74,6 @@ const EditUserForm = ({ user }) => {
                 values,
             )
 
-            if (!response.data.success) {
-                throw new Error(response.data.message);
-            }
 
             toast({
                 title: 'Edit User',

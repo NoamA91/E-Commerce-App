@@ -94,8 +94,9 @@ module.exports = {
 
     try {
 
-      const tokens = req.user.tokens;
       const currentToken = req.token;
+      
+      const tokens = req.user.tokens;
 
       const newTokens = tokens.filter(t => t.token !== currentToken);
 

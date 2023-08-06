@@ -55,8 +55,9 @@ const user_schema = new Schema(
           validator: function (value) {
             return value == null || Number.isInteger(value);
           },
-          message: 'Building should be a number.'
-        }
+          message: 'Building should be a number.',
+        },
+        min: 1
       },
       apartment: {
         type: Number,
@@ -64,7 +65,8 @@ const user_schema = new Schema(
         validate: function (value) {
           return value == null || Number.isInteger(value);
         },
-        message: 'Apartment should be a number.'
+        message: 'Apartment should be a number.',
+        min: 1
       }
     },
     role: {
