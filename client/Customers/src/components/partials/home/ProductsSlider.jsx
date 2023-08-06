@@ -9,14 +9,14 @@ register();
 
 const ProductsSlider = () => {
 
-    const [topProducts, setTopProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const getAllProducts = async () => {
         const source = axios.CancelToken.source();
         try {
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getAll`,
                 { cancelToken: source.token }
             );
-            setTopProducts(response.data.products);
+            setProducts(response.data.products);
 
         } catch (error) {
             console.log(error);
@@ -36,40 +36,42 @@ const ProductsSlider = () => {
                 slides-per-view="3"
                 speed="500"
                 loop="true"
-                css-mode="true"
                 autoplay={{
                     delay: 2000,
                     disableOnInteraction: true
                 }}
+                space-between="20px"
             >
-                {topProducts.map(product => (
-                    <SwiperSlide key={product._id}>
-                        <Box
-                            key={product._id}
-                            p={4}
-                            boxShadow="md"
-                            bg="whiteAlpha.900"
-                            borderRadius="md"
-                        >
-                            <Image
-                                objectFit="contain"
-                                height="200px"
-                                w='100%'
-                                src={product.image}
-                                alt={product.name}
-                            />
-                            <Text
-                                mt={4}
-                                fontWeight="bold"
-                                textAlign='center'
+                {
+                    products.map(product => (
+                        <SwiperSlide key={product._id}>
+                            <Box
+                                key={product._id}
+                                p={4}
+                                boxShadow="md"
+                                bg="whiteAlpha.900"
+                                borderRadius="md"
                             >
-                                {product.title}
-                            </Text>
-                        </Box>
-                    </SwiperSlide>
-                ))}
+                                <Image
+                                    objectFit="contain"
+                                    height="200px"
+                                    w='100%'
+                                    src={product.image}
+                                    alt={product.name}
+                                />
+                                <Text
+                                    mt={4}
+                                    fontWeight="bold"
+                                    textAlign='center'
+                                >
+                                    {product.title}
+                                </Text>
+                            </Box>
+                        </SwiperSlide>
+                    ))
+                }
             </swiper-container >
-        </Box>
+        </Box >
     )
 }
 
