@@ -127,11 +127,11 @@ const OrdersDetails = ({ orders }) => {
                                                         <Image
                                                             boxSize="100px"
                                                             objectFit="cover"
-                                                            src={item.productId.image[0]}
-                                                            alt={item.productId.title}
+                                                            src={item.productId?.image[0]}
+                                                            alt={item.productId?.title}
                                                         />
                                                     </Td>
-                                                    <Td>{item.productId.title}</Td>
+                                                    <Td>{item.productId?.title}</Td>
                                                     <Td>{item.quantity}</Td>
                                                     <Td>${item.price}</Td>
                                                     <Td>${item.item_total}</Td>

@@ -2,6 +2,15 @@
 //# sourceMappingURL=main.bundle.js.map
 
 
+const options = {
+    icon: {
+        position: {
+            left: { size: 5, units: 'px' },
+            type: 'fixed'
+        }
+    }
+}
+
 export default function asccessibilityTool() {
-    window.addEventListener('load', function () { new Accessibility(); }, false);
+    window.addEventListener('load', function () { new Accessibility(options); }, false);
 }

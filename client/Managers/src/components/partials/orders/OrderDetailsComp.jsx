@@ -90,15 +90,15 @@ const OrderDetailsComp = ({ order, deleteOrder }) => {
                                     <Tbody>
                                         {order?.order_items.map((item) => {
                                             return (
-                                                <Tr key={item.productId._id}>
-                                                    <Td>{item.productId.title}</Td>
+                                                <Tr key={item.productId?._id}>
+                                                    <Td>{item.productId?.title}</Td>
                                                     <Td>{item.quantity}</Td>
                                                     <Td display={{ base: 'none', md: 'table-cell' }}>{item.price}$</Td>
                                                     <Td>{item.item_total}$</Td>
                                                     <Td display={{ base: 'none', md: 'table-cell' }}>
                                                         <Image
-                                                            src={item.productId.image}
-                                                            alt={item.productId.title}
+                                                            src={item.productId?.image}
+                                                            alt={item.productId?.title}
                                                             width='50px'
                                                         />
                                                     </Td>
