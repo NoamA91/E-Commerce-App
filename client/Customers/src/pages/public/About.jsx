@@ -74,6 +74,7 @@ const About = () => (
                     alt='Image 1'
                     width={['100%', '40%']}
                     boxShadow={{ md: '0px 40px 60px rgba(0, 0, 0, 0.3)' }}
+                    loading='lazy'
                 />
                 <Box
                     display='flex'
@@ -124,6 +125,7 @@ const About = () => (
                     width={['100%', '50%']}
                     boxShadow={{ md: '0px 40px 60px rgba(0, 0, 0, 0.3)' }}
                     ml={5}
+                    loading='lazy'
                 />
                 <Box
                     display='flex'

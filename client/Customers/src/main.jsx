@@ -6,6 +6,7 @@ import { CartProvider } from './context/CartContext.jsx'
 import { CurrentPageProvider } from './context/CurrentPageContext';
 import { AuthProvider } from './context/AuthContext.jsx'
 
+// Chakra UI theme
 const colors = {
   ShopYellow: '#fefed5',
   ShopTeal: {
@@ -14,8 +15,10 @@ const colors = {
     300: '#28aa98',
   },
 }
-
 const theme = extendTheme({ colors })
+
+// Accessibility
+window.addEventListener('load', function () { new Accessibility(); }, false);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ChakraProvider theme={theme}>
