@@ -2,6 +2,7 @@ import { Box, useToast } from '@chakra-ui/react'
 import ProfileDetails from '../../components/partials/profile/ProfileDetails'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const Profile = ({ user, setUser }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -96,22 +97,28 @@ const Profile = ({ user, setUser }) => {
     }, [values]);
 
     return (
-        <Box
-            bg='gray.100'
-            w='100%'
-            h='100%'
-        >
-            <ProfileDetails
-                user={user}
-                values={values}
-                handleChange={handleChange}
-                handleSave={handleSave}
-                handleEdit={handleEdit}
-                cancelEdit={cancelEdit}
-                isEditing={isEditing}
-                error={error}
-            />
-        </Box>
+        <>
+            <Helmet>
+                <title>PetShop | Profile</title>
+                <meta name="description" content="Profile page" />
+            </Helmet>
+            <Box
+                bg='gray.100'
+                w='100%'
+                h='100%'
+            >
+                <ProfileDetails
+                    user={user}
+                    values={values}
+                    handleChange={handleChange}
+                    handleSave={handleSave}
+                    handleEdit={handleEdit}
+                    cancelEdit={cancelEdit}
+                    isEditing={isEditing}
+                    error={error}
+                />
+            </Box>
+        </>
     )
 }
 

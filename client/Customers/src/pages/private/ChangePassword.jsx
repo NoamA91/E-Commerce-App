@@ -17,6 +17,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import ErrorAlert from '../../components/ErrorAlert'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { Helmet } from 'react-helmet';
 
 const ChangePassword = ({ user }) => {
     const [show, setShow] = useState(false);
@@ -87,6 +88,10 @@ const ChangePassword = ({ user }) => {
 
     return (
         <>
+            <Helmet>
+                <title>PetShop | Change Password</title>
+                <meta name="description" content="Change Password page" />
+            </Helmet>
             <Flex
                 minH={{ base: '90vh', md: '85vh' }}
                 justifyContent='center'

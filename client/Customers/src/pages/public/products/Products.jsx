@@ -6,6 +6,7 @@ import CatgoriesSidebar from '../../../components/partials/products/CategoriesSi
 import ProductsContainer from '../../../components/partials/products/ProductsContainer';
 import ErrorAlert from '../../../components/ErrorAlert';
 import LoadingSpinner from '../../../components/LoadingSpinner';
+import { Helmet } from 'react-helmet';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -71,35 +72,41 @@ const Products = () => {
 
 
     return (
-        <Flex
-            as={motion.div}
-            minH='100vh'
-            w='100%'
-            flexDir={{ base: 'column', md: 'row' }}
-            justifyContent='cetner'
-            initial={{ opacity: 0 }}
-            animate={{
-                opacity: 1,
-                transition: {
-                    duration: 0.4,
-                    delayChildren: 0.3,
-                    staggerChildren: 0.2
-                }
-            }}
-            exit={{ opacity: 0 }}
-        >
-            <CatgoriesSidebar
-                products={products}
-                onCategoryChange={handleCategoryChange}
-                onAnimalTypeChange={handleAnimalTypeChange}
-            />
-
-            <Box w='100%'
-                bg='gray.100'
+        <>
+            <Helmet>
+                <title>PetShop | All Products</title>
+                <meta name="description" content="Products page" />
+            </Helmet>
+            <Flex
+                as={motion.div}
+                minH='100vh'
+                w='100%'
+                flexDir={{ base: 'column', md: 'row' }}
+                justifyContent='cetner'
+                initial={{ opacity: 0 }}
+                animate={{
+                    opacity: 1,
+                    transition: {
+                        duration: 0.4,
+                        delayChildren: 0.3,
+                        staggerChildren: 0.2
+                    }
+                }}
+                exit={{ opacity: 0 }}
             >
-                {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
-            </Box>
-        </Flex>
+                <CatgoriesSidebar
+                    products={products}
+                    onCategoryChange={handleCategoryChange}
+                    onAnimalTypeChange={handleAnimalTypeChange}
+                />
+
+                <Box w='100%'
+                    bg='gray.100'
+                >
+                    {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
+                </Box>
+            </Flex>
+        </>
     )
 }
 

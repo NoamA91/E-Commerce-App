@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Box, useToast } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import ResetPasswordForm from '../../components/partials/resetPass/ResetPasswordForm';
+import { Helmet } from 'react-helmet';
 
 const ResetPassword = () => {
     const { forgotPassword } = useContext(AuthContext);
@@ -43,23 +44,29 @@ const ResetPassword = () => {
     };
 
     return (
-        <Box
-            as={motion.div}
-            bg='gray.100'
-            w='100%'
-            h='100%'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
-            <ResetPasswordForm
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                values={values}
-                loading={loading}
-                error={error}
-            />
-        </Box>
+        <>
+            <Helmet>
+                <title>PetShop | Reset Password</title>
+                <meta name="description" content="Reset Password page" />
+            </Helmet>
+            <Box
+                as={motion.div}
+                bg='gray.100'
+                w='100%'
+                h='100%'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                <ResetPasswordForm
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    values={values}
+                    loading={loading}
+                    error={error}
+                />
+            </Box>
+        </>
     )
 }
 

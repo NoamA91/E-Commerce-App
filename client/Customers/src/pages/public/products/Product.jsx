@@ -22,6 +22,7 @@ import axios from 'axios';
 import ErrorAlert from '../../../components/ErrorAlert';
 import InfoAlert from '../../../components/InfoAlert';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { Helmet } from 'react-helmet';
 
 const Product = () => {
     const { id } = useParams();
@@ -106,129 +107,135 @@ const Product = () => {
     }
 
     return (
-        <Box
-            p={5}
-            minH='80vh'
-            maxW='100%'
-            bg='gray.200'
-            as={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{
-                opacity: 1,
-                transition: {
-                    duration: 0.4,
-                    delayChildren: 0.3,
-                    staggerChildren: 0.2
-                }
-            }}
-            exit={{ opacity: 0 }}
-        >
-            <Button
-                onClick={() =>
-                    navigate('/products', { state: { pageNumber: currentPage } })}
-                leftIcon={<ArrowBackIcon />}
+        <>
+            <Helmet>
+                {product && <title>PetShop | {product.title}</title>}
+                <meta name="description" content="Product page" />
+            </Helmet>
+            <Box
+                p={5}
+                minH='80vh'
+                maxW='100%'
+                bg='gray.200'
+                as={motion.div}
+                initial={{ opacity: 0 }}
+                animate={{
+                    opacity: 1,
+                    transition: {
+                        duration: 0.4,
+                        delayChildren: 0.3,
+                        staggerChildren: 0.2
+                    }
+                }}
+                exit={{ opacity: 0 }}
             >
-                Back
-            </Button>
-            <Flex
-                direction={['column', 'column', 'row']}
-                align={{ md: 'center' }}
-                justify={{ md: 'center' }}
-                gap={{ md: 10 }}
-                bg='whiteAlpha.700'
-                border='1px solid #ccc'
-                borderRadius={5}
-                p={{ base: 5, md: 10 }}
-                mt={5}
-                minH='300px'
-            >
-                <Box flexShrink={0}>
-                    <Image
-                        src={product?.image}
-                        alt={product?.title}
-                        boxSize={{ base: 'full', md: '400px' }}
-                        objectFit='contain'
-                    />
-                </Box>
-                <Stack
-                    spacing={3}
-                    minW={200}
-                    w={500}
-                    maxW={{ base: 'full', md: 'full' }}
+                <Button
+                    onClick={() =>
+                        navigate('/products', { state: { pageNumber: currentPage } })}
+                    leftIcon={<ArrowBackIcon />}
                 >
-                    <Heading
-                        mt={{ base: 2, md: 0 }}
-                        fontSize={{ base: 'xl', md: '2xl' }}
+                    Back
+                </Button>
+                <Flex
+                    direction={['column', 'column', 'row']}
+                    align={{ md: 'center' }}
+                    justify={{ md: 'center' }}
+                    gap={{ md: 10 }}
+                    bg='whiteAlpha.700'
+                    border='1px solid #ccc'
+                    borderRadius={5}
+                    p={{ base: 5, md: 10 }}
+                    mt={5}
+                    minH='300px'
+                >
+                    <Box flexShrink={0}>
+                        <Image
+                            src={product?.image}
+                            alt={product?.title}
+                            boxSize={{ base: 'full', md: '400px' }}
+                            objectFit='contain'
+                        />
+                    </Box>
+                    <Stack
+                        spacing={3}
+                        minW={200}
+                        w={500}
+                        maxW={{ base: 'full', md: 'full' }}
                     >
-                        {product?.title}
-                    </Heading>
-                    <Text
-                        fontSize={{ base: 'md', md: 'lg' }}
-                    >
-                        {product?.description}
-                    </Text>
-                    <Text
-                        fontSize={{ base: 'xl', md: '2xl' }}
-                        fontFamily='fantasy'
-                        color='red.600'
-                    >
-                        Price: ${product?.price}
-                    </Text>
-                    <NumberInput
-                        w='30%'
-                        min={1}
-                        max={product?.count_in_stock}
-                        value={quantity}
-                        onChange={handleChangeQuantity}
-                        isDisabled={outOfStock}
-                    >
-                        <NumberInputField />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                        </NumberInputStepper>
-                    </NumberInput>
-                    <Stack direction='column' spacing={3}>
-                        <Button
-                            colorScheme='teal'
-                            onClick={handleBuyNow}
+                        <Heading
+                            mt={{ base: 2, md: 0 }}
+                            fontSize={{ base: 'xl', md: '2xl' }}
+                        >
+                            {product?.title}
+                        </Heading>
+                        <Text
+                            fontSize={{ base: 'md', md: 'lg' }}
+                        >
+                            {product?.description}
+                        </Text>
+                        <Text
+                            fontSize={{ base: 'xl', md: '2xl' }}
+                            fontFamily='fantasy'
+                            color='red.600'
+                        >
+                            Price: ${product?.price}
+                        </Text>
+                        <NumberInput
+                            w='30%'
+                            min={1}
+                            max={product?.count_in_stock}
+                            value={quantity}
+                            onChange={handleChangeQuantity}
                             isDisabled={outOfStock}
                         >
-                            Buy Now
-                        </Button>
-                        <Button
-                            colorScheme='teal'
-                            variant='outline'
-                            onClick={handleAddToCart}
-                            isLoading={isAddedToCart}
-                            isDisabled={outOfStock}
-                        >
-                            Add to Cart
-                        </Button>
-                        {itemAvailableInCart && !isAddToCartClicked && (
-                            <Box
-                                color="blue.500"
-                                py="1"
-                                fontSize="sm"
-                                fontWeight="bold"
+                            <NumberInputField />
+                            <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                            </NumberInputStepper>
+                        </NumberInput>
+                        <Stack direction='column' spacing={3}>
+                            <Button
+                                colorScheme='teal'
+                                onClick={handleBuyNow}
+                                isDisabled={outOfStock}
                             >
-                                <InfoAlert message={itemAvailableInCartMessage} />
-                            </Box>
-                        )}
-                        {outOfStock && (
-                            <Box
-                                color="red.500"
-                                py="1"
-                                fontSize="sm"
-                                fontWeight="bold"
+                                Buy Now
+                            </Button>
+                            <Button
+                                colorScheme='teal'
+                                variant='outline'
+                                onClick={handleAddToCart}
+                                isLoading={isAddedToCart}
+                                isDisabled={outOfStock}
                             >
-                                <ErrorAlert error={outOfStockMessage} />
-                            </Box>
-                        )}
+                                Add to Cart
+                            </Button>
+                            {itemAvailableInCart && !isAddToCartClicked && (
+                                <Box
+                                    color="blue.500"
+                                    py="1"
+                                    fontSize="sm"
+                                    fontWeight="bold"
+                                >
+                                    <InfoAlert message={itemAvailableInCartMessage} />
+                                </Box>
+                            )}
+                            {outOfStock && (
+                                <Box
+                                    color="red.500"
+                                    py="1"
+                                    fontSize="sm"
+                                    fontWeight="bold"
+                                >
+                                    <ErrorAlert error={outOfStockMessage} />
+                                </Box>
+                            )}
+                        </Stack>
                     </Stack>
-                </Stack>
-            </Flex>
-        </Box>
+                </Flex>
+            </Box>
+        </>
     )
 }
 

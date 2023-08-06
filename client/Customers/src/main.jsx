@@ -5,6 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { CartProvider } from './context/CartContext.jsx'
 import { CurrentPageProvider } from './context/CurrentPageContext';
 import { AuthProvider } from './context/AuthContext.jsx'
+import accessibiltyTool from './accessibility.bundle.js'
 
 // Chakra UI theme
 const colors = {
@@ -17,8 +18,8 @@ const colors = {
 }
 const theme = extendTheme({ colors })
 
-// Accessibility
-window.addEventListener('load', function () { new Accessibility(); }, false);
+// Accessibility tool
+accessibiltyTool();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ChakraProvider theme={theme}>

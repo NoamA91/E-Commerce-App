@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ErrorAlert from '../../components/ErrorAlert';
 import OrdersDetails from '../../components/partials/orders/OrdersDetails';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { Helmet } from 'react-helmet';
 
 const Orders = ({ user }) => {
     const [loading, setLoading] = useState(false);
@@ -40,7 +41,15 @@ const Orders = ({ user }) => {
         </Box>
     )
 
-    return <OrdersDetails orders={orders} />
+    return (
+        <>
+            <Helmet>
+                <title>PetShop | My Orders</title>
+                <meta name="description" content="My Orders page" />
+            </Helmet>
+            <OrdersDetails orders={orders} />
+        </>
+    )
 }
 
 export default Orders

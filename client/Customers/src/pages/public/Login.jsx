@@ -5,6 +5,7 @@ import LoginForm from '../../components/partials/login/LoginForm';
 import { Navigate, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { Helmet } from 'react-helmet';
 
 
 const Login = () => {
@@ -58,23 +59,29 @@ const Login = () => {
     };
 
     return (
-        <Box
-            as={motion.div}
-            bg='gray.100'
-            w='100%'
-            h='100%'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
-            <LoginForm
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                values={values}
-                loading={loading}
-                error={error}
-            />
-        </Box >
+        <>
+            <Helmet>
+                <title>PetShop | Login</title>
+                <meta name="description" content="Login page" />
+            </Helmet>
+            <Box
+                as={motion.div}
+                bg='gray.100'
+                w='100%'
+                h='100%'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                <LoginForm
+                    handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                    values={values}
+                    loading={loading}
+                    error={error}
+                />
+            </Box >
+        </>
     )
 }
 

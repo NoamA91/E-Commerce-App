@@ -4,6 +4,7 @@ import axios, { CancelToken, isCancel } from "axios";
 import { CartContext } from "../../context/CartContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 
 const Checkout = ({ user }) => {
@@ -129,15 +130,21 @@ const Checkout = ({ user }) => {
     };
 
     return (
-        <CheckoutForm
-            values={values}
-            paymentsValues={paymentsValues}
-            setPaymentValues={setPaymentValues}
-            HandlePayment={HandlePayment}
-            error={error}
-            handleChange={handleChange}
-            loading={loading}
-        />
+        <>
+            <Helmet>
+                <title>PetShop | Checkout</title>
+                <meta name="description" content="Checkout page" />
+            </Helmet>
+            <CheckoutForm
+                values={values}
+                paymentsValues={paymentsValues}
+                setPaymentValues={setPaymentValues}
+                HandlePayment={HandlePayment}
+                error={error}
+                handleChange={handleChange}
+                loading={loading}
+            />
+        </>
     )
 }
 

@@ -4,7 +4,7 @@ import RegisterForm from '../../components/partials/register/RegisterForm'
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, useNavigate } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -65,23 +65,29 @@ const Register = () => {
 
 
     return (
-        <Box
-            as={motion.div}
-            bg='gray.100'
-            w='100%'
-            h='100%'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
-            <RegisterForm
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                values={values}
-                loading={loading}
-                error={error}
-            />
-        </Box >
+        <>
+            <Helmet>
+                <title>PetShop | Register</title>
+                <meta name="description" content="Register page" />
+            </Helmet>
+            <Box
+                as={motion.div}
+                bg='gray.100'
+                w='100%'
+                h='100%'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
+                <RegisterForm
+                    handleSubmit={handleSubmit}
+                    handleChange={handleChange}
+                    values={values}
+                    loading={loading}
+                    error={error}
+                />
+            </Box >
+        </>
     )
 }
 
