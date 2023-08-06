@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Heading, Image, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -25,7 +25,9 @@ const ProductsSlider = () => {
             source.cancel('Request canceled');
         }
     }
-    getAllProducts();
+    useEffect(() => {
+        getAllProducts();
+    }, [])
 
     return (
         <Box p={10}>
