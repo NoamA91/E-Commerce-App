@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import { CurrentPageContext } from '../../../context/CurrentPageContext';
 
 const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) => {
-
     const layout = useBreakpointValue({ base: 'base', md: 'sidebar' });
 
     const [selectedAnimalType, setSelectedAnimalType] = useState("All");
@@ -134,14 +133,16 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                 </>
             )}
             {layout === 'sidebar' && (
-                <Box minW='15%' bg='gray.100'>
+                <Box
+                    minW='15%'
+                >
                     <Box
                         mt={5}
                         ml={2}
                         border='1px solid #ccc'
                         borderRadius={5}
                         p={5}
-                        bg='whiteAlpha.700'
+                        bg='whiteAlpha.900'
                     >
                         <VStack
                             align="start"

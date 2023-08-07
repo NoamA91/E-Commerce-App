@@ -116,7 +116,7 @@ const Product = () => {
                 p={5}
                 minH='80vh'
                 maxW='100%'
-                bg='gray.200'
+                bg='radial-gradient(circle, rgba(60,188,170,1) 0%, rgba(141,201,160,1) 97%, rgba(255,220,145,1) 100%)'
                 as={motion.div}
                 initial={{ opacity: 0 }}
                 animate={{
@@ -169,7 +169,7 @@ const Product = () => {
                             {product?.title}
                         </Heading>
                         <Text
-                            fontSize={{ base: 'md', md: 'lg' }}
+                            fontSize={{ base: 'md', md: 'md' }}
                         >
                             {product?.description}
                         </Text>

@@ -96,20 +96,22 @@ const Products = () => {
                     }
                 }}
                 exit={{ opacity: 0 }}
+                // bg='radial-gradient(circle, rgba(255,220,145,0.9164040616246498) 12%, rgba(0,185,164,0.742734593837535) 66%, rgba(237,237,237,1) 98%)'
+                bg='radial-gradient(circle, rgba(227,199,140,1) 0%, rgba(60,188,170,1) 38%, rgba(127,143,132,1) 100%)'
             >
+
                 <CatgoriesSidebar
                     products={products}
                     onCategoryChange={handleCategoryChange}
                     onAnimalTypeChange={handleAnimalTypeChange}
                     setCurrentPage={setCurrentPage}
                 />
-
                 <Box w='100%'
-                    bg='gray.100'
+                    overflowY='auto'
                 >
                     {filteredProducts && <ProductsContainer products={filteredProducts} loading={loading} />}
-                </Box>
-            </Flex>
+                </Box >
+            </Flex >
         </>
     )
 }

@@ -46,7 +46,7 @@ const ProductsContainer = ({ products, loading }) => {
             border='1px solid #ccc'
             borderRadius={5}
             p={5}
-            bg='whiteAlpha.700'
+            bg='whiteAlpha.500'
             minH={currentProducts < 5 ? '100vh' : 'auto'}
         >
             <Flex
@@ -67,11 +67,11 @@ const ProductsContainer = ({ products, loading }) => {
                     justifyContent='space-between'
                 >
                     {currentProducts.length > 0 ? (
-                        <Flex flexWrap='wrap'>
+                        <Flex flexWrap='wrap' gap={{ base: 5, md: 1 }}>
                             {currentProducts.map((product) => (
                                 <Box
                                     as={motion.div}
-                                    w={{ base: '100%', sm: '245px' }}
+                                    w={{ base: '100%', sm: '400px', md: '320px', lg: '248px' }}
                                     m={2}
                                     key={product._id}
                                     initial={{

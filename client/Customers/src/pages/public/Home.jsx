@@ -47,7 +47,7 @@ const Home = () => {
                         minHeight: '100vh',
                     }}>
 
-                        <ParallaxBannerLayer image="/2.png" speed={-40} />
+                        <ParallaxBannerLayer image='/2.png' speed={-40} />
 
                         <ParallaxBannerLayer>
                             <Flex
@@ -115,8 +115,8 @@ const Home = () => {
                                     {/* desktop images */}
                                     <Grid
                                         display={{ base: 'none', md: 'none', lg: 'grid' }}
-                                        templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
-                                        templateRows={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
+                                        templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' }}
+                                        templateRows={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)' }}
                                         gap={4}
                                         m={{ md: '7rem' }}
                                     >
@@ -137,7 +137,7 @@ const Home = () => {
                                                 animate={{
                                                     scale: [0, 1],
                                                     opacity: 1,
-                                                    transition: { duration: 0.7, delay: 0.2 }
+                                                    transition: { duration: 2, delay: 0.2, type: 'spring' }
                                                 }}
                                             >
                                             </motion.div>
@@ -159,7 +159,7 @@ const Home = () => {
                                                 animate={{
                                                     scale: [0, 1],
                                                     opacity: 1,
-                                                    transition: { duration: 0.7, delay: 0.4 }
+                                                    transition: { duration: 2, delay: 0.4, type: 'spring' }
                                                 }}
                                             >
                                             </motion.div>
@@ -181,7 +181,7 @@ const Home = () => {
                                                 animate={{
                                                     scale: [0, 1],
                                                     opacity: 1,
-                                                    transition: { duration: 0.7, delay: 0.6 }
+                                                    transition: { duration: 2, delay: 0.6, type: 'spring' }
                                                 }}
                                             >
                                             </motion.div>
@@ -203,7 +203,7 @@ const Home = () => {
                                                 animate={{
                                                     scale: [0, 1],
                                                     opacity: 1,
-                                                    transition: { duration: 0.7, delay: 0.8 }
+                                                    transition: { duration: 2, delay: 0.8, type: 'spring' }
                                                 }}
                                             >
                                             </motion.div>
@@ -214,13 +214,28 @@ const Home = () => {
                         </ParallaxBannerLayer>
                     </ParallaxBanner>
 
+                    <Box
+                        py={8}
+                        bg='blackAlpha.900'
+                    >
+                        <Heading
+                            as='h2'
+                            textAlign='center'
+                            size='2xl'
+                            color='ShopYellow'
+                        >
+                            Our Products
+                        </Heading>
+                    </Box>
+
                     <ParallaxBanner
                         style={{
                             minHeight: '100vh',
                         }}
                     >
+                        <ParallaxBannerLayer image='/cat-3483146_1280.jpg' speed={-20} />
                         <ParallaxBannerLayer>
-                            <Box bg='gray.500' h='100%'>
+                            <Box h='100%'>
                                 <ProductsSlider />
                             </Box>
                         </ParallaxBannerLayer>
