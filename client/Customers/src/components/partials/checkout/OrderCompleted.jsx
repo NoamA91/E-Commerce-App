@@ -98,7 +98,7 @@ const OrderCompleted = () => {
                         <Box
                             h={500}
                         >
-                            <Image src={'/Thank-you2.jpg'}
+                            <Image src={'/Thank-you.jpg'}
                                 w='100%'
                                 h='100%'
                                 objectFit={{ base: 'cover', md: 'contain' }}
