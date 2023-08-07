@@ -62,9 +62,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
         <>
             {layout === 'base' && (
                 <>
-                    <Box
-                        bg='gray.100'
-                    >
+                    <Box>
                         <Box
                             bg='blackAlpha.900'
                             border='1px solid #ccc'
@@ -142,7 +140,7 @@ const CategoriesSidebar = ({ products, onCategoryChange, onAnimalTypeChange }) =
                         border='1px solid #ccc'
                         borderRadius={5}
                         p={5}
-                        bg='whiteAlpha.900'
+                        bg='whiteAlpha.700'
                     >
                         <VStack
                             align="start"
