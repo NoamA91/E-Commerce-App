@@ -172,7 +172,7 @@ const CheckoutForm = ({ values, paymentsValues, setPaymentValues, HandlePayment,
 
                                 <FormControl isInvalid={isError('phone_number')}>
                                     <Input
-                                        value={values.phone_number}
+                                        value={values?.phone_number}
                                         type='tel'
                                         isRequired
                                         onChange={handleChange}

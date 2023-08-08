@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Box, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -46,7 +46,7 @@ const ProductsSlider = () => {
                 loop
                 navigation
                 scrollbar
-                Coverflow={{ scale: 1.1 }}
+                coverflow={{ scale: 1.1 }}
                 modules={[Navigation, Scrollbar, Autoplay]}
                 breakpoints={{
                     320: {

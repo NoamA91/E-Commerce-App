@@ -235,7 +235,7 @@ const Home = () => {
                     >
                         <ParallaxBannerLayer image='/cat-3483146_1280.jpg' speed={-20} />
                         <ParallaxBannerLayer>
-                            <Box h='100%'>
+                            <Box h='100%' mt={20}>
                                 <ProductsSlider />
                             </Box>
                         </ParallaxBannerLayer>
