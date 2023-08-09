@@ -9,7 +9,6 @@ const cors = require("cors");
 const usersRouter = require("./routes/users_router");
 const productsRouter = require("./routes/products_router");
 const ordersRouter = require("./routes/orders_router");
-const cartsRouter = require("./routes/carts_router");
 const categoriesRouter = require("./routes/categories_router");
 const paymentsRouter = require("./routes/payments_router");
 const emails_router = require("./routes/emails_router.js");
@@ -35,7 +34,6 @@ app.use(
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);
 app.use("/orders", ordersRouter);
-app.use("/carts", cartsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/payments", paymentsRouter)
 app.use('/emails', emails_router);

@@ -21,7 +21,6 @@ const {
 } = require("../controllers/orders_controller");
 
 
-
 // managers requests from orders controller
 router.get('/managers/all', managerAuth, getAllOrdersForManagers);
 router.get('/managers/get-order-by-id/:id', managerAuth, getOrderByIdForManagers);

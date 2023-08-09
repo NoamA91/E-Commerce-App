@@ -33,26 +33,26 @@ const {
 } = require("../controllers/managers_controller");
 
 // admin functions
-const {
-  loginAdmin,
-  getAllAdmins,
-  getAdminById,
-  addAdminForAdmin,
-  updateAdminById,
-  deleteAdminById,
-  changeAdminPassword, //TODO:
+// const {
+//   loginAdmin,
+//   getAllAdmins,
+//   getAdminById,
+//   addAdminForAdmin,
+//   updateAdminById,
+//   deleteAdminById,
+//   changeAdminPassword, //TODO:
 
-  addManagerForAdmin,
-  updateManagerByIdForAdmin,
-  deleteManagerByIdForAdmin,
-  getAllManagersForAdmin,
-  getManagerByIdForAdmin,
+//   addManagerForAdmin,
+//   updateManagerByIdForAdmin,
+//   deleteManagerByIdForAdmin,
+//   getAllManagersForAdmin,
+//   getManagerByIdForAdmin,
 
-  addUserForAdmin,
-  updateUserByIdForAdmin,
-  deleteUserByIdForAdmin,
-  getAllUsersForAdmin,
-} = require("../controllers/admins_controller");
+//   addUserForAdmin,
+//   updateUserByIdForAdmin,
+//   deleteUserByIdForAdmin,
+//   getAllUsersForAdmin,
+// } = require("../controllers/admins_controller");
 
 // users requests
 router.post("/register", registerUser);

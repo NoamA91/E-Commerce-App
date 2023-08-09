@@ -9,7 +9,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
 import { motion } from 'framer-motion';
-
+import { Link } from 'react-router-dom/dist';
 
 const ProductsSlider = () => {
     const [products, setProducts] = useState([]);
@@ -62,42 +62,44 @@ const ProductsSlider = () => {
             >
                 {products.map((product) => (
                     <SwiperSlide key={product._id}>
-                        <Box
-                            as={motion.div}
-                            p={4}
-                            m={10}
-                            maxW={400}
-                            minW={200}
-                            minH={300}
-                            bg="whiteAlpha.800"
-                            borderRadius="md"
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: 'xl',
-                                transition: {
-                                    duration: 2,
-                                    type: 'spring',
-                                    bounce: 0,
-                                    damping: 20,
-                                    mass: 2,
-                                    velocity: 3,
-                                    stiffness: 500,
-                                }
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <Image
-                                objectFit="contain"
-                                height="200px"
-                                w="100%"
-                                src={product.image}
-                                alt={product.title}
-                                loading="lazy"
-                            />
-                            <Text mt={4} fontWeight="semibold" textAlign="center" color="gray.700">
-                                {product.title}
-                            </Text>
-                        </Box>
+                        <Link to={`/product/${product._id}`}>
+                            <Box
+                                as={motion.div}
+                                p={4}
+                                m={10}
+                                maxW={400}
+                                minW={200}
+                                minH={300}
+                                bg="whiteAlpha.800"
+                                borderRadius="md"
+                                whileHover={{
+                                    scale: 1.05,
+                                    boxShadow: 'xl',
+                                    transition: {
+                                        duration: 2,
+                                        type: 'spring',
+                                        bounce: 0,
+                                        damping: 20,
+                                        mass: 2,
+                                        velocity: 3,
+                                        stiffness: 500,
+                                    }
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Image
+                                    objectFit="contain"
+                                    height="200px"
+                                    w="100%"
+                                    src={product.image}
+                                    alt={product.title}
+                                    loading="lazy"
+                                />
+                                <Text mt={4} fontWeight="semibold" textAlign="center" color="gray.700">
+                                    {product.title}
+                                </Text>
+                            </Box>
+                        </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>

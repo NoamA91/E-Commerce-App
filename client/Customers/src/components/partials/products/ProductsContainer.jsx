@@ -71,7 +71,7 @@ const ProductsContainer = ({ products, loading }) => {
                             {currentProducts.map((product) => (
                                 <Box
                                     as={motion.div}
-                                    w={{ base: '100%', sm: '400px', md: '320px', lg: '248px' }}
+                                    w={{ base: '100%', sm: '400px', md: '320px', lg: '242px' }}
                                     m={2}
                                     key={product._id}
                                     initial={{
