@@ -17,13 +17,14 @@ module.exports = {
     console.log("API POST request : register User".new_request);
 
     try {
-      const {
+      let {
         username,
         email,
         password,
         phone_number,
         address
       } = req.body;
+      email = email.toLowerCase();
 
       // Check if all fields are provided
       if (!username || !email || !password) {
@@ -75,7 +76,8 @@ module.exports = {
     console.log("API POST request : login User".new_request);
 
     try {
-      const { email, password } = req.body;
+      let { email, password } = req.body;
+      email = email.toLowerCase();
 
       if (!email || !password) {
         console.log("Email or password not provided".failed_request);
