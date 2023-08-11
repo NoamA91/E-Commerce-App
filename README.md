@@ -10,7 +10,7 @@ This project is built using the MERN stack (MongoDB, Express.js, React, Node.js)
 - ![Express](https://img.icons8.com/color/30/000000/express.png) **Express** - Fast, unopinionated, minimalist web framework for Node.js.
 - ![MongoDB](https://img.icons8.com/color/30/000000/mongodb.png) **Mongoose** - Elegant MongoDB object modeling for Node.js.
 - ![React](https://img.icons8.com/color/30/000000/react-native.png) **React** - A JavaScript library for building user interfaces.
-- ![Chakra UI](https://img.icons8.com/color/30/000000/groups-ui.png) **Chakra UI** - A simple, modular, and accessible component library that gives you the building blocks to build React applications.
+- ![ChakraUI](https://img.icons8.com/color/30/000000/groups-ui.png) **Chakra UI** - A simple, modular, and accessible component library that gives you the building blocks to build React applications.
 
 ---
 
@@ -19,8 +19,6 @@ This project is built using the MERN stack (MongoDB, Express.js, React, Node.js)
 1. Clone the repository.
 2. Install dependencies with `npm install`.
 3. Start the development server with `npm run start`.
-
-> Additional setup instructions can be placed here.
 
 ---
 
