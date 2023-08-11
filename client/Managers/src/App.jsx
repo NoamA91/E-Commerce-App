@@ -1,5 +1,5 @@
-import { lazy, useContext } from "react";
-
+import { lazy, Suspense, useContext } from "react";
+import LoadingSpinner from './components/LoadingSpinner'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -36,27 +36,61 @@ function App() {
         <Route element={<PrivateRoutes logged={isAuthenticated} />}>
 
           <Route path='/dashboard'>
-            <Route index element={<Dashboard />} />
+            <Route index element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <Dashboard />
+              </Suspense>
+            } />
           </Route>
 
           <Route path='/users'>
             <Route index element={<Users />} />
-            <Route path="edit-user/:user_id" element={<EditUser />} />
+            <Route path="edit-user/:user_id" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <EditUser />
+              </Suspense>
+            } />
           </Route>
 
           <Route path='/categories'>
-            <Route index element={<Categories />} />
-            <Route path="edit-category/:category_id" element={<EditCategory />} />
+            <Route index element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <Categories />
+              </Suspense>
+            } />
           </Route>
 
+          <Route path="edit-category/:category_id" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <EditCategory />
+            </Suspense>
+          } />
+
           <Route path='/products'>
-            <Route index element={<Products />} />
-            <Route path="edit-product/:product_id" element={<EditProduct />} />
+            <Route index element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <Products />
+              </Suspense>
+            } />
+
+            <Route path="edit-product/:product_id" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <EditProduct />
+              </Suspense>
+            } />
           </Route>
 
           <Route path='/orders'>
-            <Route index element={<Orders />} />
-            <Route path="order-details/:order_id" element={<OrderDetails />} />
+            <Route index element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <Orders />
+              </Suspense>
+            } />
+            <Route path="order-details/:order_id" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <OrderDetails />
+              </Suspense>
+            } />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />

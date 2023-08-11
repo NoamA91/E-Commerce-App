@@ -15,7 +15,8 @@ module.exports = {
     console.log("API POST request : login manager".new_request);
 
     try {
-      const { email, password } = req.body;
+      let { email, password } = req.body;
+      email = email.toLowerCase();
 
       if (!email || !password) {
         console.log("Email or password not provided".failed_request);
@@ -93,7 +94,7 @@ module.exports = {
     try {
 
       const currentToken = req.token;
-      
+
       const tokens = req.user.tokens;
 
       const newTokens = tokens.filter(t => t.token !== currentToken);
