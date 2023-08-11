@@ -7,7 +7,7 @@ This project is built using the MERN stack (MongoDB, Express.js, React, Node.js)
 ## Languages & Tools
 
 - ![Node.js](https://img.icons8.com/color/30/000000/nodejs.png) **Node.js** - A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- ![Express](https://img.icons8.com/color/30/000000/express.png) **Express** - Fast, unopinionated, minimalist web framework for Node.js.
+- ![Express](https://img.icons8.com/color/30/000000/express-js.png) **Express** - Fast, unopinionated, minimalist web framework for Node.js.
 - ![MongoDB](https://img.icons8.com/color/30/000000/mongodb.png) **Mongoose** - Elegant MongoDB object modeling for Node.js.
 - ![React](https://img.icons8.com/color/30/000000/react-native.png) **React** - A JavaScript library for building user interfaces.
 - ![Chakra UI](https://img.icons8.com/color/30/000000/chakra-ui.png) **Chakra UI** - A simple, modular, and accessible component library that gives you the building blocks to build React applications.
