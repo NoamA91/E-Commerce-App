@@ -44,7 +44,11 @@ function App() {
           </Route>
 
           <Route path='/users'>
-            <Route index element={<Users />} />
+            <Route index element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <Users />
+              </Suspense>
+            } />
             <Route path="edit-user/:user_id" element={
               <Suspense fallback={<LoadingSpinner />}>
                 <EditUser />
@@ -58,13 +62,13 @@ function App() {
                 <Categories />
               </Suspense>
             } />
-          </Route>
 
-          <Route path="edit-category/:category_id" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <EditCategory />
-            </Suspense>
-          } />
+            <Route path="edit-category/:category_id" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <EditCategory />
+              </Suspense>
+            } />
+          </Route>
 
           <Route path='/products'>
             <Route index element={
