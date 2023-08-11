@@ -73,7 +73,6 @@ const Products = () => {
         </Box>
     )
 
-
     return (
         <>
             <Helmet>
