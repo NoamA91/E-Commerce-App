@@ -2,9 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Box, Image, Text } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Scrollbar, Autoplay } from 'swiper/modules';
+import { Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
@@ -44,10 +43,9 @@ const ProductsSlider = () => {
                     pauseOnMouseEnter: true,
                 }}
                 loop
-                navigation
                 scrollbar
                 coverflow={{ scale: 1.1 }}
-                modules={[Navigation, Scrollbar, Autoplay]}
+                modules={[Scrollbar, Autoplay]}
                 breakpoints={{
                     320: {
                         slidesPerView: 1,
