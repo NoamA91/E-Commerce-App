@@ -10,7 +10,7 @@ This project is built using the MERN stack (MongoDB, Express.js, React, Node.js)
 - ![Express](https://img.icons8.com/color/30/000000/express.png) **Express** - Fast, unopinionated, minimalist web framework for Node.js.
 - ![MongoDB](https://img.icons8.com/color/30/000000/mongodb.png) **Mongoose** - Elegant MongoDB object modeling for Node.js.
 - ![React](https://img.icons8.com/color/30/000000/react-native.png) **React** - A JavaScript library for building user interfaces.
-- ![ChakraUI](https://img.icons8.com/color/30/000000/groups-ui.png) **Chakra UI** - A simple, modular, and accessible component library that gives you the building blocks to build React applications.
+- ![Chakra UI]([https://img.icons8.com/color/30/000000/groups-ui.png](https://icons8.com/icon/r9QJ0VFFrn7T/chakra-ui)) **Chakra UI** - A simple, modular, and accessible component library that gives you the building blocks to build React applications.
 
 ---
 
@@ -24,7 +24,7 @@ This project is built using the MERN stack (MongoDB, Express.js, React, Node.js)
 
 ## Live Site
 
-You can view the live version of the site deployed on Render at [https://petstore-site.onrender.com/](#).
+You can view the live version of the site deployed on Render at [https://petstore-site.onrender.com/](https://petstore-site.onrender.com/).
 
 ---
 
