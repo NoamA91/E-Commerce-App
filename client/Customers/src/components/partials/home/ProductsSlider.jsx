@@ -6,7 +6,6 @@ import { Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
-import 'swiper/css/effect-coverflow';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom/dist';
 
@@ -19,7 +18,7 @@ const ProductsSlider = () => {
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getAll`, { cancelToken: source.token });
             setProducts(response.data.products);
         } catch (error) {
-            console.log(error);
+            console.log('Error in GetAllProducts');
         }
         return () => {
             source.cancel('Request canceled');
@@ -44,7 +43,6 @@ const ProductsSlider = () => {
                 }}
                 loop
                 scrollbar
-                coverflow={{ scale: 1.1 }}
                 modules={[Scrollbar, Autoplay]}
                 breakpoints={{
                     320: {
