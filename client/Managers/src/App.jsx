@@ -31,8 +31,15 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
-        <Route index element={<Login logged={isAuthenticated} />} />
 
+        {/* Public Routes */}
+        <Route index element={
+          <Suspense fallback={<LoadingSpinner />}>
+            <Login logged={isAuthenticated} />
+          </Suspense>
+        } />
+
+        {/* Private Routes */}
         <Route element={<PrivateRoutes logged={isAuthenticated} />}>
 
           <Route path='/dashboard'>
