@@ -110,7 +110,9 @@ function App() {
     )
   );
   return (
-    <RouterProvider router={router} />
+    <Suspense fallback={<LoadingSpinner />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
 
