@@ -53,9 +53,10 @@ const Users = () => {
     setUsers((prevUsers) => [...prevUsers, newUser]);
   };
 
+  if (loading) return <LoadingSpinner />;
+
   return (
     <>
-      {loading && <LoadingSpinner />}
       {error && <ErrorAlert error={error} />}
       {users && (
         <UsersTable

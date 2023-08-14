@@ -10,6 +10,7 @@ function useFetchGet(url, options = {}) {
         const source = axios.CancelToken.source();
 
         const fetchData = async () => {
+            setError(null)
             try {
                 setLoading(true);
                 const response = await axios.get(url, {

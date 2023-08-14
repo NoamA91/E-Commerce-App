@@ -55,9 +55,10 @@ const Categories = () => {
         setCategories((prevCategories) => [...prevCategories, newCategory]);
     };
 
+    if (loading) return <LoadingSpinner />;
+
     return (
         <>
-            {loading && <LoadingSpinner />}
             {error && <ErrorAlert error={error} />}
             {categories && (
                 <CategoriesTable

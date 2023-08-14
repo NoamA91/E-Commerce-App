@@ -129,6 +129,7 @@ const AddProductForm = ({ isOpen, onClose, handleProductAdded }) => {
             });
         } finally {
             setLoading(false);
+            setImagePreview(null);
         }
     }
 

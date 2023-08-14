@@ -53,9 +53,10 @@ const Products = () => {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
+  if (loading) return <LoadingSpinner />
+
   return (
     <>
-      {loading && <LoadingSpinner />}
       {error && <Box h='100vh'><ErrorAlert error={error} /></Box>}
       {products &&
         <ProductsTable

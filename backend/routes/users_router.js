@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userAuth = require("../middlewares/auth_user");
 const managerAuth = require("../middlewares/auth_managers");
-const adminAuth = require("../middlewares/auth_admin");
+// const adminAuth = require("../middlewares/auth_admin");
 
 // functions from users controller
 const {
@@ -28,8 +28,8 @@ const {
   authManager,
   getManagerById,
   updateManagerById,
-  deleteManagerById,
-  changeManagerPassword,
+  // deleteManagerById,
+  // changeManagerPassword,
 } = require("../controllers/managers_controller");
 
 // admin functions
@@ -69,11 +69,11 @@ router.post("/managers/login", loginManager);
 router.post("/managers/logout", managerAuth, logoutManager);
 router.get("/managers/auth", authManager);
 router.get("/managers/getById/:id", getManagerById);
-router.put("/managers/updateById/:id" /* , managerAuth */, updateManagerById);
-router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
-router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
+router.put("/managers/updateById/:id", managerAuth, updateManagerById);
+// router.delete("/managers/deleteById/:id" /* , managerAuth */, deleteManagerById);
+// router.put("/managers/change_password/:id" /* , managerAuth */, changeManagerPassword);
 router.get('/managers/getAllForManager', managerAuth, getAllUsersForManager);
-router.get('/managers/getUserByIdForManager/:id'/* , managerAuth */, getUserByIdForManager);
+router.get('/managers/getUserByIdForManager/:id', managerAuth, getUserByIdForManager);
 router.put('/managers/updateUserByIdForManager/:id', managerAuth, updateUserByIdForManager);
 router.post('/managers/addUserForManager', managerAuth, addUserForManager);
 router.delete('/managers/deleteUserByIdForManager/:id', managerAuth, deleteUserByIdForManager);
