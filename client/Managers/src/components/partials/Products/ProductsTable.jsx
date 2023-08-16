@@ -104,6 +104,7 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                 top={0}
                                 bg='gray.200'
                                 w='100%'
+                                zIndex={1}
                             >
                                 <Th>Name</Th>
                                 <Th display={{ base: 'none', md: 'table-cell' }}>Animal Type</Th>
@@ -129,15 +130,45 @@ const ProductsTable = ({ products, handleProductAdded, deleteProduct }) => {
                                     </Td>
                                     <Td>${product.price}</Td>
                                     <Td>
-                                        <Box boxSize='100px'>
-                                            <Image
-                                                w='100%'
-                                                aspectRatio={1}
-                                                objectFit='cover'
-                                                src={product.image}
-                                                alt={product.title}
-                                            />
-                                        </Box>
+                                        {product.count_in_stock === 0 ? (
+                                            <>
+
+                                                <Box boxSize='100px'>
+                                                    <Image
+                                                        w='100%'
+                                                        aspectRatio={1}
+                                                        objectFit='cover'
+                                                        src={product.image}
+                                                        alt={product.title}
+                                                    />
+                                                    <Box
+                                                        bottom='7'
+                                                        bg='red.500'
+                                                        color='white'
+                                                        py='1'
+                                                        borderRadius='md'
+                                                        fontSize='sm'
+                                                        fontWeight='bold'
+                                                        position='relative'
+                                                        textAlign='center'
+                                                        opacity={0.7}
+                                                    >
+                                                        Out Of Stock
+                                                    </Box>
+                                                </Box>
+                                            </>
+                                        ) : (
+                                            <Box boxSize='100px'>
+                                                <Image
+                                                    w='100%'
+                                                    aspectRatio={1}
+                                                    objectFit='cover'
+                                                    src={product.image}
+                                                    al
+                                                    t={product.title}
+                                                />
+                                            </Box>
+                                        )}
                                     </Td>
                                     <Td>
                                         <Box display="flex" justifyContent="end" flexDir={{ base: 'column', md: 'row' }}>

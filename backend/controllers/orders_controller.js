@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const colors = require("colors");
+const Product = require("../models/Product");
 
 colors.setTheme({
   new_request: "magenta",
@@ -148,6 +149,21 @@ module.exports = {
       }
 
       console.log("All order fields provided".step_done);
+
+      // update the count_in_stock for each item
+      for (let item of order_items) {
+        const product = await Product.findById(item.productId);
+
+        if (product.count_in_stock < item.quantity) {
+          console.log("Not enough stock for this product".failed_request);
+          return res.status(400).json({
+            message: `Not enough stock for ${product.title}`
+          });
+        }
+
+        product.count_in_stock -= item.quantity;
+        await product.save();
+      }
 
       const newOrder = new Order({
         userId,
@@ -416,5 +432,3 @@ module.exports = {
   //_____________________________________
 
 }
-
-

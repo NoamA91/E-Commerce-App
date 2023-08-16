@@ -17,12 +17,17 @@ export const CartProvider = ({ children }) => {
     const addToCart = (product, quantity = 1) => {
         setCart((prevCart) => {
             // check if product is already in cart
-            const isProductInCart = prevCart.find((item) => item._id === product._id);
+            const existingCartItem = prevCart.find((item) => item._id === product._id);
 
-            // if product is in cart, update quantity
-            if (isProductInCart) {
+            // if product is in cart, update quantity considering the stock limit
+            if (existingCartItem) {
+                const updatedQuantity = existingCartItem.quantity + quantity;
+                const limitedQuantity = Math.min(updatedQuantity, product.count_in_stock);
+
                 return prevCart.map((item) =>
-                    item._id === product._id ? { ...item, quantity: item.quantity + quantity } : item
+                    item._id === product._id
+                        ? { ...item, quantity: limitedQuantity }
+                        : item
                 );
             }
 
@@ -31,7 +36,8 @@ export const CartProvider = ({ children }) => {
                 title: product.title,
                 image: product.image,
                 price: product.price,
-                quantity
+                count_in_stock: product.count_in_stock,
+                quantity: Math.min(quantity, product.count_in_stock)
             };
 
             return [...prevCart, cartProduct];
@@ -48,7 +54,12 @@ export const CartProvider = ({ children }) => {
 
     const adjustQuantity = (productId, quantity) => {
         setCart((prevCart) => prevCart.map((item) =>
-            item._id === productId ? { ...item, quantity } : item
+            item._id === productId
+                ? {
+                    ...item,
+                    quantity: Math.min(item.count_in_stock, quantity)
+                }
+                : item
         ));
     };
 

@@ -15,7 +15,8 @@ const ErrorAlert = ({ error }) => {
         );
     }
 
-    if (noProductFoundError?.includes('Product not found')) {
+    if (noProductFoundError?.includes('Product not found') ||
+        noProductFoundError?.includes('Not enough stock')) {
         return (
             <Alert status='error'>
                 <AlertIcon />
