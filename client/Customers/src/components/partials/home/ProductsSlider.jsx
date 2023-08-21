@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -8,15 +8,19 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom/dist';
+import { BeatLoader } from 'react-spinners';
 
 const ProductsSlider = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const getAllProducts = async () => {
+        setLoading(true);
         const source = axios.CancelToken.source();
         try {
             const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/products/getAll`, { cancelToken: source.token });
             setProducts(response.data.products);
+            setLoading(false);
         } catch (error) {
             console.log('Error in GetAllProducts');
         }
@@ -26,8 +30,29 @@ const ProductsSlider = () => {
     };
 
     useEffect(() => {
-        getAllProducts();
+        setLoading(true);
+        setTimeout(() => {
+
+            getAllProducts();
+        }, 10000)
     }, []);
+
+    if (loading) {
+        return (
+            <Flex
+                mx={{ md: '10%', lg: '20%' }}
+                justifyContent='center'
+                alignItems='center'
+                h={310}
+            >
+                <BeatLoader
+                    color='#35d0ba'
+                    size={50}
+                    margin={30}
+                />
+            </Flex>
+        );
+    }
 
     return (
         <Box
