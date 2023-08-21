@@ -30,11 +30,7 @@ const ProductsSlider = () => {
     };
 
     useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-
-            getAllProducts();
-        }, 10000)
+        getAllProducts();
     }, []);
 
     if (loading) {
