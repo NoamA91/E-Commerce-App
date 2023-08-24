@@ -162,6 +162,7 @@ module.exports = {
         }
 
         product.count_in_stock -= item.quantity;
+        product.sold += item.quantity;
         await product.save();
       }
 

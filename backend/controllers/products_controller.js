@@ -186,6 +186,26 @@ module.exports = {
     }
   },
 
+  getBestSellers: async (req, res) => {
+    console.log("API GET request: get best sellers products".new_request);
+    try {
+      const bestSellingProducts = await Product.find().sort({ sold: -1 }).limit(3); // Top 3 best sellers
+
+      console.log("Success to get best sellers".success_request);
+      return res.status(200).json({
+        success: true,
+        message: "Success to get best sellers",
+        bestSellingProducts
+      })
+    } catch (error) {
+      console.log("Failed to get best sellers").failed_request;
+      return res.status(500).json({
+        message: "Error in get best sellers request",
+        error: error.message
+      })
+    }
+  },
+
   // managers functions
   getAllForManagers: async (req, res) => {
     console.log("Manager API GET request : get all products".new_request);

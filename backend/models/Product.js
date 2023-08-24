@@ -35,6 +35,10 @@ const product_schema = new Schema(
       default: 0,
       min: 0,
     },
+    sold: {
+      type: Number,
+      default: 0
+    }
   },
   { timestamps: true }
 );

@@ -23,6 +23,7 @@ const ProductsSlider = () => {
             setLoading(false);
         } catch (error) {
             console.log('Error in GetAllProducts');
+            setLoading(false);
         }
         return () => {
             source.cancel('Request canceled');
@@ -81,38 +82,41 @@ const ProductsSlider = () => {
                     <SwiperSlide key={product._id}>
                         <Link to={`/product/${product._id}`}>
                             <Box
+                                style={{
+                                    '-webkit-font-smoothing': 'antialiased',
+                                    'text-rendering': 'optimizeLegibility'
+                                }}
                                 as={motion.div}
                                 p={4}
-                                m={10}
+                                m={{ base: 5, md: 10 }}
                                 maxW={400}
                                 minW={200}
                                 minH={300}
-                                bg="whiteAlpha.800"
-                                borderRadius="md"
+                                bg='whiteAlpha.800'
+                                borderRadius='md'
                                 whileHover={{
                                     scale: 1.05,
-                                    boxShadow: 'xl',
                                     transition: {
                                         duration: 2,
                                         type: 'spring',
                                         bounce: 0,
                                         damping: 20,
                                         mass: 2,
-                                        velocity: 3,
+                                        velocity: 2,
                                         stiffness: 500,
-                                    }
+                                    },
                                 }}
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <Image
-                                    objectFit="contain"
-                                    height="200px"
-                                    w="100%"
+                                    objectFit='contain'
+                                    h='200px'
+                                    w='100%'
                                     src={product.image}
                                     alt={product.title}
-                                    loading="lazy"
+                                    loading='lazy'
                                 />
-                                <Text mt={4} fontWeight="semibold" textAlign="center" color="gray.700">
+                                <Text mt={4} fontWeight='semibold' textAlign='center' color='gray.700'>
                                     {product.title}
                                 </Text>
                             </Box>

@@ -6,6 +6,7 @@ const managerAuth = require("../middlewares/auth_managers");
 const {
   getAll,
   getById,
+  getBestSellers
 } = require("../controllers/products_controller");
 
 // managers functions
@@ -20,6 +21,7 @@ const {
 
 router.get("/getAll", getAll);
 router.get("/getById/:id", getById);
+router.get("/bestsellers", getBestSellers);
 
 // managers requests
 router.get("/managers/all", managerAuth, getAllForManagers);
