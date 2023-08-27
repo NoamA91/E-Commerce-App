@@ -15,6 +15,7 @@ import ProductsSlider from '../../components/partials/home/ProductsSlider';
 import BestSellers from '../../components/partials/home/BestSellers';
 
 const Home = () => {
+    const isMobile = window.innerWidth <= 768;
     return (
         <>
             <Helmet>
@@ -266,7 +267,7 @@ const Home = () => {
                     </Box>
 
                     <ParallaxBanner
-                        style={{ minHeight: '100vh' }}
+                        style={{ minHeight: isMobile ? '120vh' : '100vh' }}
                     >
                         <ParallaxBannerLayer image='/cat-3483146_1280.jpg' speed={-20} />
                         <ParallaxBannerLayer>
