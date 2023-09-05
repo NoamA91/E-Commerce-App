@@ -54,6 +54,7 @@ const ProductsContainer = ({ products, loading }) => {
                 direction='column'
             >
                 <Input
+                    type='search'
                     placeholder='Search...'
                     value={search}
                     onChange={handleSearch}

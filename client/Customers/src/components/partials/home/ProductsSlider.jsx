@@ -83,8 +83,8 @@ const ProductsSlider = () => {
                         <Link to={`/product/${product._id}`}>
                             <Box
                                 style={{
-                                    '-webkit-font-smoothing': 'antialiased',
-                                    'text-rendering': 'optimizeLegibility'
+                                    'WebkitFontSmoothing': 'antialiased',
+                                    'textRendering': 'optimizeLegibility'
                                 }}
                                 as={motion.div}
                                 p={4}

@@ -8,7 +8,7 @@ import {
 import { ParallaxProvider } from 'react-scroll-parallax';
 import LoadingSpinner from './components/LoadingSpinner';
 import { AuthContext } from './context/AuthContext';
-
+import React from 'react';
 
 // pages
 const Root = lazy(() => import('./pages/Root'));
@@ -31,95 +31,132 @@ const OrderCompleted = lazy(() => import('./components/partials/checkout/OrderCo
 
 function App() {
   const { user, setUser } = useContext(AuthContext);
+  const routes = [
+    // Public routes
+    {
+      path: '/',
+      element: <Home />,
+      isIndex: true,
+      isPrivate: false
+    },
+    {
+      path: 'products',
+      element: <Products />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'product/:id',
+      element: <Product />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'about',
+      element: <About />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'contact',
+      element: <Contact />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'login',
+      element: <Login />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'register',
+      element: <Register />,
+      isIndex: false,
+      isPrivate: false
+    },
+    {
+      path: 'reset-password',
+      element: <ResetPassword />,
+      isIndex: false,
+      isPrivate: false
+    },
+    // Private routes
+    {
+      path: 'profile',
+      element: <Profile />,
+      isIndex: false,
+      isPrivate: true,
+      user,
+      setUser
+    },
+    {
+      path: 'orders',
+      element: <Orders />,
+      isIndex: false,
+      isPrivate: true,
+      user
+    },
+    {
+      path: 'change-password',
+      element: <ChangePassword />,
+      isIndex: false,
+      isPrivate: true,
+      user
+    },
+    {
+      path: 'checkout',
+      element: <Checkout />,
+      isIndex: false,
+      isPrivate: true,
+      user
+    },
+    {
+      path: 'order-completed',
+      element: <OrderCompleted />,
+      isIndex: false,
+      isPrivate: true
+    },
+  ]
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} >
 
-        {/*public routes*/}
-        <Route index element={<Suspense fallback={
-          <LoadingSpinner />}>
-          <Home />
-        </Suspense>
-        } />
+        {/* Public routes */}
+        {routes.map((route) => {
+          if (!route.isPrivate) {
+            return (
+              <Route
+                key={route.path}
+                path={route.isIndex ? '' : route.path}
+                element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    {route.element}
+                  </Suspense>
+                } />
+            )
+          }
+        })}
 
-        <Route path="products" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Products />
-          </Suspense>
-        } />
-
-        <Route path="product/:id" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Product />
-          </Suspense>
-        } />
-
-        <Route path="about" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <About />
-          </Suspense>
-        } />
-
-        <Route path="contact" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Contact />
-          </Suspense>
-        } />
-
-        <Route path="login" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Login />
-          </Suspense>
-        } />
-
-        <Route path="register" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <Register />
-          </Suspense>
-        } />
-
-        <Route path="reset-password" element={
-          <Suspense fallback={<LoadingSpinner />}>
-            <ResetPassword />
-          </Suspense>
-        } />
-
-        {/*private routes*/}
+        {/* Private routes */}
         <Route element={<PrivateRoutes />} user={user}>
-          <Route path="profile" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Profile
-                user={user}
-                setUser={setUser}
-              />
-            </Suspense>
-          } />
-
-          <Route path="orders" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Orders user={user} />
-            </Suspense>
-          } />
-
-          <Route path="/change-password" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <ChangePassword user={user} />
-            </Suspense>
-          } />
-
-          <Route path="/checkout" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Checkout user={user} />
-            </Suspense>
-          } />
-
-          <Route path="/order-completed" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <OrderCompleted />
-            </Suspense>
-          } />
+          {routes.map((route) => {
+            if (route.isPrivate) {
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={
+                    <Suspense fallback={<LoadingSpinner />}>
+                      {React.cloneElement(route.element, { user: route.user, setUser: route.setUser })}
+                    </Suspense>
+                  } />
+              )
+            }
+          })}
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Route>
     )
